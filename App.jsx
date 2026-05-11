@@ -1,145 +1,148 @@
 import React, { useEffect, useMemo, useState } from "react";
 
+const profile = {
+  name: "Jaafar Al-Rabbat",
+  email: "your.email@example.com",
+};
+
 const content = {
   en: {
-    nav: ["About", "Work", "Focus", "Approach", "Details", "Contact"],
-    eyebrow: "Personal Portfolio / Quiet Digital Identity",
-    heroTitle: "A calm presence for thoughtful work.",
-    heroText:
-      "A refined personal portfolio for work shaped by observation, clarity, language, visual judgment, and human-centered thinking.",
-    heroNote: "Built around quiet confidence, precise choices, and small details that carry meaning.",
-    primary: "View Work",
-    secondary: "Get in Touch",
-    aboutTitle: "Thoughtful, observant, and careful with meaning.",
-    aboutText:
-      "This portfolio is designed for a person who works with ideas, language, structure, and visual sensitivity. It avoids noise and performance, choosing instead a calm and precise digital identity.",
-    aboutStats: [
-      ["01", "Clear thinking"],
-      ["02", "Human-centered work"],
-      ["03", "Visual restraint"],
+    nav: ["Identity", "Work", "Method", "Focus", "Details", "Contact"],
+    eyebrow: "Bilingual Digital Identity / Portfolio",
+    title: "Calm bilingual websites for ideas that need dignity, clarity, and trust.",
+    subtitle:
+      "I combine law-trained thinking, careful language, visual judgment, and practical web building to create refined digital spaces for people, initiatives, and meaningful projects.",
+    primary: "View case study",
+    secondary: "Contact",
+    quietLine: "Quiet design. Clear language. Work that does not need to shout.",
+
+    identityKicker: "Identity",
+    identityTitle: "Not a loud developer portfolio. A quiet proof of taste, structure, and judgment.",
+    identityText:
+      "This portfolio is built around a specific kind of work: bilingual Arabic-English websites where the content, tone, structure, and visual presence must feel mature, humane, and precise. The goal is not decoration. The goal is to make an idea easier to trust.",
+    identityCards: [
+      ["Law-trained thinking", "Reading structure, evidence, risk, and consequence before shaping the message."],
+      ["Bilingual clarity", "Building for Arabic and English without treating either language as secondary."],
+      ["Visual restraint", "Choosing quiet details, soft contrast, and enough space for the message to breathe."],
     ],
-    workTitle: "Selected work",
-    workIntro:
-      "Each project is presented as a small case study: clear purpose, thoughtful structure, and a quiet visual system.",
-    projects: [
-      {
-        title: "Bilingual Initiative Website",
-        year: "2026",
-        role: "Structure / Web Design / CMS",
-        desc: "A calm public website for a meaningful initiative, shaped around clarity, bilingual content, and a credible visual identity.",
-      },
-      {
-        title: "Personal Identity System",
-        year: "2026",
-        role: "Direction / Writing / Visual Judgment",
-        desc: "A refined personal presence built through restrained typography, soft colors, and careful content hierarchy.",
-      },
-      {
-        title: "Editorial Landing Page",
-        year: "2026",
-        role: "Content / Front-End / Launch",
-        desc: "A single-page digital space designed to communicate trust, purpose, and attention without visual pressure.",
-      },
+
+    workKicker: "Featured work",
+    workTitle: "A real project, not just a mockup.",
+    workText:
+      "The first showcase is a live bilingual initiative website built from idea to deployment: content structure, React/Vite interface, RTL/LTR support, Sanity CMS, SEO basics, debugging, and domain launch.",
+    workName: "Syrian Humanists Website",
+    workMeta: "React / Vite / Sanity CMS / RTL-LTR / SEO / Deployment",
+    workBullets: [
+      "Turned an early-stage initiative into a clear public digital identity.",
+      "Built a bilingual interface that supports Arabic and English reading directions.",
+      "Connected editable content through Sanity CMS and prepared SEO fields.",
+      "Handled build errors, hosting issues, DNS, and live deployment.",
     ],
-    focusTitle: "Areas of attention",
-    focusIntro:
-      "Skills are treated here as forms of attention: how work is read, shaped, clarified, and made usable.",
+    live: "Open live project",
+
+    methodKicker: "Method",
+    methodTitle: "How I turn a loose idea into a clear digital presence.",
+    steps: [
+      ["01", "Clarify", "Define the purpose, audience, tone, and what should not be said."],
+      ["02", "Structure", "Build the page hierarchy before designing the surface."],
+      ["03", "Shape", "Write and arrange the content so it feels calm, credible, and readable."],
+      ["04", "Build", "Create a responsive React/Vite website with clean sections and careful spacing."],
+      ["05", "Launch", "Test, build, deploy, connect the domain, and fix what breaks."],
+    ],
+
+    focusKicker: "Focus areas",
+    focusTitle: "The skills are practical, but the difference is judgment.",
     focus: [
       ["Research", "Finding the important signal beneath scattered information."],
-      ["Writing", "Making language clear, calm, and useful."],
-      ["Strategy", "Turning loose ideas into a coherent direction."],
-      ["Visual Judgment", "Choosing what feels balanced, mature, and human."],
-      ["Communication", "Saying enough without overexplaining."],
-      ["Legal Thinking", "Reading structure, risk, evidence, and consequence."],
-      ["Human-Centered Work", "Keeping dignity and context present in practical decisions."],
+      ["Writing", "Turning heavy ideas into calm, readable language."],
+      ["Strategy", "Choosing direction before decoration."],
+      ["Visual judgment", "Seeing alignment, rhythm, tone, and unnecessary noise."],
+      ["Legal thinking", "Understanding structure, risk, evidence, and consequence."],
+      ["Web building", "React/Vite, responsive layout, CMS integration, SEO basics, deployment."],
+      ["Bilingual identity", "Arabic-English structure with attention to RTL/LTR and cultural tone."],
     ],
-    approachTitle: "A quiet way of working",
-    approachLines: [
-      "Notice before deciding.",
-      "Remove what is only noise.",
-      "Let structure carry emotion calmly.",
-      "Make the work useful before making it impressive.",
-      "Leave enough space for the person reading.",
-    ],
-    detailsTitle: "Small details, not decoration",
-    detailsIntro:
-      "A visual rhythm inspired by soft light, paper texture, muted nature, quiet rooms, and the dignity of restraint.",
-    detailLabels: ["Soft light", "Quiet texture", "River reflection", "Muted flowers", "Calm room", "Paper shadow"],
-    contactTitle: "For thoughtful projects and quiet collaboration.",
+
+    detailsKicker: "Visual language",
+    detailsTitle: "Inspired by small details, not performance.",
+    detailsText:
+      "Soft light, paper texture, river reflections, quiet rooms, muted flowers, and the calm discipline of restraint. The visual system should feel human before it feels technical.",
+    detailLabels: ["Soft light", "Paper texture", "River reflection", "Quiet room", "Muted flowers", "Careful spacing"],
+
+    contactKicker: "Contact",
+    contactTitle: "For thoughtful websites, bilingual identities, and careful digital presence.",
     contactText:
-      "Reach out for a calm conversation about a project, identity, website, or piece of work that needs clarity and care.",
-    contactButton: "hello@example.com",
-    finalLine: "No pressure. Just a clear beginning.",
+      "Reach out if you have a project that needs calm structure, mature language, and a website that feels trustworthy without becoming loud.",
+    contactButton: "Send a message",
+    final: "A clear beginning is enough.",
   },
   ar: {
-    nav: ["من أنا", "الأعمال", "التركيز", "المنهج", "التفاصيل", "تواصل"],
-    eyebrow: "بورتفوليو شخصي / هوية رقمية هادئة",
-    heroTitle: "حضور هادئ لعملٍ يحتاج إلى تفكير.",
-    heroText:
-      "بورتفوليو شخصي مصقول لعمل يتشكل عبر الملاحظة، الوضوح، اللغة، الذوق البصري، والتفكير الإنساني.",
-    heroNote: "مبني حول ثقة هادئة، اختيارات دقيقة، وتفاصيل صغيرة تحمل معنى.",
-    primary: "شاهد الأعمال",
+    nav: ["الهوية", "العمل", "المنهج", "التركيز", "التفاصيل", "تواصل"],
+    eyebrow: "هوية رقمية ثنائية اللغة / بورتفوليو",
+    title: "مواقع هادئة ثنائية اللغة لأفكار تحتاج إلى الكرامة، الوضوح، والثقة.",
+    subtitle:
+      "أجمع بين التفكير القانوني المنظم، اللغة الدقيقة، الحكم البصري، وبناء المواقع العملية لصناعة مساحات رقمية مصقولة للأشخاص والمبادرات والمشاريع ذات المعنى.",
+    primary: "شاهد دراسة الحالة",
     secondary: "تواصل",
-    aboutTitle: "تفكير هادئ، ملاحظة دقيقة، وعناية بالمعنى.",
-    aboutText:
-      "هذا البورتفوليو مصمم لشخص يعمل مع الأفكار، اللغة، البنية، والحس البصري. لا يعتمد على الضجيج أو الاستعراض، بل على هوية رقمية هادئة ودقيقة.",
-    aboutStats: [
-      ["01", "تفكير واضح"],
-      ["02", "عمل إنساني المركز"],
-      ["03", "بساطة بصرية"],
+    quietLine: "تصميم هادئ. لغة واضحة. عمل لا يحتاج إلى الصراخ.",
+
+    identityKicker: "الهوية",
+    identityTitle: "ليس بورتفوليو مطور عادي. بل دليل هادئ على الذوق، البنية، والحكم.",
+    identityText:
+      "هذا البورتفوليو مبني حول نوع محدد من العمل: مواقع ثنائية اللغة عربي/إنجليزي، حيث يجب أن يبدو المحتوى، النبرة، البنية، والحضور البصري ناضجاً، إنسانياً، ودقيقاً. الهدف ليس الزينة. الهدف أن تصبح الفكرة أسهل ثقةً وفهماً.",
+    identityCards: [
+      ["تفكير قانوني منظم", "قراءة البنية، الدليل، المخاطر، والنتائج قبل صياغة الرسالة."],
+      ["وضوح ثنائي اللغة", "البناء للعربية والإنجليزية دون التعامل مع أي لغة كأنها ثانوية."],
+      ["بساطة بصرية", "اختيار تفاصيل هادئة، تباين ناعم، ومساحة كافية ليتنفس المعنى."],
     ],
-    workTitle: "أعمال مختارة",
-    workIntro:
-      "كل مشروع يُعرض كدراسة حالة صغيرة: هدف واضح، بنية مدروسة، ونظام بصري هادئ.",
-    projects: [
-      {
-        title: "موقع مبادرة ثنائي اللغة",
-        year: "2026",
-        role: "بنية / تصميم ويب / CMS",
-        desc: "موقع عام هادئ لمبادرة ذات معنى، مبني حول الوضوح، المحتوى ثنائي اللغة، وهوية بصرية موثوقة.",
-      },
-      {
-        title: "نظام هوية شخصية",
-        year: "2026",
-        role: "توجيه / كتابة / ذوق بصري",
-        desc: "حضور شخصي مصقول من خلال خط هادئ، ألوان ناعمة، وترتيب محتوى دقيق.",
-      },
-      {
-        title: "صفحة تعريفية تحريرية",
-        year: "2026",
-        role: "محتوى / واجهة / إطلاق",
-        desc: "مساحة رقمية من صفحة واحدة مصممة للتعبير عن الثقة، المعنى، والانتباه دون ضغط بصري.",
-      },
+
+    workKicker: "عمل بارز",
+    workTitle: "مشروع حقيقي، وليس مجرد نموذج.",
+    workText:
+      "أول Showcase هو موقع مبادرة حي ثنائي اللغة، تم بناؤه من الفكرة إلى النشر: بنية المحتوى، واجهة React/Vite، دعم RTL/LTR، لوحة Sanity، أساسيات SEO، حل الأخطاء، وربط الدومين.",
+    workName: "موقع Syrian Humanists",
+    workMeta: "React / Vite / Sanity CMS / RTL-LTR / SEO / Deployment",
+    workBullets: [
+      "تحويل مبادرة في مرحلة مبكرة إلى هوية رقمية عامة واضحة.",
+      "بناء واجهة ثنائية اللغة تدعم اتجاهي القراءة العربي والإنجليزي.",
+      "ربط المحتوى بلوحة Sanity CMS وتجهيز حقول SEO.",
+      "حل أخطاء البناء، مشاكل الاستضافة، DNS، والنشر المباشر.",
     ],
-    focusTitle: "مجالات الانتباه",
-    focusIntro:
-      "تُعرض المهارات هنا كأشكال من الانتباه: كيف يُقرأ العمل، يُنظّم، يُوضّح، ويصبح قابلاً للاستخدام.",
+    live: "افتح المشروع المباشر",
+
+    methodKicker: "المنهج",
+    methodTitle: "كيف أحوّل فكرة غير مكتملة إلى حضور رقمي واضح.",
+    steps: [
+      ["01", "توضيح", "تحديد الهدف، الجمهور، النبرة، وما لا يجب قوله."],
+      ["02", "بناء", "ترتيب هيكل الصفحة قبل الانشغال بالشكل الخارجي."],
+      ["03", "صياغة", "كتابة وترتيب المحتوى ليبدو هادئاً، موثوقاً، وقابلاً للقراءة."],
+      ["04", "تطوير", "بناء موقع React/Vite متجاوب بأقسام نظيفة ومسافات دقيقة."],
+      ["05", "إطلاق", "اختبار، بناء، نشر، ربط الدومين، وإصلاح ما يتعطل."],
+    ],
+
+    focusKicker: "مجالات التركيز",
+    focusTitle: "المهارات عملية، لكن الفرق الحقيقي في الحكم.",
     focus: [
-      ["البحث", "استخراج الإشارة المهمة من معلومات متفرقة."],
-      ["الكتابة", "جعل اللغة واضحة، هادئة، ومفيدة."],
-      ["الاستراتيجية", "تحويل الأفكار المفتوحة إلى اتجاه متماسك."],
-      ["الحكم البصري", "اختيار ما يبدو متوازناً، ناضجاً، وإنسانياً."],
-      ["التواصل", "قول ما يكفي دون إفراط في الشرح."],
-      ["التفكير القانوني", "قراءة البنية، المخاطر، الأدلة، والنتائج."],
-      ["العمل الإنساني المركز", "إبقاء الكرامة والسياق حاضرَين في القرارات العملية."],
+      ["البحث", "العثور على الإشارة المهمة وسط معلومات متفرقة."],
+      ["الكتابة", "تحويل الأفكار الثقيلة إلى لغة هادئة وقابلة للقراءة."],
+      ["الاستراتيجية", "اختيار الاتجاه قبل الزينة."],
+      ["الحكم البصري", "رؤية المحاذاة، الإيقاع، النبرة، والضجيج غير الضروري."],
+      ["التفكير القانوني", "فهم البنية، المخاطر، الدليل، والنتائج."],
+      ["بناء المواقع", "React/Vite، تصميم متجاوب، CMS، أساسيات SEO، والنشر."],
+      ["هوية ثنائية اللغة", "بنية عربي/إنجليزي مع انتباه لاتجاه القراءة والنبرة الثقافية."],
     ],
-    approachTitle: "طريقة عمل هادئة",
-    approachLines: [
-      "لاحظ قبل أن تقرر.",
-      "احذف ما ليس إلا ضجيجاً.",
-      "دع البنية تحمل الشعور بهدوء.",
-      "اجعل العمل مفيداً قبل أن تجعله مثيراً للإعجاب.",
-      "اترك مساحة كافية لمن يقرأ.",
-    ],
-    detailsTitle: "تفاصيل صغيرة، لا زينة زائدة",
-    detailsIntro:
-      "إيقاع بصري مستوحى من الضوء الناعم، ملمس الورق، الطبيعة الهادئة، الغرف الساكنة، وكرامة البساطة.",
-    detailLabels: ["ضوء ناعم", "ملمس هادئ", "انعكاس نهر", "زهور خافتة", "غرفة ساكنة", "ظل الورق"],
-    contactTitle: "للمشاريع الهادئة والتعاون المدروس.",
+
+    detailsKicker: "اللغة البصرية",
+    detailsTitle: "مستوحاة من التفاصيل الصغيرة، لا من الاستعراض.",
+    detailsText:
+      "ضوء ناعم، ملمس ورق، انعكاس نهر، غرف هادئة، زهور خافتة، وانضباط بصري يعرف متى يتوقف. يجب أن يشعر النظام البصري بأنه إنساني قبل أن يكون تقنياً.",
+    detailLabels: ["ضوء ناعم", "ملمس ورق", "انعكاس نهر", "غرفة هادئة", "زهور خافتة", "مسافات دقيقة"],
+
+    contactKicker: "تواصل",
+    contactTitle: "لمواقع مدروسة، هويات ثنائية اللغة، وحضور رقمي هادئ.",
     contactText:
-      "تواصل من أجل حديث هادئ حول مشروع، هوية، موقع، أو عمل يحتاج إلى وضوح وعناية.",
-    contactButton: "hello@example.com",
-    finalLine: "لا ضغط. فقط بداية واضحة.",
+      "تواصل إذا كان لديك مشروع يحتاج إلى بنية هادئة، لغة ناضجة، وموقع يبدو موثوقاً دون أن يصبح صاخباً.",
+    contactButton: "أرسل رسالة",
+    final: "بداية واضحة تكفي.",
   },
 };
 
@@ -185,15 +188,14 @@ function useReveal() {
           }
         });
       },
-      { threshold: 0.15 }
+      { threshold: 0.12 }
     );
-
     items.forEach((item) => observer.observe(item));
     return () => observer.disconnect();
   }, []);
 }
 
-function SectionShell({ id, children, className = "" }) {
+function Section({ id, children, className = "" }) {
   return (
     <section id={id} className={cx("px-5 py-24 sm:px-8 lg:px-12", className)}>
       <div className="mx-auto max-w-7xl">{children}</div>
@@ -201,67 +203,82 @@ function SectionShell({ id, children, className = "" }) {
   );
 }
 
-function SectionTitle({ eyebrow, title, intro, align = "left" }) {
+function Kicker({ children }) {
+  return <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#78806B]">{children}</p>;
+}
+
+function SectionTitle({ kicker, title, text, center = false }) {
   return (
     <div
       data-reveal
       className={cx(
         "max-w-3xl translate-y-6 opacity-0 transition-all duration-700 ease-out",
-        align === "center" && "mx-auto text-center"
+        center && "mx-auto text-center"
       )}
     >
-      {eyebrow && (
-        <p className="mb-4 text-xs font-semibold uppercase tracking-[0.28em] text-[#7B806A]">
-          {eyebrow}
-        </p>
-      )}
-      <h2 className="font-serif text-4xl font-medium tracking-[-0.03em] text-[#292721] sm:text-5xl lg:text-6xl">
+      <Kicker>{kicker}</Kicker>
+      <h2 className="mt-5 font-serif text-4xl font-medium tracking-[-0.045em] text-[#272720] sm:text-5xl lg:text-6xl">
         {title}
       </h2>
-      {intro && <p className="mt-6 text-lg leading-8 text-[#5F5A4F]">{intro}</p>}
+      {text && <p className="mt-6 text-lg leading-8 text-[#635F53]">{text}</p>}
     </div>
   );
 }
 
-function DetailBlock({ label, index }) {
-  const patterns = [
-    "radial-gradient(circle at 30% 25%, rgba(225,201,164,.9), transparent 34%), linear-gradient(135deg, rgba(250,247,239,.9), rgba(218,223,207,.75))",
-    "linear-gradient(135deg, rgba(236,231,218,.95), rgba(199,205,188,.8)), radial-gradient(circle at 80% 20%, rgba(160,132,105,.28), transparent 35%)",
-    "linear-gradient(160deg, rgba(246,241,230,.95), rgba(214,220,210,.8)), linear-gradient(90deg, transparent 0 47%, rgba(127,133,112,.25) 47% 53%, transparent 53%)",
-    "radial-gradient(circle at 70% 35%, rgba(185,142,122,.34), transparent 24%), linear-gradient(135deg, rgba(248,244,235,.95), rgba(222,226,213,.88))",
-    "linear-gradient(135deg, rgba(243,238,228,.95), rgba(232,224,207,.8)), radial-gradient(circle at 15% 80%, rgba(122,130,109,.23), transparent 30%)",
-    "linear-gradient(120deg, rgba(249,246,238,.95), rgba(231,226,214,.85)), repeating-linear-gradient(90deg, rgba(56,54,48,.035) 0 1px, transparent 1px 11px)",
+function SignatureMark() {
+  return (
+    <div className="flex items-center gap-3">
+      <div className="relative flex h-12 w-12 items-center justify-center rounded-2xl border border-[#D7CDBA] bg-[#FFFDF8] shadow-sm">
+        <span className="font-serif text-xl font-semibold text-[#272720]">J</span>
+        <span className="absolute -bottom-1 -right-1 h-3 w-3 rounded-full bg-[#B78368]" />
+      </div>
+      <div className="leading-tight">
+        <p className="text-sm font-medium text-[#272720]">Jaafar Al-Rabbat</p>
+        <p className="text-xs text-[#78806B]">Bilingual digital presence</p>
+      </div>
+    </div>
+  );
+}
+
+function DetailCard({ label, index }) {
+  const backgrounds = [
+    "radial-gradient(circle at 28% 22%, rgba(228,211,180,.95), transparent 32%), linear-gradient(135deg,#FBF7EE,#E5E5D7)",
+    "linear-gradient(135deg,#F8F2E6,#E4D8C4), radial-gradient(circle at 78% 25%, rgba(141,154,122,.30), transparent 34%)",
+    "linear-gradient(160deg,#FBF8F1,#E1E6D8), linear-gradient(90deg,transparent 0 47%,rgba(105,120,96,.20) 47% 53%,transparent 53%)",
+    "radial-gradient(circle at 70% 36%,rgba(183,131,104,.28),transparent 25%), linear-gradient(135deg,#FAF6EE,#E6E2D6)",
+    "linear-gradient(135deg,#F9F4EA,#E8DDCB), radial-gradient(circle at 15% 80%,rgba(115,126,96,.22),transparent 31%)",
+    "linear-gradient(120deg,#FCF8F0,#E7E0D2), repeating-linear-gradient(90deg,rgba(42,39,34,.035) 0 1px,transparent 1px 12px)",
   ];
 
   return (
     <div
       data-reveal
       className="group translate-y-6 opacity-0 transition-all duration-700 ease-out"
-      style={{ transitionDelay: `${index * 70}ms` }}
+      style={{ transitionDelay: `${index * 60}ms` }}
     >
       <div
-        className="h-52 rounded-[2rem] border border-[#D7D0C0] shadow-[0_20px_80px_rgba(41,39,33,0.06)] transition duration-500 group-hover:-translate-y-1 group-hover:shadow-[0_24px_90px_rgba(41,39,33,0.10)]"
-        style={{ background: patterns[index % patterns.length] }}
+        className="h-56 rounded-[2rem] border border-[#D7CDBA] shadow-[0_24px_90px_rgba(39,39,32,0.07)] transition duration-500 group-hover:-translate-y-1 group-hover:shadow-[0_32px_110px_rgba(39,39,32,0.12)]"
+        style={{ background: backgrounds[index % backgrounds.length] }}
       />
-      <p className="mt-4 text-sm text-[#756F63]">{label}</p>
+      <p className="mt-4 text-sm text-[#756E61]">{label}</p>
     </div>
   );
 }
 
-export default function RefinedPersonalPortfolio() {
+export default function JaafarPortfolio() {
   const [lang, setLang] = useState("en");
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const t = content[lang];
   const isAr = lang === "ar";
 
   useReveal();
 
-  const navItems = useMemo(
+  const nav = useMemo(
     () => [
-      [t.nav[0], "#about"],
+      [t.nav[0], "#identity"],
       [t.nav[1], "#work"],
-      [t.nav[2], "#focus"],
-      [t.nav[3], "#approach"],
+      [t.nav[2], "#method"],
+      [t.nav[3], "#focus"],
       [t.nav[4], "#details"],
       [t.nav[5], "#contact"],
     ],
@@ -269,38 +286,32 @@ export default function RefinedPersonalPortfolio() {
   );
 
   useEffect(() => {
-    document.title = isAr ? "بورتفوليو شخصي هادئ" : "Refined Personal Portfolio";
+    document.title = isAr ? "جعفر الرباط | بورتفوليو" : "Jaafar Al-Rabbat | Portfolio";
+    document.body.style.background = "#F8F3EA";
     document.documentElement.style.scrollBehavior = "smooth";
-    document.body.style.background = "#F7F2E8";
   }, [isAr]);
 
   return (
     <div
       dir={isAr ? "rtl" : "ltr"}
       lang={lang}
-      className="min-h-screen bg-[#F7F2E8] text-[#292721] selection:bg-[#D9C5A3]/60"
+      className="min-h-screen overflow-x-hidden bg-[#F8F3EA] text-[#272720] selection:bg-[#D7BFA1]/60"
       style={{ fontFamily: isAr ? '"IBM Plex Sans Arabic", ui-sans-serif, system-ui' : 'Inter, ui-sans-serif, system-ui' }}
     >
-      <div className="pointer-events-none fixed inset-0 z-0 opacity-[0.42]" aria-hidden="true">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_10%,rgba(222,205,172,.65),transparent_28%),radial-gradient(circle_at_80%_0%,rgba(190,200,177,.45),transparent_30%),linear-gradient(180deg,rgba(255,255,255,.45),transparent_45%)]" />
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(41,39,33,.025)_1px,transparent_1px),linear-gradient(90deg,rgba(41,39,33,.025)_1px,transparent_1px)] bg-[size:44px_44px]" />
+      <div className="pointer-events-none fixed inset-0 z-0 opacity-[0.50]" aria-hidden="true">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_8%,rgba(225,205,170,.72),transparent_27%),radial-gradient(circle_at_88%_4%,rgba(174,188,158,.45),transparent_30%),linear-gradient(180deg,rgba(255,255,255,.55),transparent_48%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(39,39,32,.024)_1px,transparent_1px),linear-gradient(90deg,rgba(39,39,32,.024)_1px,transparent_1px)] bg-[size:48px_48px]" />
       </div>
 
-      <header className="sticky top-0 z-50 border-b border-[#D8D0BF]/70 bg-[#F7F2E8]/82 backdrop-blur-xl">
+      <header className="sticky top-0 z-50 border-b border-[#D8D0BF]/70 bg-[#F8F3EA]/84 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 sm:px-8 lg:px-12">
-          <a href="#top" className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-[#CFC6B5] bg-[#FDFBF6] shadow-sm">
-              <span className="font-serif text-lg font-semibold text-[#38352E]">J</span>
-            </div>
-            <div className="hidden leading-tight sm:block">
-              <p className="text-sm font-medium tracking-wide text-[#38352E]">Portfolio</p>
-              <p className="text-xs text-[#7B806A]">Quiet digital identity</p>
-            </div>
+          <a href="#top" aria-label="Home">
+            <SignatureMark />
           </a>
 
           <nav className="hidden items-center gap-8 lg:flex">
-            {navItems.map(([label, href]) => (
-              <a key={href} href={href} className="text-sm text-[#5F5A4F] transition hover:text-[#292721]">
+            {nav.map(([label, href]) => (
+              <a key={href} href={href} className="text-sm text-[#5F594E] transition hover:text-[#272720]">
                 {label}
               </a>
             ))}
@@ -310,13 +321,13 @@ export default function RefinedPersonalPortfolio() {
             <button
               type="button"
               onClick={() => setLang(lang === "en" ? "ar" : "en")}
-              className="rounded-full border border-[#CFC6B5] bg-[#FDFBF6] px-4 py-2 text-xs font-medium text-[#555044] transition hover:-translate-y-0.5 hover:border-[#A9AA91]"
+              className="rounded-full border border-[#D2C8B6] bg-[#FFFDF8] px-4 py-2 text-xs font-medium text-[#514C43] transition hover:-translate-y-0.5 hover:border-[#A9AD96]"
             >
               {lang === "en" ? "AR" : "EN"}
             </button>
             <a
               href="#contact"
-              className="rounded-full bg-[#343229] px-5 py-2.5 text-sm font-medium text-[#FDFBF6] shadow-[0_18px_60px_rgba(52,50,41,.18)] transition hover:-translate-y-0.5 hover:bg-[#24231E]"
+              className="rounded-full bg-[#303026] px-5 py-2.5 text-sm font-medium text-[#FFFDF8] shadow-[0_18px_60px_rgba(48,48,38,.18)] transition hover:-translate-y-0.5 hover:bg-[#212119]"
             >
               {t.secondary}
             </a>
@@ -324,23 +335,23 @@ export default function RefinedPersonalPortfolio() {
 
           <button
             type="button"
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-[#CFC6B5] bg-[#FDFBF6] lg:hidden"
+            onClick={() => setOpen(!open)}
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-[#D2C8B6] bg-[#FFFDF8] lg:hidden"
             aria-label="Open menu"
           >
-            {menuOpen ? <XIcon className="h-5 w-5" /> : <MenuIcon className="h-5 w-5" />}
+            {open ? <XIcon className="h-5 w-5" /> : <MenuIcon className="h-5 w-5" />}
           </button>
         </div>
 
-        {menuOpen && (
-          <div className="border-t border-[#D8D0BF]/70 bg-[#F7F2E8]/95 px-5 py-5 lg:hidden">
+        {open && (
+          <div className="border-t border-[#D8D0BF]/70 bg-[#F8F3EA]/96 px-5 py-5 lg:hidden">
             <div className="mx-auto flex max-w-sm flex-col gap-2">
-              {navItems.map(([label, href]) => (
+              {nav.map(([label, href]) => (
                 <a
                   key={href}
                   href={href}
-                  onClick={() => setMenuOpen(false)}
-                  className="rounded-2xl px-4 py-3 text-[#4A463B] transition hover:bg-[#FDFBF6]"
+                  onClick={() => setOpen(false)}
+                  className="rounded-2xl px-4 py-3 text-[#4F493F] transition hover:bg-[#FFFDF8]"
                 >
                   {label}
                 </a>
@@ -348,7 +359,7 @@ export default function RefinedPersonalPortfolio() {
               <button
                 type="button"
                 onClick={() => setLang(lang === "en" ? "ar" : "en")}
-                className="mt-2 rounded-2xl border border-[#CFC6B5] bg-[#FDFBF6] px-4 py-3 text-start text-[#4A463B]"
+                className="mt-2 rounded-2xl border border-[#D2C8B6] bg-[#FFFDF8] px-4 py-3 text-start text-[#4F493F]"
               >
                 {lang === "en" ? "العربية" : "English"}
               </button>
@@ -359,25 +370,26 @@ export default function RefinedPersonalPortfolio() {
 
       <main id="top" className="relative z-10">
         <section className="px-5 pb-24 pt-20 sm:px-8 lg:px-12 lg:pb-32 lg:pt-28">
-          <div className="mx-auto grid max-w-7xl items-center gap-16 lg:grid-cols-[1.1fr_.9fr]">
+          <div className="mx-auto grid max-w-7xl items-center gap-16 lg:grid-cols-[1.08fr_.92fr]">
             <div data-reveal className="translate-y-6 opacity-0 transition-all duration-700 ease-out">
-              <p className="text-xs font-semibold uppercase tracking-[0.32em] text-[#7B806A]">{t.eyebrow}</p>
-              <h1 className="mt-7 max-w-5xl font-serif text-5xl font-medium leading-[1.02] tracking-[-0.055em] text-[#292721] sm:text-7xl lg:text-8xl">
-                {t.heroTitle}
+              <Kicker>{t.eyebrow}</Kicker>
+              <h1 className="mt-7 max-w-5xl font-serif text-5xl font-medium leading-[1.02] tracking-[-0.055em] text-[#272720] sm:text-7xl lg:text-8xl">
+                {t.title}
               </h1>
-              <p className="mt-8 max-w-2xl text-xl leading-9 text-[#5F5A4F]">{t.heroText}</p>
+              <p className="mt-8 max-w-2xl text-xl leading-9 text-[#5E594E]">{t.subtitle}</p>
+              <p className="mt-5 max-w-xl text-sm leading-7 text-[#7A7365]">{t.quietLine}</p>
 
               <div className="mt-10 flex flex-col gap-4 sm:flex-row">
                 <a
                   href="#work"
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#343229] px-6 py-3 text-sm font-medium text-[#FDFBF6] transition hover:-translate-y-0.5 hover:bg-[#24231E]"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#303026] px-6 py-3 text-sm font-medium text-[#FFFDF8] transition hover:-translate-y-0.5 hover:bg-[#212119]"
                 >
                   {t.primary}
                   <Arrow className={cx("h-4 w-4", isAr && "rotate-180")} />
                 </a>
                 <a
                   href="#contact"
-                  className="inline-flex items-center justify-center rounded-full border border-[#CFC6B5] bg-[#FDFBF6]/70 px-6 py-3 text-sm font-medium text-[#343229] transition hover:-translate-y-0.5 hover:border-[#A9AA91]"
+                  className="inline-flex items-center justify-center rounded-full border border-[#D2C8B6] bg-[#FFFDF8]/70 px-6 py-3 text-sm font-medium text-[#303026] transition hover:-translate-y-0.5 hover:border-[#A9AD96]"
                 >
                   {t.secondary}
                 </a>
@@ -386,12 +398,16 @@ export default function RefinedPersonalPortfolio() {
 
             <div data-reveal className="translate-y-6 opacity-0 transition-all delay-150 duration-700 ease-out">
               <div className="relative mx-auto max-w-md">
-                <div className="absolute -inset-6 rounded-[3rem] bg-[#E6D8BF]/55 blur-3xl" />
-                <div className="relative overflow-hidden rounded-[2.5rem] border border-[#D3CAB9] bg-[#FDFBF6] p-5 shadow-[0_30px_110px_rgba(41,39,33,0.12)]">
-                  <div className="h-[420px] rounded-[2rem] border border-[#E3DCCF] bg-[radial-gradient(circle_at_30%_20%,rgba(232,212,181,.9),transparent_30%),radial-gradient(circle_at_70%_70%,rgba(166,177,150,.45),transparent_36%),linear-gradient(145deg,#F7F2E8,#ECE2D0)]" />
-                  <div className="absolute bottom-10 left-10 right-10 rounded-[1.5rem] border border-white/55 bg-[#FDFBF6]/72 p-5 shadow-[0_20px_70px_rgba(41,39,33,.12)] backdrop-blur-xl">
-                    <p className="font-serif text-2xl tracking-[-0.03em] text-[#292721]">Small details, carefully held.</p>
-                    <p className="mt-2 text-sm leading-6 text-[#686254]">{t.heroNote}</p>
+                <div className="absolute -inset-8 rounded-[3.5rem] bg-[#E5D4B9]/60 blur-3xl" />
+                <div className="relative overflow-hidden rounded-[2.7rem] border border-[#D5CBB8] bg-[#FFFDF8] p-5 shadow-[0_34px_120px_rgba(39,39,32,0.13)]">
+                  <div className="relative h-[440px] overflow-hidden rounded-[2.2rem] border border-[#E4DCCF] bg-[radial-gradient(circle_at_30%_22%,rgba(232,210,174,.95),transparent_30%),radial-gradient(circle_at_72%_68%,rgba(151,167,133,.45),transparent_34%),linear-gradient(145deg,#F8F3EA,#E7DCC9)]">
+                    <div className="absolute left-10 top-12 h-32 w-px bg-[#6F775F]/25" />
+                    <div className="absolute bottom-16 right-12 h-20 w-20 rounded-full border border-[#B78368]/35" />
+                    <div className="absolute bottom-20 left-12 h-1 w-32 rounded-full bg-[#B78368]/25" />
+                  </div>
+                  <div className="absolute bottom-10 left-10 right-10 rounded-[1.6rem] border border-white/55 bg-[#FFFDF8]/76 p-5 shadow-[0_20px_70px_rgba(39,39,32,.12)] backdrop-blur-xl">
+                    <p className="font-serif text-2xl tracking-[-0.035em] text-[#272720]">Structure with feeling.</p>
+                    <p className="mt-2 text-sm leading-6 text-[#645E52]">Visual restraint, bilingual clarity, and practical launch experience.</p>
                   </div>
                 </div>
               </div>
@@ -399,128 +415,137 @@ export default function RefinedPersonalPortfolio() {
           </div>
         </section>
 
-        <SectionShell id="about">
-          <div className="grid gap-12 lg:grid-cols-[.8fr_1.2fr] lg:items-start">
-            <SectionTitle eyebrow="About" title={t.aboutTitle} />
+        <Section id="identity">
+          <div className="grid gap-12 lg:grid-cols-[.82fr_1.18fr] lg:items-start">
+            <SectionTitle kicker={t.identityKicker} title={t.identityTitle} />
             <div data-reveal className="translate-y-6 opacity-0 transition-all duration-700 ease-out">
-              <div className="rounded-[2.3rem] border border-[#D8D0BF] bg-[#FDFBF6]/72 p-8 shadow-[0_24px_80px_rgba(41,39,33,0.06)] lg:p-10">
-                <p className="text-xl leading-9 text-[#4F4A40]">{t.aboutText}</p>
-                <div className="mt-10 grid gap-4 sm:grid-cols-3">
-                  {t.aboutStats.map(([num, label]) => (
-                    <div key={num} className="rounded-3xl border border-[#E1DACD] bg-[#F7F2E8]/75 p-5">
-                      <p className="font-serif text-3xl text-[#7B806A]">{num}</p>
-                      <p className="mt-3 text-sm leading-6 text-[#5F5A4F]">{label}</p>
+              <div className="rounded-[2.4rem] border border-[#D8D0BF] bg-[#FFFDF8]/75 p-8 shadow-[0_24px_80px_rgba(39,39,32,0.06)] lg:p-10">
+                <p className="text-xl leading-9 text-[#4F493F]">{t.identityText}</p>
+                <div className="mt-10 grid gap-4 md:grid-cols-3">
+                  {t.identityCards.map(([title, text]) => (
+                    <div key={title} className="rounded-3xl border border-[#E2DACD] bg-[#F8F3EA]/78 p-5">
+                      <h3 className="font-serif text-2xl tracking-[-0.035em] text-[#303026]">{title}</h3>
+                      <p className="mt-3 text-sm leading-7 text-[#686154]">{text}</p>
                     </div>
                   ))}
                 </div>
               </div>
             </div>
           </div>
-        </SectionShell>
+        </Section>
 
-        <SectionShell id="work">
-          <SectionTitle eyebrow="Work" title={t.workTitle} intro={t.workIntro} align="center" />
-          <div className="mt-14 grid gap-6 lg:grid-cols-3">
-            {t.projects.map((project, index) => (
-              <article
-                key={project.title}
-                data-reveal
-                className="group translate-y-6 opacity-0 transition-all duration-700 ease-out"
-                style={{ transitionDelay: `${index * 90}ms` }}
-              >
-                <div className="h-full rounded-[2.25rem] border border-[#D8D0BF] bg-[#FDFBF6]/78 p-7 shadow-[0_20px_80px_rgba(41,39,33,0.05)] transition duration-500 group-hover:-translate-y-1 group-hover:shadow-[0_28px_100px_rgba(41,39,33,0.10)]">
-                  <div className="mb-8 flex items-center justify-between gap-5 text-xs uppercase tracking-[0.22em] text-[#8A8375]">
-                    <span>{project.role}</span>
-                    <span>{project.year}</span>
+        <Section id="work">
+          <SectionTitle kicker={t.workKicker} title={t.workTitle} text={t.workText} center />
+          <div data-reveal className="mt-14 translate-y-6 opacity-0 transition-all duration-700 ease-out">
+            <div className="overflow-hidden rounded-[3rem] border border-[#D8D0BF] bg-[#FFFDF8]/78 shadow-[0_30px_110px_rgba(39,39,32,0.09)]">
+              <div className="grid gap-0 lg:grid-cols-[.9fr_1.1fr]">
+                <div className="min-h-[360px] bg-[radial-gradient(circle_at_25%_25%,rgba(229,209,176,.92),transparent_31%),radial-gradient(circle_at_75%_72%,rgba(150,166,132,.38),transparent_35%),linear-gradient(145deg,#F8F3EA,#E8DDCA)] p-8 lg:p-10">
+                  <div className="flex h-full flex-col justify-between rounded-[2.2rem] border border-white/55 bg-[#FFFDF8]/42 p-6 backdrop-blur-sm">
+                    <div>
+                      <p className="text-xs uppercase tracking-[0.26em] text-[#78806B]">Case Study</p>
+                      <h3 className="mt-5 font-serif text-4xl tracking-[-0.05em] text-[#272720] sm:text-5xl">{t.workName}</h3>
+                    </div>
+                    <p className="mt-8 text-sm leading-7 text-[#5E594E]">{t.workMeta}</p>
                   </div>
-                  <div className="mb-7 h-44 rounded-[1.8rem] border border-[#E2DBCD] bg-[linear-gradient(135deg,rgba(239,232,217,.95),rgba(210,216,200,.78))]" />
-                  <h3 className="font-serif text-3xl tracking-[-0.04em] text-[#292721]">{project.title}</h3>
-                  <p className="mt-5 leading-8 text-[#625C50]">{project.desc}</p>
                 </div>
-              </article>
+                <div className="p-8 lg:p-12">
+                  <div className="grid gap-4">
+                    {t.workBullets.map((item) => (
+                      <div key={item} className="flex gap-4 rounded-3xl border border-[#E2DACD] bg-[#F8F3EA]/62 p-5">
+                        <span className="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-[#B78368]" />
+                        <p className="leading-7 text-[#4F493F]">{item}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <a
+                    href="https://syrianhumanists.org/"
+                    className="mt-8 inline-flex items-center gap-2 rounded-full bg-[#303026] px-6 py-3 text-sm font-medium text-[#FFFDF8] transition hover:-translate-y-0.5 hover:bg-[#212119]"
+                  >
+                    {t.live}
+                    <Arrow className={cx("h-4 w-4", isAr && "rotate-180")} />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Section>
+
+        <Section id="method">
+          <SectionTitle kicker={t.methodKicker} title={t.methodTitle} center />
+          <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-5">
+            {t.steps.map(([number, title, text], index) => (
+              <div
+                key={number}
+                data-reveal
+                className="translate-y-6 rounded-[2rem] border border-[#D8D0BF] bg-[#FFFDF8]/70 p-6 opacity-0 shadow-[0_18px_70px_rgba(39,39,32,0.05)] transition-all duration-700 ease-out"
+                style={{ transitionDelay: `${index * 55}ms` }}
+              >
+                <p className="font-serif text-3xl text-[#B78368]">{number}</p>
+                <h3 className="mt-5 font-serif text-2xl tracking-[-0.035em] text-[#303026]">{title}</h3>
+                <p className="mt-3 text-sm leading-7 text-[#686154]">{text}</p>
+              </div>
             ))}
           </div>
-        </SectionShell>
+        </Section>
 
-        <SectionShell id="focus">
+        <Section id="focus">
           <div className="grid gap-12 lg:grid-cols-[.85fr_1.15fr]">
-            <SectionTitle eyebrow="Focus" title={t.focusTitle} intro={t.focusIntro} />
+            <SectionTitle kicker={t.focusKicker} title={t.focusTitle} />
             <div className="grid gap-3">
               {t.focus.map(([title, desc], index) => (
                 <div
                   key={title}
                   data-reveal
-                  className="translate-y-6 rounded-3xl border border-[#D8D0BF] bg-[#FDFBF6]/60 p-5 opacity-0 transition-all duration-700 ease-out hover:bg-[#FDFBF6]"
+                  className="translate-y-6 rounded-3xl border border-[#D8D0BF] bg-[#FFFDF8]/62 p-5 opacity-0 transition-all duration-700 ease-out hover:bg-[#FFFDF8]"
                   style={{ transitionDelay: `${index * 45}ms` }}
                 >
-                  <div className="grid gap-3 sm:grid-cols-[.35fr_.65fr]">
-                    <h3 className="font-serif text-2xl tracking-[-0.03em] text-[#38352E]">{title}</h3>
+                  <div className="grid gap-3 sm:grid-cols-[.34fr_.66fr]">
+                    <h3 className="font-serif text-2xl tracking-[-0.035em] text-[#303026]">{title}</h3>
                     <p className="leading-7 text-[#625C50]">{desc}</p>
                   </div>
                 </div>
               ))}
             </div>
           </div>
-        </SectionShell>
+        </Section>
 
-        <SectionShell id="approach" className="py-28">
-          <div data-reveal className="mx-auto max-w-5xl translate-y-6 opacity-0 transition-all duration-700 ease-out">
-            <div className="rounded-[3rem] border border-[#D8D0BF] bg-[#292721] p-8 text-[#F7F2E8] shadow-[0_34px_120px_rgba(41,39,33,.18)] sm:p-12 lg:p-16">
-              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#B7BD9E]">Approach</p>
-              <h2 className="mt-6 font-serif text-4xl font-medium tracking-[-0.045em] sm:text-6xl">{t.approachTitle}</h2>
-              <div className="mt-12 grid gap-5">
-                {t.approachLines.map((line) => (
-                  <p key={line} className="border-t border-[#F7F2E8]/12 pt-5 font-serif text-2xl tracking-[-0.03em] text-[#EEE6D7] sm:text-3xl">
-                    {line}
-                  </p>
-                ))}
-              </div>
-            </div>
-          </div>
-        </SectionShell>
-
-        <SectionShell id="details">
-          <SectionTitle eyebrow="Details" title={t.detailsTitle} intro={t.detailsIntro} align="center" />
+        <Section id="details">
+          <SectionTitle kicker={t.detailsKicker} title={t.detailsTitle} text={t.detailsText} center />
           <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {t.detailLabels.map((label, index) => (
-              <DetailBlock key={label} label={label} index={index} />
+              <DetailCard key={label} label={label} index={index} />
             ))}
           </div>
-        </SectionShell>
+        </Section>
 
-        <SectionShell id="contact" className="pb-16">
+        <Section id="contact" className="pb-16">
           <div data-reveal className="translate-y-6 opacity-0 transition-all duration-700 ease-out">
-            <div className="rounded-[3rem] border border-[#D8D0BF] bg-[#FDFBF6]/78 p-8 shadow-[0_28px_100px_rgba(41,39,33,0.08)] sm:p-12 lg:p-16">
+            <div className="rounded-[3rem] border border-[#D8D0BF] bg-[#303026] p-8 text-[#FFFDF8] shadow-[0_34px_120px_rgba(39,39,32,.18)] sm:p-12 lg:p-16">
               <div className="grid gap-10 lg:grid-cols-[1fr_.7fr] lg:items-end">
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#7B806A]">Contact</p>
-                  <h2 className="mt-6 max-w-4xl font-serif text-4xl font-medium tracking-[-0.045em] text-[#292721] sm:text-6xl">
+                  <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#C9D0B4]">{t.contactKicker}</p>
+                  <h2 className="mt-6 max-w-4xl font-serif text-4xl font-medium tracking-[-0.045em] sm:text-6xl">
                     {t.contactTitle}
                   </h2>
-                  <p className="mt-6 max-w-2xl text-lg leading-8 text-[#5F5A4F]">{t.contactText}</p>
+                  <p className="mt-6 max-w-2xl text-lg leading-8 text-[#EEE6D7]/82">{t.contactText}</p>
                 </div>
                 <div className="lg:text-end">
                   <a
-                    href="mailto:hello@example.com"
-                    className="inline-flex items-center justify-center gap-2 rounded-full bg-[#343229] px-6 py-3 text-sm font-medium text-[#FDFBF6] transition hover:-translate-y-0.5 hover:bg-[#24231E]"
+                    href="mailto:your.email@example.com"
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-[#FFFDF8] px-6 py-3 text-sm font-medium text-[#303026] transition hover:-translate-y-0.5 hover:bg-[#F8F3EA]"
                   >
                     {t.contactButton}
                     <Arrow className={cx("h-4 w-4", isAr && "rotate-180")} />
                   </a>
-                  <p className="mt-5 text-sm text-[#756F63]">{t.finalLine}</p>
+                  <p className="mt-5 text-sm text-[#EEE6D7]/62">{t.final}</p>
                 </div>
               </div>
             </div>
           </div>
-        </SectionShell>
+        </Section>
       </main>
 
       <footer className="relative z-10 border-t border-[#D8D0BF]/80 px-5 py-10 sm:px-8 lg:px-12">
-        <div className="mx-auto flex max-w-7xl flex-col justify-between gap-5 text-sm text-[#756F63] sm:flex-row">
-          <p>© {new Date().getFullYear()} Personal Portfolio</p>
-          <p>Quiet work. Clear presence. Human detail.</p>
-        </div>
-      </footer>
-    </div>
-  );
-}
+        <div className="mx-auto flex max-w-7xl flex-col justify-between gap-5 text-sm text-[#756E61] sm:flex-row">
+          <p>© {new Date().getFullYear()} Jaafar Al-Rabbat</p>
+          <p>Quiet work. Clear presence. Human detai
