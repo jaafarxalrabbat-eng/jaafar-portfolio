@@ -7,142 +7,122 @@ const profile = {
 
 const content = {
   en: {
-    nav: ["Identity", "Work", "Method", "Focus", "Details", "Contact"],
-    eyebrow: "Bilingual Digital Identity / Portfolio",
-    title: "Calm bilingual websites for ideas that need dignity, clarity, and trust.",
+    nav: ["Profile", "Work", "Thinking", "Details", "Contact"],
+    eyebrow: "Personal Portfolio / Digital Presence",
+    title: "Quiet digital spaces for ideas that deserve to be seen clearly.",
     subtitle:
-      "I combine law-trained thinking, careful language, visual judgment, and practical web building to create refined digital spaces for people, initiatives, and meaningful projects.",
-    primary: "View case study",
+      "I shape websites and digital identities with careful language, visual judgment, and structured thinking — calm enough to feel human, clear enough to be trusted.",
+    primary: "View work",
     secondary: "Contact",
-    quietLine: "Quiet design. Clear language. Work that does not need to shout.",
+    note: "Language, structure, visual rhythm, and the small details between them.",
 
-    identityKicker: "Identity",
-    identityTitle: "Not a loud developer portfolio. A quiet proof of taste, structure, and judgment.",
-    identityText:
-      "This portfolio is built around a specific kind of work: bilingual Arabic-English websites where the content, tone, structure, and visual presence must feel mature, humane, and precise. The goal is not decoration. The goal is to make an idea easier to trust.",
-    identityCards: [
-      ["Law-trained thinking", "Reading structure, evidence, risk, and consequence before shaping the message."],
-      ["Bilingual clarity", "Building for Arabic and English without treating either language as secondary."],
-      ["Visual restraint", "Choosing quiet details, soft contrast, and enough space for the message to breathe."],
+    profileKicker: "Profile",
+    profileTitle: "A portfolio built around observation, structure, and restraint.",
+    profileText:
+      "My work sits between language, visual judgment, and practical web building. I care about how a page feels before it explains itself: the space, the rhythm, the hierarchy, and whether the message has enough dignity to breathe.",
+    profileCards: [
+      ["Language", "Clear writing, careful tone, and bilingual structure without unnecessary noise."],
+      ["Visual judgment", "A sensitivity to light, spacing, quiet composition, and what should be removed."],
+      ["Structured thinking", "A disciplined way of arranging ideas, evidence, risk, and consequence."],
     ],
 
-    workKicker: "Featured work",
-    workTitle: "A real project, not just a mockup.",
+    workKicker: "Work",
+    workTitle: "A real project, built from idea to launch.",
     workText:
-      "The first showcase is a live bilingual initiative website built from idea to deployment: content structure, React/Vite interface, RTL/LTR support, Sanity CMS, SEO basics, debugging, and domain launch.",
-    workName: "Syrian Humanists Website",
-    workMeta: "React / Vite / Sanity CMS / RTL-LTR / SEO / Deployment",
-    workBullets: [
-      "Turned an early-stage initiative into a clear public digital identity.",
-      "Built a bilingual interface that supports Arabic and English reading directions.",
-      "Connected editable content through Sanity CMS and prepared SEO fields.",
-      "Handled build errors, hosting issues, DNS, and live deployment.",
+      "The first featured project is a live bilingual website developed from concept to deployment: content structure, interface design, Arabic/English direction, CMS integration, debugging, SEO basics, DNS, and launch.",
+    projectTitle: "Syrian Humanists Website",
+    projectMeta: "React / Vite / Sanity CMS / Arabic-English / SEO / Deployment",
+    bullets: [
+      "Built a bilingual public website from an early-stage concept.",
+      "Created a calm interface with Arabic and English reading directions.",
+      "Connected editable content through Sanity CMS.",
+      "Handled build errors, hosting, DNS, and live deployment.",
     ],
     live: "Open live project",
 
-    methodKicker: "Method",
-    methodTitle: "How I turn a loose idea into a clear digital presence.",
+    thinkingKicker: "Thinking",
+    thinkingTitle: "How I approach a digital presence.",
+    thinkingText:
+      "A good website is not just a surface. It is a sequence of decisions: what to say, what to leave out, how to build trust, and how to make the visitor feel oriented without being pushed.",
     steps: [
-      ["01", "Clarify", "Define the purpose, audience, tone, and what should not be said."],
-      ["02", "Structure", "Build the page hierarchy before designing the surface."],
-      ["03", "Shape", "Write and arrange the content so it feels calm, credible, and readable."],
-      ["04", "Build", "Create a responsive React/Vite website with clean sections and careful spacing."],
-      ["05", "Launch", "Test, build, deploy, connect the domain, and fix what breaks."],
+      ["01", "Observe", "Understand the person, project, tone, audience, and hidden tension."],
+      ["02", "Reduce", "Remove vague language, visual noise, and anything that weakens the message."],
+      ["03", "Structure", "Turn the idea into a readable hierarchy and a calm user journey."],
+      ["04", "Build", "Create a responsive website with clean components and careful spacing."],
+      ["05", "Launch", "Test, build, publish, connect the domain, and fix what breaks."],
     ],
 
-    focusKicker: "Focus areas",
-    focusTitle: "The skills are practical, but the difference is judgment.",
-    focus: [
-      ["Research", "Finding the important signal beneath scattered information."],
-      ["Writing", "Turning heavy ideas into calm, readable language."],
-      ["Strategy", "Choosing direction before decoration."],
-      ["Visual judgment", "Seeing alignment, rhythm, tone, and unnecessary noise."],
-      ["Legal thinking", "Understanding structure, risk, evidence, and consequence."],
-      ["Web building", "React/Vite, responsive layout, CMS integration, SEO basics, deployment."],
-      ["Bilingual identity", "Arabic-English structure with attention to RTL/LTR and cultural tone."],
-    ],
-
-    detailsKicker: "Visual language",
-    detailsTitle: "Inspired by small details, not performance.",
+    detailsKicker: "Details",
+    detailsTitle: "The visual language comes from small things.",
     detailsText:
-      "Soft light, paper texture, river reflections, quiet rooms, muted flowers, and the calm discipline of restraint. The visual system should feel human before it feels technical.",
-    detailLabels: ["Soft light", "Paper texture", "River reflection", "Quiet room", "Muted flowers", "Careful spacing"],
+      "Stone, water, muted flowers, old buildings, quiet rooms, soft shadows, and the visual discipline of not overexplaining. The site should feel like a place you can stay in, not a pitch deck you want to escape.",
+    detailLabels: ["Canal light", "Stone texture", "Museum quiet", "Botanical detail", "Old brick", "Soft shadow"],
 
     contactKicker: "Contact",
-    contactTitle: "For thoughtful websites, bilingual identities, and careful digital presence.",
+    contactTitle: "For careful websites and thoughtful digital identities.",
     contactText:
-      "Reach out if you have a project that needs calm structure, mature language, and a website that feels trustworthy without becoming loud.",
+      "Reach out if you need a website or digital presence that feels calm, clear, mature, and built with attention rather than noise.",
     contactButton: "Send a message",
-    final: "A clear beginning is enough.",
+    final: "No pressure. Just a clear beginning.",
   },
   ar: {
-    nav: ["الهوية", "العمل", "المنهج", "التركيز", "التفاصيل", "تواصل"],
-    eyebrow: "هوية رقمية ثنائية اللغة / بورتفوليو",
-    title: "مواقع هادئة ثنائية اللغة لأفكار تحتاج إلى الكرامة، الوضوح، والثقة.",
+    nav: ["الملف", "العمل", "طريقة التفكير", "التفاصيل", "تواصل"],
+    eyebrow: "بورتفوليو شخصي / حضور رقمي",
+    title: "مساحات رقمية هادئة لأفكار تستحق أن تُرى بوضوح.",
     subtitle:
-      "أجمع بين التفكير القانوني المنظم، اللغة الدقيقة، الحكم البصري، وبناء المواقع العملية لصناعة مساحات رقمية مصقولة للأشخاص والمبادرات والمشاريع ذات المعنى.",
-    primary: "شاهد دراسة الحالة",
+      "أصمم مواقع وهويات رقمية عبر لغة دقيقة، حكم بصري، وتفكير منظم — هادئة بما يكفي لتبدو إنسانية، وواضحة بما يكفي لتُوثق.",
+    primary: "شاهد العمل",
     secondary: "تواصل",
-    quietLine: "تصميم هادئ. لغة واضحة. عمل لا يحتاج إلى الصراخ.",
+    note: "لغة، بنية، إيقاع بصري، والتفاصيل الصغيرة بينها.",
 
-    identityKicker: "الهوية",
-    identityTitle: "ليس بورتفوليو مطور عادي. بل دليل هادئ على الذوق، البنية، والحكم.",
-    identityText:
-      "هذا البورتفوليو مبني حول نوع محدد من العمل: مواقع ثنائية اللغة عربي/إنجليزي، حيث يجب أن يبدو المحتوى، النبرة، البنية، والحضور البصري ناضجاً، إنسانياً، ودقيقاً. الهدف ليس الزينة. الهدف أن تصبح الفكرة أسهل ثقةً وفهماً.",
-    identityCards: [
-      ["تفكير قانوني منظم", "قراءة البنية، الدليل، المخاطر، والنتائج قبل صياغة الرسالة."],
-      ["وضوح ثنائي اللغة", "البناء للعربية والإنجليزية دون التعامل مع أي لغة كأنها ثانوية."],
-      ["بساطة بصرية", "اختيار تفاصيل هادئة، تباين ناعم، ومساحة كافية ليتنفس المعنى."],
+    profileKicker: "الملف",
+    profileTitle: "بورتفوليو مبني حول الملاحظة، البنية، والهدوء.",
+    profileText:
+      "عملي يقع بين اللغة، الحكم البصري، وبناء المواقع العملية. يهمني كيف تبدو الصفحة قبل أن تشرح نفسها: المساحة، الإيقاع، الترتيب، وما إذا كانت الرسالة تملك كرامة كافية لتتنفس.",
+    profileCards: [
+      ["اللغة", "كتابة واضحة، نبرة دقيقة، وبنية ثنائية اللغة بلا ضجيج زائد."],
+      ["الحكم البصري", "حسّ بالضوء، المسافة، التكوين الهادئ، وما يجب حذفه."],
+      ["التفكير المنظم", "طريقة منضبطة في ترتيب الأفكار، الأدلة، المخاطر، والنتائج."],
     ],
 
-    workKicker: "عمل بارز",
-    workTitle: "مشروع حقيقي، وليس مجرد نموذج.",
+    workKicker: "العمل",
+    workTitle: "مشروع حقيقي، من الفكرة إلى النشر.",
     workText:
-      "أول Showcase هو موقع مبادرة حي ثنائي اللغة، تم بناؤه من الفكرة إلى النشر: بنية المحتوى، واجهة React/Vite، دعم RTL/LTR، لوحة Sanity، أساسيات SEO، حل الأخطاء، وربط الدومين.",
-    workName: "موقع Syrian Humanists",
-    workMeta: "React / Vite / Sanity CMS / RTL-LTR / SEO / Deployment",
-    workBullets: [
-      "تحويل مبادرة في مرحلة مبكرة إلى هوية رقمية عامة واضحة.",
-      "بناء واجهة ثنائية اللغة تدعم اتجاهي القراءة العربي والإنجليزي.",
-      "ربط المحتوى بلوحة Sanity CMS وتجهيز حقول SEO.",
-      "حل أخطاء البناء، مشاكل الاستضافة، DNS، والنشر المباشر.",
+      "المشروع الأول المعروض هو موقع حي ثنائي اللغة، تم تطويره من الفكرة إلى الإطلاق: بنية محتوى، تصميم واجهة، اتجاه عربي/إنجليزي، ربط CMS، حل أخطاء، أساسيات SEO، DNS، ونشر مباشر.",
+    projectTitle: "موقع Syrian Humanists",
+    projectMeta: "React / Vite / Sanity CMS / Arabic-English / SEO / Deployment",
+    bullets: [
+      "بناء موقع عام ثنائي اللغة من فكرة في مرحلة مبكرة.",
+      "تصميم واجهة هادئة تدعم اتجاهي القراءة العربي والإنجليزي.",
+      "ربط المحتوى بلوحة Sanity CMS قابلة للتعديل.",
+      "حل أخطاء البناء، الاستضافة، DNS، والنشر المباشر.",
     ],
     live: "افتح المشروع المباشر",
 
-    methodKicker: "المنهج",
-    methodTitle: "كيف أحوّل فكرة غير مكتملة إلى حضور رقمي واضح.",
+    thinkingKicker: "طريقة التفكير",
+    thinkingTitle: "كيف أتعامل مع الحضور الرقمي.",
+    thinkingText:
+      "الموقع الجيد ليس سطحاً فقط. هو سلسلة قرارات: ماذا يقال، ماذا يُترك، كيف تُبنى الثقة، وكيف يشعر الزائر أنه موجّه دون أن يكون مدفوعاً بقوة.",
     steps: [
-      ["01", "توضيح", "تحديد الهدف، الجمهور، النبرة، وما لا يجب قوله."],
-      ["02", "بناء", "ترتيب هيكل الصفحة قبل الانشغال بالشكل الخارجي."],
-      ["03", "صياغة", "كتابة وترتيب المحتوى ليبدو هادئاً، موثوقاً، وقابلاً للقراءة."],
-      ["04", "تطوير", "بناء موقع React/Vite متجاوب بأقسام نظيفة ومسافات دقيقة."],
+      ["01", "ملاحظة", "فهم الشخص، المشروع، النبرة، الجمهور، والتوتر الخفي."],
+      ["02", "اختزال", "حذف اللغة الغائمة، الضجيج البصري، وكل ما يضعف الرسالة."],
+      ["03", "بناء", "تحويل الفكرة إلى ترتيب واضح ورحلة قراءة هادئة."],
+      ["04", "تطوير", "بناء موقع متجاوب بمكونات نظيفة ومسافات محسوبة."],
       ["05", "إطلاق", "اختبار، بناء، نشر، ربط الدومين، وإصلاح ما يتعطل."],
     ],
 
-    focusKicker: "مجالات التركيز",
-    focusTitle: "المهارات عملية، لكن الفرق الحقيقي في الحكم.",
-    focus: [
-      ["البحث", "العثور على الإشارة المهمة وسط معلومات متفرقة."],
-      ["الكتابة", "تحويل الأفكار الثقيلة إلى لغة هادئة وقابلة للقراءة."],
-      ["الاستراتيجية", "اختيار الاتجاه قبل الزينة."],
-      ["الحكم البصري", "رؤية المحاذاة، الإيقاع، النبرة، والضجيج غير الضروري."],
-      ["التفكير القانوني", "فهم البنية، المخاطر، الدليل، والنتائج."],
-      ["بناء المواقع", "React/Vite، تصميم متجاوب، CMS، أساسيات SEO، والنشر."],
-      ["هوية ثنائية اللغة", "بنية عربي/إنجليزي مع انتباه لاتجاه القراءة والنبرة الثقافية."],
-    ],
-
-    detailsKicker: "اللغة البصرية",
-    detailsTitle: "مستوحاة من التفاصيل الصغيرة، لا من الاستعراض.",
+    detailsKicker: "التفاصيل",
+    detailsTitle: "اللغة البصرية تأتي من الأشياء الصغيرة.",
     detailsText:
-      "ضوء ناعم، ملمس ورق، انعكاس نهر، غرف هادئة، زهور خافتة، وانضباط بصري يعرف متى يتوقف. يجب أن يشعر النظام البصري بأنه إنساني قبل أن يكون تقنياً.",
-    detailLabels: ["ضوء ناعم", "ملمس ورق", "انعكاس نهر", "غرفة هادئة", "زهور خافتة", "مسافات دقيقة"],
+      "حجر، ماء، زهور خافتة، مبانٍ قديمة، غرف هادئة، ظلال ناعمة، وانضباط بصري يعرف متى لا يشرح أكثر. يجب أن يبدو الموقع كمكان يمكن البقاء فيه، لا كعرض تجاري تريد مغادرته.",
+    detailLabels: ["ضوء القناة", "ملمس الحجر", "هدوء المتحف", "تفصيل نباتي", "طوب قديم", "ظل ناعم"],
 
     contactKicker: "تواصل",
-    contactTitle: "لمواقع مدروسة، هويات ثنائية اللغة، وحضور رقمي هادئ.",
+    contactTitle: "لمواقع دقيقة وهويات رقمية هادئة.",
     contactText:
-      "تواصل إذا كان لديك مشروع يحتاج إلى بنية هادئة، لغة ناضجة، وموقع يبدو موثوقاً دون أن يصبح صاخباً.",
+      "تواصل إذا كنت تحتاج موقعاً أو حضوراً رقمياً يبدو هادئاً، واضحاً، ناضجاً، ومبنياً بانتباه لا بضجيج.",
     contactButton: "أرسل رسالة",
-    final: "بداية واضحة تكفي.",
+    final: "لا ضغط. فقط بداية واضحة.",
   },
 };
 
@@ -153,8 +133,8 @@ function cx(...classes) {
 function Arrow({ className = "" }) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M5 12h14" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-      <path d="m13 6 6 6-6 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M5 12h14" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+      <path d="m13 6 6 6-6 6" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
@@ -203,8 +183,10 @@ function Section({ id, children, className = "" }) {
   );
 }
 
-function Kicker({ children }) {
-  return <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#78806B]">{children}</p>;
+function Kicker({ children, light = false }) {
+  return (
+    <p className={cx("text-xs font-semibold uppercase tracking-[0.28em]", light ? "text-[#D8CFBC]" : "text-[#6F7764]")}>{children}</p>
+  );
 }
 
 function SectionTitle({ kicker, title, text, center = false }) {
@@ -217,35 +199,49 @@ function SectionTitle({ kicker, title, text, center = false }) {
       )}
     >
       <Kicker>{kicker}</Kicker>
-      <h2 className="mt-5 font-serif text-4xl font-medium tracking-[-0.045em] text-[#272720] sm:text-5xl lg:text-6xl">
+      <h2 className="mt-5 font-serif text-4xl font-medium tracking-[-0.045em] text-[#25251F] sm:text-5xl lg:text-6xl">
         {title}
       </h2>
-      {text && <p className="mt-6 text-lg leading-8 text-[#635F53]">{text}</p>}
+      {text && <p className="mt-6 text-lg leading-8 text-[#5D5A51]">{text}</p>}
     </div>
   );
 }
 
-function SignatureMark() {
+function Wordmark() {
   return (
     <div className="flex items-center gap-3">
-      <div className="relative flex h-12 w-12 items-center justify-center rounded-2xl border border-[#D7CDBA] bg-[#FFFDF8] shadow-sm">
-        <span className="font-serif text-2xl font-medium leading-none text-[#272720]">J</span>
-        <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-[#B78368]" />
+      <div className="relative flex h-12 w-12 items-center justify-center rounded-full border border-[#D7CDBD] bg-[#FFFDF8] shadow-sm">
+        <span className="font-serif text-2xl font-medium leading-none text-[#25251F]">J</span>
+        <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-[#A76E57]" />
       </div>
       <div className="leading-tight">
-        <p className="text-sm font-medium tracking-[-0.01em] text-[#272720]">Jaafar Al-Rabbat</p>
-        <p className="text-xs text-[#78806B]">Bilingual digital presence</p>
+        <p className="text-sm font-medium tracking-[-0.01em] text-[#25251F]">Jaafar Al-Rabbat</p>
+        <p className="text-xs text-[#6F7764]">Quiet digital presence</p>
       </div>
     </div>
   );
 }
 
-function HeroMark() {
+function VisualPlate() {
   return (
-    <div className="flex h-32 w-32 items-center justify-center rounded-[2rem] border border-[#D7CDBA] bg-[#FFFDF8] shadow-[0_24px_80px_rgba(39,39,32,0.10)]">
-      <div className="relative">
-        <span className="font-serif text-7xl font-medium leading-none text-[#272720]">J</span>
-        <span className="absolute -right-3 top-2 h-2.5 w-2.5 rounded-full bg-[#B78368]" />
+    <div className="relative mx-auto max-w-md">
+      <div className="absolute -inset-8 rounded-[3.5rem] bg-[#DED0B9]/60 blur-3xl" />
+      <div className="relative overflow-hidden rounded-[2.6rem] border border-[#D0C6B5] bg-[#FFFDF8] p-4 shadow-[0_34px_120px_rgba(37,37,31,0.13)]">
+        <div className="grid h-[460px] grid-cols-2 grid-rows-3 gap-3">
+          <div className="row-span-2 rounded-[2rem] border border-[#E1D8CA] bg-[radial-gradient(circle_at_30%_20%,rgba(236,216,184,.92),transparent_34%),linear-gradient(145deg,#F9F4EA,#D9DFD1)]" />
+          <div className="rounded-[2rem] border border-[#E1D8CA] bg-[linear-gradient(145deg,#8A5B45,#D3B18E)]" />
+          <div className="rounded-[2rem] border border-[#E1D8CA] bg-[linear-gradient(145deg,#5F7D8A,#D6E1DE)]" />
+          <div className="rounded-[2rem] border border-[#E1D8CA] bg-[linear-gradient(145deg,#6F7B5F,#D7DCCB)]" />
+          <div className="relative overflow-hidden rounded-[2rem] border border-[#E1D8CA] bg-[#F6F0E6]">
+            <div className="absolute left-1/2 top-0 h-full w-px bg-[#25251F]/10" />
+            <div className="absolute bottom-8 left-8 h-1 w-24 rounded-full bg-[#A76E57]/35" />
+            <div className="absolute right-8 top-8 h-16 w-16 rounded-full border border-[#5F7D8A]/35" />
+          </div>
+        </div>
+        <div className="absolute bottom-9 left-9 right-9 rounded-[1.6rem] border border-white/60 bg-[#FFFDF8]/76 p-5 shadow-[0_18px_65px_rgba(37,37,31,.12)] backdrop-blur-xl">
+          <p className="font-serif text-2xl tracking-[-0.035em] text-[#25251F]">Designed by noticing.</p>
+          <p className="mt-2 text-sm leading-6 text-[#5D5A51]">Stone, water, light, language, and the structure between them.</p>
+        </div>
       </div>
     </div>
   );
@@ -253,12 +249,12 @@ function HeroMark() {
 
 function DetailCard({ label, index }) {
   const backgrounds = [
-    "radial-gradient(circle at 28% 22%, rgba(228,211,180,.95), transparent 32%), linear-gradient(135deg,#FBF7EE,#E5E5D7)",
-    "linear-gradient(135deg,#F8F2E6,#E4D8C4), radial-gradient(circle at 78% 25%, rgba(141,154,122,.30), transparent 34%)",
-    "linear-gradient(160deg,#FBF8F1,#E1E6D8), linear-gradient(90deg,transparent 0 47%,rgba(105,120,96,.20) 47% 53%,transparent 53%)",
-    "radial-gradient(circle at 70% 36%,rgba(183,131,104,.28),transparent 25%), linear-gradient(135deg,#FAF6EE,#E6E2D6)",
-    "linear-gradient(135deg,#F9F4EA,#E8DDCB), radial-gradient(circle at 15% 80%,rgba(115,126,96,.22),transparent 31%)",
-    "linear-gradient(120deg,#FCF8F0,#E7E0D2), repeating-linear-gradient(90deg,rgba(42,39,34,.035) 0 1px,transparent 1px 12px)",
+    "linear-gradient(145deg,#F6F0E6,#D7E0DD), radial-gradient(circle at 25% 25%,rgba(95,125,138,.32),transparent 32%)",
+    "linear-gradient(145deg,#EFE6D6,#C8BDAE), repeating-linear-gradient(90deg,rgba(37,37,31,.035) 0 1px,transparent 1px 12px)",
+    "linear-gradient(145deg,#F8F3EA,#E4DDCE), radial-gradient(circle at 75% 25%,rgba(37,37,31,.12),transparent 32%)",
+    "linear-gradient(145deg,#F6F0E6,#D9DEC9), radial-gradient(circle at 30% 70%,rgba(111,123,95,.28),transparent 30%)",
+    "linear-gradient(145deg,#8A5B45,#E3C8AD)",
+    "linear-gradient(145deg,#FFFDF8,#D8D0C3), radial-gradient(circle at 68% 72%,rgba(167,110,87,.24),transparent 30%)",
   ];
 
   return (
@@ -268,10 +264,10 @@ function DetailCard({ label, index }) {
       style={{ transitionDelay: `${index * 60}ms` }}
     >
       <div
-        className="h-56 rounded-[2rem] border border-[#D7CDBA] shadow-[0_24px_90px_rgba(39,39,32,0.07)] transition duration-500 group-hover:-translate-y-1 group-hover:shadow-[0_32px_110px_rgba(39,39,32,0.12)]"
+        className="h-56 rounded-[2rem] border border-[#D7CDBD] shadow-[0_24px_90px_rgba(37,37,31,0.07)] transition duration-500 group-hover:-translate-y-1 group-hover:shadow-[0_32px_110px_rgba(37,37,31,0.12)]"
         style={{ background: backgrounds[index % backgrounds.length] }}
       />
-      <p className="mt-4 text-sm text-[#756E61]">{label}</p>
+      <p className="mt-4 text-sm text-[#716B60]">{label}</p>
     </div>
   );
 }
@@ -286,19 +282,18 @@ export default function JaafarPortfolio() {
 
   const nav = useMemo(
     () => [
-      [t.nav[0], "#identity"],
+      [t.nav[0], "#profile"],
       [t.nav[1], "#work"],
-      [t.nav[2], "#method"],
-      [t.nav[3], "#focus"],
-      [t.nav[4], "#details"],
-      [t.nav[5], "#contact"],
+      [t.nav[2], "#thinking"],
+      [t.nav[3], "#details"],
+      [t.nav[4], "#contact"],
     ],
     [t.nav]
   );
 
   useEffect(() => {
     document.title = isAr ? "جعفر الرباط | بورتفوليو" : "Jaafar Al-Rabbat | Portfolio";
-    document.body.style.background = "#F8F3EA";
+    document.body.style.background = "#F6F0E6";
     document.documentElement.style.scrollBehavior = "smooth";
   }, [isAr]);
 
@@ -306,23 +301,23 @@ export default function JaafarPortfolio() {
     <div
       dir={isAr ? "rtl" : "ltr"}
       lang={lang}
-      className="min-h-screen overflow-x-hidden bg-[#F8F3EA] text-[#272720] selection:bg-[#D7BFA1]/60"
+      className="min-h-screen overflow-x-hidden bg-[#F6F0E6] text-[#25251F] selection:bg-[#C8A083]/50"
       style={{ fontFamily: isAr ? '"IBM Plex Sans Arabic", ui-sans-serif, system-ui' : 'Inter, ui-sans-serif, system-ui' }}
     >
-      <div className="pointer-events-none fixed inset-0 z-0 opacity-[0.50]" aria-hidden="true">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_8%,rgba(225,205,170,.72),transparent_27%),radial-gradient(circle_at_88%_4%,rgba(174,188,158,.45),transparent_30%),linear-gradient(180deg,rgba(255,255,255,.55),transparent_48%)]" />
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(39,39,32,.024)_1px,transparent_1px),linear-gradient(90deg,rgba(39,39,32,.024)_1px,transparent_1px)] bg-[size:48px_48px]" />
+      <div className="pointer-events-none fixed inset-0 z-0 opacity-[0.55]" aria-hidden="true">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_6%,rgba(216,208,195,.85),transparent_26%),radial-gradient(circle_at_87%_3%,rgba(95,125,138,.18),transparent_30%),radial-gradient(circle_at_90%_86%,rgba(167,110,87,.14),transparent_28%),linear-gradient(180deg,rgba(255,255,255,.55),transparent_48%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(37,37,31,.022)_1px,transparent_1px),linear-gradient(90deg,rgba(37,37,31,.022)_1px,transparent_1px)] bg-[size:46px_46px]" />
       </div>
 
-      <header className="sticky top-0 z-50 border-b border-[#D8D0BF]/70 bg-[#F8F3EA]/84 backdrop-blur-xl">
+      <header className="sticky top-0 z-50 border-b border-[#D8D0C3]/75 bg-[#F6F0E6]/84 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 sm:px-8 lg:px-12">
           <a href="#top" aria-label="Home">
-            <SignatureMark />
+            <Wordmark />
           </a>
 
           <nav className="hidden items-center gap-8 lg:flex">
             {nav.map(([label, href]) => (
-              <a key={href} href={href} className="text-sm text-[#5F594E] transition hover:text-[#272720]">
+              <a key={href} href={href} className="text-sm text-[#5D5A51] transition hover:text-[#25251F]">
                 {label}
               </a>
             ))}
@@ -332,13 +327,13 @@ export default function JaafarPortfolio() {
             <button
               type="button"
               onClick={() => setLang(lang === "en" ? "ar" : "en")}
-              className="rounded-full border border-[#D2C8B6] bg-[#FFFDF8] px-4 py-2 text-xs font-medium text-[#514C43] transition hover:-translate-y-0.5 hover:border-[#A9AD96]"
+              className="rounded-full border border-[#D7CDBD] bg-[#FFFDF8] px-4 py-2 text-xs font-medium text-[#514C43] transition hover:-translate-y-0.5 hover:border-[#8A5B45]/45"
             >
               {lang === "en" ? "AR" : "EN"}
             </button>
             <a
               href="#contact"
-              className="rounded-full bg-[#303026] px-5 py-2.5 text-sm font-medium text-[#FFFDF8] shadow-[0_18px_60px_rgba(48,48,38,.18)] transition hover:-translate-y-0.5 hover:bg-[#212119]"
+              className="rounded-full bg-[#25251F] px-5 py-2.5 text-sm font-medium text-[#FFFDF8] shadow-[0_18px_60px_rgba(37,37,31,.18)] transition hover:-translate-y-0.5 hover:bg-[#151510]"
             >
               {t.secondary}
             </a>
@@ -347,7 +342,7 @@ export default function JaafarPortfolio() {
           <button
             type="button"
             onClick={() => setOpen(!open)}
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-[#D2C8B6] bg-[#FFFDF8] lg:hidden"
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-[#D7CDBD] bg-[#FFFDF8] lg:hidden"
             aria-label="Open menu"
           >
             {open ? <XIcon className="h-5 w-5" /> : <MenuIcon className="h-5 w-5" />}
@@ -355,7 +350,7 @@ export default function JaafarPortfolio() {
         </div>
 
         {open && (
-          <div className="border-t border-[#D8D0BF]/70 bg-[#F8F3EA]/96 px-5 py-5 lg:hidden">
+          <div className="border-t border-[#D8D0C3]/75 bg-[#F6F0E6]/96 px-5 py-5 lg:hidden">
             <div className="mx-auto flex max-w-sm flex-col gap-2">
               {nav.map(([label, href]) => (
                 <a
@@ -370,7 +365,7 @@ export default function JaafarPortfolio() {
               <button
                 type="button"
                 onClick={() => setLang(lang === "en" ? "ar" : "en")}
-                className="mt-2 rounded-2xl border border-[#D2C8B6] bg-[#FFFDF8] px-4 py-3 text-start text-[#4F493F]"
+                className="mt-2 rounded-2xl border border-[#D7CDBD] bg-[#FFFDF8] px-4 py-3 text-start text-[#4F493F]"
               >
                 {lang === "en" ? "العربية" : "English"}
               </button>
@@ -384,23 +379,23 @@ export default function JaafarPortfolio() {
           <div className="mx-auto grid max-w-7xl items-center gap-16 lg:grid-cols-[1.08fr_.92fr]">
             <div data-reveal className="translate-y-6 opacity-0 transition-all duration-700 ease-out">
               <Kicker>{t.eyebrow}</Kicker>
-              <h1 className="mt-7 max-w-5xl font-serif text-5xl font-medium leading-[1.02] tracking-[-0.055em] text-[#272720] sm:text-7xl lg:text-8xl">
+              <h1 className="mt-7 max-w-5xl font-serif text-5xl font-medium leading-[1.02] tracking-[-0.058em] text-[#25251F] sm:text-7xl lg:text-8xl">
                 {t.title}
               </h1>
-              <p className="mt-8 max-w-2xl text-xl leading-9 text-[#5E594E]">{t.subtitle}</p>
-              <p className="mt-5 max-w-xl text-sm leading-7 text-[#7A7365]">{t.quietLine}</p>
+              <p className="mt-8 max-w-2xl text-xl leading-9 text-[#5D5A51]">{t.subtitle}</p>
+              <p className="mt-5 max-w-xl text-sm leading-7 text-[#716B60]">{t.note}</p>
 
               <div className="mt-10 flex flex-col gap-4 sm:flex-row">
                 <a
                   href="#work"
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#303026] px-6 py-3 text-sm font-medium text-[#FFFDF8] transition hover:-translate-y-0.5 hover:bg-[#212119]"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#25251F] px-6 py-3 text-sm font-medium text-[#FFFDF8] transition hover:-translate-y-0.5 hover:bg-[#151510]"
                 >
                   {t.primary}
                   <Arrow className={cx("h-4 w-4", isAr && "rotate-180")} />
                 </a>
                 <a
                   href="#contact"
-                  className="inline-flex items-center justify-center rounded-full border border-[#D2C8B6] bg-[#FFFDF8]/70 px-6 py-3 text-sm font-medium text-[#303026] transition hover:-translate-y-0.5 hover:border-[#A9AD96]"
+                  className="inline-flex items-center justify-center rounded-full border border-[#D7CDBD] bg-[#FFFDF8]/70 px-6 py-3 text-sm font-medium text-[#25251F] transition hover:-translate-y-0.5 hover:border-[#8A5B45]/45"
                 >
                   {t.secondary}
                 </a>
@@ -408,35 +403,21 @@ export default function JaafarPortfolio() {
             </div>
 
             <div data-reveal className="translate-y-6 opacity-0 transition-all delay-150 duration-700 ease-out">
-              <div className="relative mx-auto max-w-md">
-                <div className="absolute -inset-8 rounded-[3.5rem] bg-[#E5D4B9]/60 blur-3xl" />
-                <div className="relative overflow-hidden rounded-[2.7rem] border border-[#D5CBB8] bg-[#FFFDF8] p-5 shadow-[0_34px_120px_rgba(39,39,32,0.13)]">
-                  <div className="relative flex h-[440px] items-center justify-center overflow-hidden rounded-[2.2rem] border border-[#E4DCCF] bg-[radial-gradient(circle_at_30%_22%,rgba(232,210,174,.95),transparent_30%),radial-gradient(circle_at_72%_68%,rgba(151,167,133,.45),transparent_34%),linear-gradient(145deg,#F8F3EA,#E7DCC9)]">
-                    <div className="absolute left-10 top-12 h-32 w-px bg-[#6F775F]/25" />
-                    <div className="absolute bottom-16 right-12 h-20 w-20 rounded-full border border-[#B78368]/35" />
-                    <div className="absolute bottom-20 left-12 h-1 w-32 rounded-full bg-[#B78368]/25" />
-                    <HeroMark />
-                  </div>
-                  <div className="absolute bottom-10 left-10 right-10 rounded-[1.6rem] border border-white/55 bg-[#FFFDF8]/76 p-5 shadow-[0_20px_70px_rgba(39,39,32,.12)] backdrop-blur-xl">
-                    <p className="font-serif text-2xl tracking-[-0.035em] text-[#272720]">Structure with feeling.</p>
-                    <p className="mt-2 text-sm leading-6 text-[#645E52]">Visual restraint, bilingual clarity, and practical launch experience.</p>
-                  </div>
-                </div>
-              </div>
+              <VisualPlate />
             </div>
           </div>
         </section>
 
-        <Section id="identity">
+        <Section id="profile">
           <div className="grid gap-12 lg:grid-cols-[.82fr_1.18fr] lg:items-start">
-            <SectionTitle kicker={t.identityKicker} title={t.identityTitle} />
+            <SectionTitle kicker={t.profileKicker} title={t.profileTitle} />
             <div data-reveal className="translate-y-6 opacity-0 transition-all duration-700 ease-out">
-              <div className="rounded-[2.4rem] border border-[#D8D0BF] bg-[#FFFDF8]/75 p-8 shadow-[0_24px_80px_rgba(39,39,32,0.06)] lg:p-10">
-                <p className="text-xl leading-9 text-[#4F493F]">{t.identityText}</p>
+              <div className="rounded-[2.4rem] border border-[#D8D0C3] bg-[#FFFDF8]/75 p-8 shadow-[0_24px_80px_rgba(37,37,31,0.06)] lg:p-10">
+                <p className="text-xl leading-9 text-[#4F493F]">{t.profileText}</p>
                 <div className="mt-10 grid gap-4 md:grid-cols-3">
-                  {t.identityCards.map(([title, text]) => (
-                    <div key={title} className="rounded-3xl border border-[#E2DACD] bg-[#F8F3EA]/78 p-5">
-                      <h3 className="font-serif text-2xl tracking-[-0.035em] text-[#303026]">{title}</h3>
+                  {t.profileCards.map(([title, text]) => (
+                    <div key={title} className="rounded-3xl border border-[#E2DACD] bg-[#F6F0E6]/78 p-5">
+                      <h3 className="font-serif text-2xl tracking-[-0.035em] text-[#25251F]">{title}</h3>
                       <p className="mt-3 text-sm leading-7 text-[#686154]">{text}</p>
                     </div>
                   ))}
@@ -449,29 +430,29 @@ export default function JaafarPortfolio() {
         <Section id="work">
           <SectionTitle kicker={t.workKicker} title={t.workTitle} text={t.workText} center />
           <div data-reveal className="mt-14 translate-y-6 opacity-0 transition-all duration-700 ease-out">
-            <div className="overflow-hidden rounded-[3rem] border border-[#D8D0BF] bg-[#FFFDF8]/78 shadow-[0_30px_110px_rgba(39,39,32,0.09)]">
+            <div className="overflow-hidden rounded-[3rem] border border-[#D8D0C3] bg-[#FFFDF8]/78 shadow-[0_30px_110px_rgba(37,37,31,0.09)]">
               <div className="grid gap-0 lg:grid-cols-[.9fr_1.1fr]">
-                <div className="min-h-[360px] bg-[radial-gradient(circle_at_25%_25%,rgba(229,209,176,.92),transparent_31%),radial-gradient(circle_at_75%_72%,rgba(150,166,132,.38),transparent_35%),linear-gradient(145deg,#F8F3EA,#E8DDCA)] p-8 lg:p-10">
+                <div className="min-h-[360px] bg-[radial-gradient(circle_at_25%_25%,rgba(216,208,195,.92),transparent_31%),radial-gradient(circle_at_75%_72%,rgba(95,125,138,.30),transparent_35%),linear-gradient(145deg,#F6F0E6,#D8D0C3)] p-8 lg:p-10">
                   <div className="flex h-full flex-col justify-between rounded-[2.2rem] border border-white/55 bg-[#FFFDF8]/42 p-6 backdrop-blur-sm">
                     <div>
-                      <p className="text-xs uppercase tracking-[0.26em] text-[#78806B]">Case Study</p>
-                      <h3 className="mt-5 font-serif text-4xl tracking-[-0.05em] text-[#272720] sm:text-5xl">{t.workName}</h3>
+                      <p className="text-xs uppercase tracking-[0.26em] text-[#6F7764]">Case Study</p>
+                      <h3 className="mt-5 font-serif text-4xl tracking-[-0.05em] text-[#25251F] sm:text-5xl">{t.projectTitle}</h3>
                     </div>
-                    <p className="mt-8 text-sm leading-7 text-[#5E594E]">{t.workMeta}</p>
+                    <p className="mt-8 text-sm leading-7 text-[#5D5A51]">{t.projectMeta}</p>
                   </div>
                 </div>
                 <div className="p-8 lg:p-12">
                   <div className="grid gap-4">
-                    {t.workBullets.map((item) => (
-                      <div key={item} className="flex gap-4 rounded-3xl border border-[#E2DACD] bg-[#F8F3EA]/62 p-5">
-                        <span className="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-[#B78368]" />
+                    {t.bullets.map((item) => (
+                      <div key={item} className="flex gap-4 rounded-3xl border border-[#E2DACD] bg-[#F6F0E6]/62 p-5">
+                        <span className="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-[#A76E57]" />
                         <p className="leading-7 text-[#4F493F]">{item}</p>
                       </div>
                     ))}
                   </div>
                   <a
                     href="https://syrianhumanists.org/"
-                    className="mt-8 inline-flex items-center gap-2 rounded-full bg-[#303026] px-6 py-3 text-sm font-medium text-[#FFFDF8] transition hover:-translate-y-0.5 hover:bg-[#212119]"
+                    className="mt-8 inline-flex items-center gap-2 rounded-full bg-[#25251F] px-6 py-3 text-sm font-medium text-[#FFFDF8] transition hover:-translate-y-0.5 hover:bg-[#151510]"
                   >
                     {t.live}
                     <Arrow className={cx("h-4 w-4", isAr && "rotate-180")} />
@@ -482,38 +463,23 @@ export default function JaafarPortfolio() {
           </div>
         </Section>
 
-        <Section id="method">
-          <SectionTitle kicker={t.methodKicker} title={t.methodTitle} center />
-          <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-5">
-            {t.steps.map(([number, title, text], index) => (
-              <div
-                key={number}
-                data-reveal
-                className="translate-y-6 rounded-[2rem] border border-[#D8D0BF] bg-[#FFFDF8]/70 p-6 opacity-0 shadow-[0_18px_70px_rgba(39,39,32,0.05)] transition-all duration-700 ease-out"
-                style={{ transitionDelay: `${index * 55}ms` }}
-              >
-                <p className="font-serif text-3xl text-[#B78368]">{number}</p>
-                <h3 className="mt-5 font-serif text-2xl tracking-[-0.035em] text-[#303026]">{title}</h3>
-                <p className="mt-3 text-sm leading-7 text-[#686154]">{text}</p>
-              </div>
-            ))}
-          </div>
-        </Section>
-
-        <Section id="focus">
-          <div className="grid gap-12 lg:grid-cols-[.85fr_1.15fr]">
-            <SectionTitle kicker={t.focusKicker} title={t.focusTitle} />
-            <div className="grid gap-3">
-              {t.focus.map(([title, desc], index) => (
+        <Section id="thinking">
+          <div className="grid gap-12 lg:grid-cols-[.85fr_1.15fr] lg:items-start">
+            <SectionTitle kicker={t.thinkingKicker} title={t.thinkingTitle} text={t.thinkingText} />
+            <div className="grid gap-4">
+              {t.steps.map(([number, title, text], index) => (
                 <div
-                  key={title}
+                  key={number}
                   data-reveal
-                  className="translate-y-6 rounded-3xl border border-[#D8D0BF] bg-[#FFFDF8]/62 p-5 opacity-0 transition-all duration-700 ease-out hover:bg-[#FFFDF8]"
-                  style={{ transitionDelay: `${index * 45}ms` }}
+                  className="translate-y-6 rounded-[2rem] border border-[#D8D0C3] bg-[#FFFDF8]/70 p-6 opacity-0 shadow-[0_18px_70px_rgba(37,37,31,0.05)] transition-all duration-700 ease-out"
+                  style={{ transitionDelay: `${index * 55}ms` }}
                 >
-                  <div className="grid gap-3 sm:grid-cols-[.34fr_.66fr]">
-                    <h3 className="font-serif text-2xl tracking-[-0.035em] text-[#303026]">{title}</h3>
-                    <p className="leading-7 text-[#625C50]">{desc}</p>
+                  <div className="grid gap-5 sm:grid-cols-[.22fr_.78fr]">
+                    <p className="font-serif text-3xl text-[#A76E57]">{number}</p>
+                    <div>
+                      <h3 className="font-serif text-2xl tracking-[-0.035em] text-[#25251F]">{title}</h3>
+                      <p className="mt-3 text-sm leading-7 text-[#686154]">{text}</p>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -532,24 +498,24 @@ export default function JaafarPortfolio() {
 
         <Section id="contact" className="pb-16">
           <div data-reveal className="translate-y-6 opacity-0 transition-all duration-700 ease-out">
-            <div className="rounded-[3rem] border border-[#D8D0BF] bg-[#303026] p-8 text-[#FFFDF8] shadow-[0_34px_120px_rgba(39,39,32,.18)] sm:p-12 lg:p-16">
+            <div className="rounded-[3rem] border border-[#D8D0C3] bg-[#25251F] p-8 text-[#FFFDF8] shadow-[0_34px_120px_rgba(37,37,31,.18)] sm:p-12 lg:p-16">
               <div className="grid gap-10 lg:grid-cols-[1fr_.7fr] lg:items-end">
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#C9D0B4]">{t.contactKicker}</p>
+                  <Kicker light>{t.contactKicker}</Kicker>
                   <h2 className="mt-6 max-w-4xl font-serif text-4xl font-medium tracking-[-0.045em] sm:text-6xl">
                     {t.contactTitle}
                   </h2>
-                  <p className="mt-6 max-w-2xl text-lg leading-8 text-[#EEE6D7]/82">{t.contactText}</p>
+                  <p className="mt-6 max-w-2xl text-lg leading-8 text-[#EDE6DA]/82">{t.contactText}</p>
                 </div>
                 <div className="lg:text-end">
                   <a
                     href={`mailto:${profile.email}`}
-                    className="inline-flex items-center justify-center gap-2 rounded-full bg-[#FFFDF8] px-6 py-3 text-sm font-medium text-[#303026] transition hover:-translate-y-0.5 hover:bg-[#F8F3EA]"
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-[#FFFDF8] px-6 py-3 text-sm font-medium text-[#25251F] transition hover:-translate-y-0.5 hover:bg-[#F6F0E6]"
                   >
                     {t.contactButton}
                     <Arrow className={cx("h-4 w-4", isAr && "rotate-180")} />
                   </a>
-                  <p className="mt-5 text-sm text-[#EEE6D7]/62">{t.final}</p>
+                  <p className="mt-5 text-sm text-[#EDE6DA]/62">{t.final}</p>
                 </div>
               </div>
             </div>
@@ -557,8 +523,8 @@ export default function JaafarPortfolio() {
         </Section>
       </main>
 
-      <footer className="relative z-10 border-t border-[#D8D0BF]/80 px-5 py-10 sm:px-8 lg:px-12">
-        <div className="mx-auto flex max-w-7xl flex-col justify-between gap-5 text-sm text-[#756E61] sm:flex-row">
+      <footer className="relative z-10 border-t border-[#D8D0C3]/80 px-5 py-10 sm:px-8 lg:px-12">
+        <div className="mx-auto flex max-w-7xl flex-col justify-between gap-5 text-sm text-[#716B60] sm:flex-row">
           <p>© {new Date().getFullYear()} Jaafar Al-Rabbat</p>
           <p>Quiet work. Clear presence. Human detail.</p>
         </div>
