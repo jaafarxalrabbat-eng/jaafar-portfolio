@@ -1,146 +1,145 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 const content = {
   en: {
-    nav: [
-      ["About", "#about"],
-      ["Work", "#work"],
-      ["Skills", "#skills"],
-      ["Process", "#process"],
-      ["Contact", "#contact"],
-    ],
-    cta: "Start a Project",
-    badge: "Bilingual digital identity builder",
-    heroTitle: "Bilingual websites for meaningful digital identities.",
+    nav: ["About", "Work", "Focus", "Approach", "Details", "Contact"],
+    eyebrow: "Personal Portfolio / Quiet Digital Identity",
+    heroTitle: "A calm presence for thoughtful work.",
     heroText:
-      "I build calm, credible, Arabic-English websites for initiatives, portfolios, and meaningful projects — combining clear content, thoughtful design, CMS-ready structure, SEO basics, and live deployment.",
-    primary: "View My Work",
-    secondary: "Contact Me",
-    tags: ["Arabic / English", "RTL / LTR", "React + Vite", "CMS-ready"],
-
-    aboutLabel: "About",
-    aboutTitle: "I turn ideas into clear digital presence.",
-    aboutText1:
-      "My work sits between content, design, and practical web building. I focus on websites that need clarity, trust, and a calm public identity — especially bilingual Arabic-English projects.",
-    aboutText2:
-      "I am not presenting myself as a full-stack developer. I am building practical front-end and CMS-based websites with strong attention to language, structure, visual identity, and launch readiness.",
-    aboutCards: [
-      ["Focus", "Bilingual websites and digital identity"],
-      ["Strength", "Clear structure, calm design, meaningful content"],
-      ["Tools", "React, Vite, Tailwind, Sanity, GitHub"],
+      "A refined personal portfolio for work shaped by observation, clarity, language, visual judgment, and human-centered thinking.",
+    heroNote: "Built around quiet confidence, precise choices, and small details that carry meaning.",
+    primary: "View Work",
+    secondary: "Get in Touch",
+    aboutTitle: "Thoughtful, observant, and careful with meaning.",
+    aboutText:
+      "This portfolio is designed for a person who works with ideas, language, structure, and visual sensitivity. It avoids noise and performance, choosing instead a calm and precise digital identity.",
+    aboutStats: [
+      ["01", "Clear thinking"],
+      ["02", "Human-centered work"],
+      ["03", "Visual restraint"],
     ],
-
-    workLabel: "Featured Work",
-    workTitle: "Syrian Humanists Website",
-    workText:
-      "A bilingual Arabic-English website for an independent initiative, built with React, Vite, Sanity CMS, dark/light mode, RTL/LTR support, SEO setup, and live deployment.",
-    workBullets: [
-      "Designed a bilingual public identity",
-      "Built a responsive React/Vite website",
-      "Connected editable content through Sanity CMS",
-      "Handled build issues, deployment, and domain setup",
+    workTitle: "Selected work",
+    workIntro:
+      "Each project is presented as a small case study: clear purpose, thoughtful structure, and a quiet visual system.",
+    projects: [
+      {
+        title: "Bilingual Initiative Website",
+        year: "2026",
+        role: "Structure / Web Design / CMS",
+        desc: "A calm public website for a meaningful initiative, shaped around clarity, bilingual content, and a credible visual identity.",
+      },
+      {
+        title: "Personal Identity System",
+        year: "2026",
+        role: "Direction / Writing / Visual Judgment",
+        desc: "A refined personal presence built through restrained typography, soft colors, and careful content hierarchy.",
+      },
+      {
+        title: "Editorial Landing Page",
+        year: "2026",
+        role: "Content / Front-End / Launch",
+        desc: "A single-page digital space designed to communicate trust, purpose, and attention without visual pressure.",
+      },
     ],
-    liveWebsite: "Live Website",
-    caseStudy: "Case Study",
-
-    skillsLabel: "Skills",
-    skillsTitle: "Practical skills I can show through real work",
-    skills: [
-      ["⚛️", "React / Vite", "Building modern front-end websites with reusable components."],
-      ["🌍", "Arabic / English", "Structuring websites for both RTL and LTR experiences."],
-      ["🎛️", "CMS Setup", "Connecting websites to editable content systems like Sanity."],
-      ["🔎", "SEO Basics", "Setting titles, descriptions, metadata, and index-ready structure."],
-      ["🌓", "Dark / Light Mode", "Designing interfaces that feel polished in both modes."],
-      ["🚀", "Deployment", "Preparing builds, fixing errors, and publishing live websites."],
+    focusTitle: "Areas of attention",
+    focusIntro:
+      "Skills are treated here as forms of attention: how work is read, shaped, clarified, and made usable.",
+    focus: [
+      ["Research", "Finding the important signal beneath scattered information."],
+      ["Writing", "Making language clear, calm, and useful."],
+      ["Strategy", "Turning loose ideas into a coherent direction."],
+      ["Visual Judgment", "Choosing what feels balanced, mature, and human."],
+      ["Communication", "Saying enough without overexplaining."],
+      ["Legal Thinking", "Reading structure, risk, evidence, and consequence."],
+      ["Human-Centered Work", "Keeping dignity and context present in practical decisions."],
     ],
-
-    processLabel: "Process",
-    processTitle: "How I build a clear website",
-    process: [
-      ["01", "Clarify the idea", "Define the purpose, audience, tone, and message before touching design."],
-      ["02", "Structure the content", "Turn the idea into sections, hierarchy, and readable bilingual copy."],
-      ["03", "Build the interface", "Create a responsive, calm, and credible React/Vite website."],
-      ["04", "Prepare for launch", "Check SEO basics, build errors, deployment, and domain connection."],
+    approachTitle: "A quiet way of working",
+    approachLines: [
+      "Notice before deciding.",
+      "Remove what is only noise.",
+      "Let structure carry emotion calmly.",
+      "Make the work useful before making it impressive.",
+      "Leave enough space for the person reading.",
     ],
-
-    contactLabel: "Contact",
-    contactTitle: "Have a project that needs a clear website?",
+    detailsTitle: "Small details, not decoration",
+    detailsIntro:
+      "A visual rhythm inspired by soft light, paper texture, muted nature, quiet rooms, and the dignity of restraint.",
+    detailLabels: ["Soft light", "Quiet texture", "River reflection", "Muted flowers", "Calm room", "Paper shadow"],
+    contactTitle: "For thoughtful projects and quiet collaboration.",
     contactText:
-      "If you have an initiative, portfolio, organization, or digital identity that needs a calm bilingual website, I’m open to thoughtful collaboration.",
-    contactButton: "Send an Email",
-    footer:
-      "Jaafar Al-Rabbat — bilingual websites for meaningful digital identities.",
+      "Reach out for a calm conversation about a project, identity, website, or piece of work that needs clarity and care.",
+    contactButton: "hello@example.com",
+    finalLine: "No pressure. Just a clear beginning.",
   },
-
   ar: {
-    nav: [
-      ["من أنا", "#about"],
-      ["الأعمال", "#work"],
-      ["المهارات", "#skills"],
-      ["المنهج", "#process"],
-      ["تواصل", "#contact"],
-    ],
-    cta: "ابدأ مشروعاً",
-    badge: "بناء هويات رقمية ثنائية اللغة",
-    heroTitle: "مواقع ثنائية اللغة لهويات رقمية ذات معنى.",
+    nav: ["من أنا", "الأعمال", "التركيز", "المنهج", "التفاصيل", "تواصل"],
+    eyebrow: "بورتفوليو شخصي / هوية رقمية هادئة",
+    heroTitle: "حضور هادئ لعملٍ يحتاج إلى تفكير.",
     heroText:
-      "أبني مواقع هادئة وموثوقة بالعربية والإنجليزية للمبادرات، البورتفوليو، والمشاريع ذات المعنى — تجمع بين المحتوى الواضح، التصميم المتزن، قابلية التعديل، أساسيات SEO، والنشر المباشر.",
-    primary: "شاهد أعمالي",
-    secondary: "تواصل معي",
-    tags: ["عربي / إنجليزي", "RTL / LTR", "React + Vite", "قابل للتعديل"],
-
-    aboutLabel: "من أنا",
-    aboutTitle: "أحوّل الأفكار إلى حضور رقمي واضح.",
-    aboutText1:
-      "عملي يقع بين المحتوى، التصميم، وبناء المواقع العملية. أركز على المواقع التي تحتاج وضوحاً، ثقة، وهوية عامة هادئة — خصوصاً المشاريع ثنائية اللغة عربي/إنجليزي.",
-    aboutText2:
-      "لا أقدّم نفسي كمطور Full-stack. أعمل على بناء مواقع عملية تعتمد على الواجهة الأمامية وأنظمة إدارة المحتوى، مع اهتمام قوي باللغة، البنية، الهوية البصرية، والاستعداد للنشر.",
-    aboutCards: [
-      ["التركيز", "مواقع ثنائية اللغة وهوية رقمية"],
-      ["القوة", "بنية واضحة، تصميم هادئ، محتوى ذو معنى"],
-      ["الأدوات", "React, Vite, Tailwind, Sanity, GitHub"],
+      "بورتفوليو شخصي مصقول لعمل يتشكل عبر الملاحظة، الوضوح، اللغة، الذوق البصري، والتفكير الإنساني.",
+    heroNote: "مبني حول ثقة هادئة، اختيارات دقيقة، وتفاصيل صغيرة تحمل معنى.",
+    primary: "شاهد الأعمال",
+    secondary: "تواصل",
+    aboutTitle: "تفكير هادئ، ملاحظة دقيقة، وعناية بالمعنى.",
+    aboutText:
+      "هذا البورتفوليو مصمم لشخص يعمل مع الأفكار، اللغة، البنية، والحس البصري. لا يعتمد على الضجيج أو الاستعراض، بل على هوية رقمية هادئة ودقيقة.",
+    aboutStats: [
+      ["01", "تفكير واضح"],
+      ["02", "عمل إنساني المركز"],
+      ["03", "بساطة بصرية"],
     ],
-
-    workLabel: "عمل بارز",
-    workTitle: "موقع Syrian Humanists",
-    workText:
-      "موقع ثنائي اللغة عربي/إنجليزي لمبادرة مستقلة، مبني باستخدام React وVite وSanity CMS، مع وضع داكن/فاتح، دعم RTL/LTR، إعداد SEO، ونشر مباشر.",
-    workBullets: [
-      "بناء هوية عامة ثنائية اللغة",
-      "تطوير موقع متجاوب باستخدام React/Vite",
-      "ربط المحتوى بلوحة تعديل Sanity CMS",
-      "حل أخطاء البناء والنشر وربط الدومين",
+    workTitle: "أعمال مختارة",
+    workIntro:
+      "كل مشروع يُعرض كدراسة حالة صغيرة: هدف واضح، بنية مدروسة، ونظام بصري هادئ.",
+    projects: [
+      {
+        title: "موقع مبادرة ثنائي اللغة",
+        year: "2026",
+        role: "بنية / تصميم ويب / CMS",
+        desc: "موقع عام هادئ لمبادرة ذات معنى، مبني حول الوضوح، المحتوى ثنائي اللغة، وهوية بصرية موثوقة.",
+      },
+      {
+        title: "نظام هوية شخصية",
+        year: "2026",
+        role: "توجيه / كتابة / ذوق بصري",
+        desc: "حضور شخصي مصقول من خلال خط هادئ، ألوان ناعمة، وترتيب محتوى دقيق.",
+      },
+      {
+        title: "صفحة تعريفية تحريرية",
+        year: "2026",
+        role: "محتوى / واجهة / إطلاق",
+        desc: "مساحة رقمية من صفحة واحدة مصممة للتعبير عن الثقة، المعنى، والانتباه دون ضغط بصري.",
+      },
     ],
-    liveWebsite: "الموقع المباشر",
-    caseStudy: "دراسة الحالة",
-
-    skillsLabel: "المهارات",
-    skillsTitle: "مهارات عملية يمكن إثباتها من خلال عمل حقيقي",
-    skills: [
-      ["⚛️", "React / Vite", "بناء مواقع حديثة بواجهة أمامية ومكوّنات قابلة لإعادة الاستخدام."],
-      ["🌍", "العربية / الإنجليزية", "هيكلة مواقع تدعم اتجاهي RTL وLTR بشكل واضح."],
-      ["🎛️", "إعداد CMS", "ربط المواقع بأنظمة تعديل محتوى مثل Sanity."],
-      ["🔎", "أساسيات SEO", "إعداد العناوين، الوصف، البيانات الوصفية، وبنية قابلة للفهرسة."],
-      ["🌓", "الوضع الداكن والفاتح", "تصميم واجهات تبدو مصقولة في الوضعين."],
-      ["🚀", "النشر", "تحضير build، حل الأخطاء، ونشر المواقع على الدومين."],
+    focusTitle: "مجالات الانتباه",
+    focusIntro:
+      "تُعرض المهارات هنا كأشكال من الانتباه: كيف يُقرأ العمل، يُنظّم، يُوضّح، ويصبح قابلاً للاستخدام.",
+    focus: [
+      ["البحث", "استخراج الإشارة المهمة من معلومات متفرقة."],
+      ["الكتابة", "جعل اللغة واضحة، هادئة، ومفيدة."],
+      ["الاستراتيجية", "تحويل الأفكار المفتوحة إلى اتجاه متماسك."],
+      ["الحكم البصري", "اختيار ما يبدو متوازناً، ناضجاً، وإنسانياً."],
+      ["التواصل", "قول ما يكفي دون إفراط في الشرح."],
+      ["التفكير القانوني", "قراءة البنية، المخاطر، الأدلة، والنتائج."],
+      ["العمل الإنساني المركز", "إبقاء الكرامة والسياق حاضرَين في القرارات العملية."],
     ],
-
-    processLabel: "المنهج",
-    processTitle: "كيف أبني موقعاً واضحاً",
-    process: [
-      ["01", "توضيح الفكرة", "تحديد الهدف، الجمهور، النبرة، والرسالة قبل التصميم."],
-      ["02", "بناء المحتوى", "تحويل الفكرة إلى أقسام، ترتيب، ونص ثنائي اللغة قابل للقراءة."],
-      ["03", "تطوير الواجهة", "بناء موقع React/Vite متجاوب، هادئ، وموثوق بصرياً."],
-      ["04", "التحضير للنشر", "فحص SEO الأساسي، أخطاء البناء، النشر، وربط الدومين."],
+    approachTitle: "طريقة عمل هادئة",
+    approachLines: [
+      "لاحظ قبل أن تقرر.",
+      "احذف ما ليس إلا ضجيجاً.",
+      "دع البنية تحمل الشعور بهدوء.",
+      "اجعل العمل مفيداً قبل أن تجعله مثيراً للإعجاب.",
+      "اترك مساحة كافية لمن يقرأ.",
     ],
-
-    contactLabel: "تواصل",
-    contactTitle: "هل لديك مشروع يحتاج إلى موقع واضح؟",
+    detailsTitle: "تفاصيل صغيرة، لا زينة زائدة",
+    detailsIntro:
+      "إيقاع بصري مستوحى من الضوء الناعم، ملمس الورق، الطبيعة الهادئة، الغرف الساكنة، وكرامة البساطة.",
+    detailLabels: ["ضوء ناعم", "ملمس هادئ", "انعكاس نهر", "زهور خافتة", "غرفة ساكنة", "ظل الورق"],
+    contactTitle: "للمشاريع الهادئة والتعاون المدروس.",
     contactText:
-      "إذا كان لديك مبادرة، بورتفوليو، منظمة، أو هوية رقمية تحتاج إلى موقع هادئ ثنائي اللغة، فأنا منفتح على تعاون جاد وعملي.",
-    contactButton: "أرسل إيميل",
-    footer:
-      "جعفر الرباط — مواقع ثنائية اللغة لهويات رقمية ذات معنى.",
+      "تواصل من أجل حديث هادئ حول مشروع، هوية، موقع، أو عمل يحتاج إلى وضوح وعناية.",
+    contactButton: "hello@example.com",
+    finalLine: "لا ضغط. فقط بداية واضحة.",
   },
 };
 
@@ -148,11 +147,11 @@ function cx(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-function ArrowIcon({ className = "" }) {
+function Arrow({ className = "" }) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M5 12h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-      <path d="m13 6 6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M5 12h14" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      <path d="m13 6 6 6-6 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
@@ -160,7 +159,7 @@ function ArrowIcon({ className = "" }) {
 function MenuIcon({ className = "" }) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+      <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
     </svg>
   );
 }
@@ -168,690 +167,358 @@ function MenuIcon({ className = "" }) {
 function XIcon({ className = "" }) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M6 6l12 12M18 6 6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+      <path d="M6 6l12 12M18 6 6 18" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
     </svg>
   );
 }
 
-function MoonIcon({ className = "" }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M20 14.2A7.8 7.8 0 0 1 9.8 4a8.5 8.5 0 1 0 10.2 10.2Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function SunIcon({ className = "" }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="2" />
-      <path d="M12 2v2M12 20v2M4 12H2M22 12h-2M5 5l1.5 1.5M17.5 17.5 19 19M19 5l-1.5 1.5M6.5 17.5 5 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function MailIcon({ className = "" }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M4 6h16v12H4V6Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
-      <path d="m4 7 8 6 8-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function Monogram({ isDark }) {
-  return (
-    <div className="flex items-center gap-3">
-      <div
-        className={cx(
-          "relative flex h-12 w-12 items-center justify-center rounded-2xl border font-black tracking-tight shadow-sm",
-          isDark
-            ? "border-[#7CCBAE]/20 bg-[#102129] text-[#7CCBAE]"
-            : "border-[#195C85]/15 bg-white text-[#195C85]"
-        )}
-      >
-        <span className="text-lg">JA</span>
-        <span className="absolute -right-1 -top-1 h-3 w-3 rounded-full bg-[#F1912E]" />
-      </div>
-
-      <div className="leading-tight">
-        <p className={cx("text-sm font-extrabold", isDark ? "text-[#EAF2F5]" : "text-[#14232B]")}>
-          Jaafar Al-Rabbat
-        </p>
-        <p className="text-xs font-semibold text-[#25A77A]">
-          Bilingual Web Identity
-        </p>
-      </div>
-    </div>
-  );
-}
-
-function ThemeToggle({ isDark, setIsDark, isAr }) {
-  return (
-    <button
-      type="button"
-      onClick={() => setIsDark(!isDark)}
-      className={cx(
-        "inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-bold shadow-sm transition hover:-translate-y-0.5",
-        isDark
-          ? "border-[#7CCBAE]/20 bg-[#12252D] text-[#F8FAF7] hover:bg-[#17313B]"
-          : "border-[#195C85]/15 bg-white text-[#195C85] hover:bg-[#F8FAF7]"
-      )}
-    >
-      {isDark ? <SunIcon className="h-4 w-4" /> : <MoonIcon className="h-4 w-4" />}
-      <span>{isAr ? (isDark ? "فاتح" : "داكن") : isDark ? "Light" : "Dark"}</span>
-    </button>
-  );
-}
-
-function LanguageToggle({ lang, setLang, isDark }) {
-  return (
-    <div
-      className={cx(
-        "flex items-center rounded-full border p-1 text-xs font-bold shadow-sm",
-        isDark ? "border-[#7CCBAE]/15 bg-[#102129]" : "border-[#195C85]/15 bg-white"
-      )}
-    >
-      <button
-        type="button"
-        onClick={() => setLang("en")}
-        className={cx(
-          "rounded-full px-3 py-2 transition",
-          lang === "en"
-            ? "bg-[#195C85] text-white"
-            : isDark
-            ? "text-[#EAF2F5] hover:bg-[#17313B]"
-            : "text-[#195C85] hover:bg-[#F8FAF7]"
-        )}
-      >
-        EN
-      </button>
-      <button
-        type="button"
-        onClick={() => setLang("ar")}
-        className={cx(
-          "rounded-full px-3 py-2 transition",
-          lang === "ar"
-            ? "bg-[#195C85] text-white"
-            : isDark
-            ? "text-[#EAF2F5] hover:bg-[#17313B]"
-            : "text-[#195C85] hover:bg-[#F8FAF7]"
-        )}
-      >
-        AR
-      </button>
-    </div>
-  );
-}
-
-function SectionLabel({ children, isDark }) {
-  return (
-    <div
-      className={cx(
-        "mb-4 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold shadow-sm",
-        isDark
-          ? "border-[#7CCBAE]/20 bg-[#102129]/80 text-[#7CCBAE]"
-          : "border-[#7CCBAE]/40 bg-white/80 text-[#195C85]"
-      )}
-    >
-      <span className="h-2 w-2 rounded-full bg-[#F1912E]" />
-      {children}
-    </div>
-  );
-}
-
-function Button({ children, href, variant = "primary", isAr = false, isDark = false }) {
-  const base =
-    "inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-bold transition-all duration-300 focus:outline-none focus:ring-4";
-
-  const styles =
-    variant === "primary"
-      ? "bg-[#195C85] text-white shadow-lg shadow-[#195C85]/20 hover:-translate-y-0.5 hover:bg-[#144b6d] focus:ring-[#7CCBAE]/40"
-      : isDark
-      ? "border border-[#7CCBAE]/20 bg-[#102129] text-[#EAF2F5] hover:-translate-y-0.5 hover:bg-[#132833] focus:ring-[#7CCBAE]/30"
-      : "border border-[#195C85]/20 bg-white text-[#195C85] hover:-translate-y-0.5 hover:border-[#25A77A]/40 hover:bg-[#F8FAF7] focus:ring-[#7CCBAE]/30";
-
-  return (
-    <a href={href} className={`${base} ${styles}`}>
-      {children}
-      <ArrowIcon className={`h-4 w-4 ${isAr ? "rotate-180" : ""}`} />
-    </a>
-  );
-}
-
-function HeroTitle({ title, isAr, isDark }) {
-  const titleClass = `max-w-5xl font-bold tracking-tight ${
-    isDark ? "text-[#7CB6D6]" : "text-[#195C85]"
-  } ${
-    isAr
-      ? "text-4xl leading-[1.22] sm:text-5xl lg:text-6xl"
-      : "text-4xl leading-[1.12] sm:text-5xl lg:text-6xl"
-  }`;
-
-  return (
-    <h1 className={titleClass}>
-      {title
-        .split(/(meaningful|digital identities|ذات معنى|رقمية)/g)
-        .map((part, index) => {
-          if (part === "meaningful" || part === "ذات معنى") {
-            return (
-              <span key={index} className="text-[#25A77A]">
-                {part}
-              </span>
-            );
-          }
-
-          if (part === "digital identities" || part === "رقمية") {
-            return (
-              <span key={index} className="text-[#F1912E]">
-                {part}
-              </span>
-            );
-          }
-
-          return <React.Fragment key={index}>{part}</React.Fragment>;
-        })}
-    </h1>
-  );
-}
-
-function AmbientAura({ isAr = false, isDark = false }) {
-  return (
-    <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
-      <div
-        className="absolute -left-40 -top-44 h-[440px] w-[440px] rounded-full blur-3xl"
-        style={{
-          background: isDark
-            ? "radial-gradient(circle, rgba(124,203,174,0.18) 0%, rgba(124,203,174,0.08) 38%, rgba(124,203,174,0) 72%)"
-            : "radial-gradient(circle, rgba(124,203,174,0.34) 0%, rgba(124,203,174,0.14) 38%, rgba(124,203,174,0) 72%)",
-        }}
-      />
-
-      <div
-        className={`absolute bottom-[-180px] h-[430px] w-[430px] rounded-full blur-3xl ${
-          isAr ? "-left-32" : "-right-32"
-        }`}
-        style={{
-          background: isDark
-            ? "radial-gradient(circle, rgba(241,145,46,0.16) 0%, rgba(241,145,46,0.06) 38%, rgba(241,145,46,0) 72%)"
-            : "radial-gradient(circle, rgba(241,145,46,0.18) 0%, rgba(241,145,46,0.08) 38%, rgba(241,145,46,0) 72%)",
-        }}
-      />
-
-      <div
-        className={cx("absolute inset-0", isDark ? "opacity-[0.025]" : "opacity-[0.035]")}
-        style={{
-          backgroundImage: `radial-gradient(${isDark ? "#EAF2F5" : "#14232B"} 0.7px, transparent 0.7px)`,
-          backgroundSize: "18px 18px",
-        }}
-      />
-    </div>
-  );
-}
-
-function MouseAura({ isDark }) {
-  const auraRef = useRef(null);
-  const dotRef = useRef(null);
-
+function useReveal() {
   useEffect(() => {
-    const canUsePointer = window.matchMedia("(pointer: fine)").matches;
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (!canUsePointer || reducedMotion) return;
+    const items = Array.from(document.querySelectorAll("[data-reveal]"));
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("opacity-100", "translate-y-0");
+            entry.target.classList.remove("opacity-0", "translate-y-6");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
 
-    const aura = auraRef.current;
-    const dot = dotRef.current;
-    if (!aura || !dot) return;
-
-    let mouseX = window.innerWidth / 2;
-    let mouseY = window.innerHeight / 2;
-    let auraX = mouseX;
-    let auraY = mouseY;
-    let frameId;
-
-    const handlePointerMove = (event) => {
-      mouseX = event.clientX;
-      mouseY = event.clientY;
-      aura.style.opacity = "1";
-      dot.style.opacity = "1";
-    };
-
-    const animate = () => {
-      auraX += (mouseX - auraX) * 0.12;
-      auraY += (mouseY - auraY) * 0.12;
-      aura.style.transform = `translate3d(${auraX - 130}px, ${auraY - 130}px, 0)`;
-      dot.style.transform = `translate3d(${mouseX - 4}px, ${mouseY - 4}px, 0)`;
-      frameId = requestAnimationFrame(animate);
-    };
-
-    document.addEventListener("pointermove", handlePointerMove, { passive: true });
-    animate();
-
-    return () => {
-      document.removeEventListener("pointermove", handlePointerMove);
-      cancelAnimationFrame(frameId);
-    };
+    items.forEach((item) => observer.observe(item));
+    return () => observer.disconnect();
   }, []);
+}
 
+function SectionShell({ id, children, className = "" }) {
   return (
-    <div aria-hidden="true" dir="ltr" className="pointer-events-none fixed inset-0 z-[60] hidden overflow-hidden lg:block">
-      <div
-        ref={auraRef}
-        className="absolute h-[260px] w-[260px] rounded-full opacity-0 blur-2xl transition-opacity duration-500"
-        style={{
-          background: isDark
-            ? "radial-gradient(circle, rgba(241,145,46,0.14) 0%, rgba(37,167,122,0.085) 34%, rgba(124,203,174,0.07) 56%, rgba(255,255,255,0) 74%)"
-            : "radial-gradient(circle, rgba(241,145,46,0.12) 0%, rgba(37,167,122,0.16) 32%, rgba(25,92,133,0.08) 56%, rgba(255,255,255,0) 74%)",
-          transform: "translate3d(-999px, -999px, 0)",
-        }}
-      />
-      <div
-        ref={dotRef}
-        className="absolute h-2 w-2 rounded-full bg-[#F1912E] opacity-0 shadow-[0_0_14px_rgba(241,145,46,0.38)] transition-opacity duration-300"
-        style={{ transform: "translate3d(-999px, -999px, 0)" }}
-      />
-    </div>
+    <section id={id} className={cx("px-5 py-24 sm:px-8 lg:px-12", className)}>
+      <div className="mx-auto max-w-7xl">{children}</div>
+    </section>
   );
 }
 
-function Card({ icon, title, text, isDark }) {
+function SectionTitle({ eyebrow, title, intro, align = "left" }) {
   return (
     <div
+      data-reveal
       className={cx(
-        "group rounded-[2rem] border p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl",
-        isDark
-          ? "border-[#7CCBAE]/10 bg-[#102129]/90 shadow-black/10 hover:shadow-black/20"
-          : "border-[#195C85]/10 bg-white hover:shadow-[#195C85]/10"
+        "max-w-3xl translate-y-6 opacity-0 transition-all duration-700 ease-out",
+        align === "center" && "mx-auto text-center"
       )}
     >
-      <div
-        className={cx(
-          "mb-5 flex h-12 w-12 items-center justify-center rounded-2xl border text-2xl",
-          isDark ? "border-[#7CCBAE]/20 bg-[#0E2730]" : "border-[#7CCBAE]/30 bg-[#F4FBF7]"
-        )}
-      >
-        {icon}
-      </div>
-      <h3 className={cx("text-lg font-extrabold", isDark ? "text-[#EAF2F5]" : "text-[#14232B]")}>
+      {eyebrow && (
+        <p className="mb-4 text-xs font-semibold uppercase tracking-[0.28em] text-[#7B806A]">
+          {eyebrow}
+        </p>
+      )}
+      <h2 className="font-serif text-4xl font-medium tracking-[-0.03em] text-[#292721] sm:text-5xl lg:text-6xl">
         {title}
-      </h3>
-      <p className={cx("mt-3 leading-7", isDark ? "text-[#EAF2F5]/68" : "text-[#14232B]/70")}>
-        {text}
-      </p>
+      </h2>
+      {intro && <p className="mt-6 text-lg leading-8 text-[#5F5A4F]">{intro}</p>}
     </div>
   );
 }
 
-export default function JaafarPortfolio() {
+function DetailBlock({ label, index }) {
+  const patterns = [
+    "radial-gradient(circle at 30% 25%, rgba(225,201,164,.9), transparent 34%), linear-gradient(135deg, rgba(250,247,239,.9), rgba(218,223,207,.75))",
+    "linear-gradient(135deg, rgba(236,231,218,.95), rgba(199,205,188,.8)), radial-gradient(circle at 80% 20%, rgba(160,132,105,.28), transparent 35%)",
+    "linear-gradient(160deg, rgba(246,241,230,.95), rgba(214,220,210,.8)), linear-gradient(90deg, transparent 0 47%, rgba(127,133,112,.25) 47% 53%, transparent 53%)",
+    "radial-gradient(circle at 70% 35%, rgba(185,142,122,.34), transparent 24%), linear-gradient(135deg, rgba(248,244,235,.95), rgba(222,226,213,.88))",
+    "linear-gradient(135deg, rgba(243,238,228,.95), rgba(232,224,207,.8)), radial-gradient(circle at 15% 80%, rgba(122,130,109,.23), transparent 30%)",
+    "linear-gradient(120deg, rgba(249,246,238,.95), rgba(231,226,214,.85)), repeating-linear-gradient(90deg, rgba(56,54,48,.035) 0 1px, transparent 1px 11px)",
+  ];
+
+  return (
+    <div
+      data-reveal
+      className="group translate-y-6 opacity-0 transition-all duration-700 ease-out"
+      style={{ transitionDelay: `${index * 70}ms` }}
+    >
+      <div
+        className="h-52 rounded-[2rem] border border-[#D7D0C0] shadow-[0_20px_80px_rgba(41,39,33,0.06)] transition duration-500 group-hover:-translate-y-1 group-hover:shadow-[0_24px_90px_rgba(41,39,33,0.10)]"
+        style={{ background: patterns[index % patterns.length] }}
+      />
+      <p className="mt-4 text-sm text-[#756F63]">{label}</p>
+    </div>
+  );
+}
+
+export default function RefinedPersonalPortfolio() {
   const [lang, setLang] = useState("en");
   const [menuOpen, setMenuOpen] = useState(false);
-  const [isDark, setIsDark] = useState(false);
-
-  const copy = content[lang];
+  const t = content[lang];
   const isAr = lang === "ar";
-  const align = isAr ? "text-right" : "text-left";
-  const sectionTitleLeading = isAr ? "leading-[1.28]" : "leading-tight";
-  const pageBackground = isDark ? "#0B1418" : "#F8FAF7";
+
+  useReveal();
+
+  const navItems = useMemo(
+    () => [
+      [t.nav[0], "#about"],
+      [t.nav[1], "#work"],
+      [t.nav[2], "#focus"],
+      [t.nav[3], "#approach"],
+      [t.nav[4], "#details"],
+      [t.nav[5], "#contact"],
+    ],
+    [t.nav]
+  );
 
   useEffect(() => {
-    document.title = isAr
-      ? "جعفر الرباط | بورتفوليو"
-      : "Jaafar Al-Rabbat | Portfolio";
-
-    document.documentElement.style.backgroundColor = pageBackground;
-    document.body.style.backgroundColor = pageBackground;
-    document.body.style.margin = "0";
-
-    const root = document.getElementById("root");
-    if (root) {
-      root.style.backgroundColor = pageBackground;
-      root.style.minHeight = "100vh";
-    }
-  }, [pageBackground, isAr]);
+    document.title = isAr ? "بورتفوليو شخصي هادئ" : "Refined Personal Portfolio";
+    document.documentElement.style.scrollBehavior = "smooth";
+    document.body.style.background = "#F7F2E8";
+  }, [isAr]);
 
   return (
     <div
       dir={isAr ? "rtl" : "ltr"}
       lang={lang}
-      style={{
-        fontFamily: isAr ? '"IBM Plex Sans Arabic", sans-serif' : '"Manrope", sans-serif',
-        backgroundColor: pageBackground,
-      }}
-      className={cx(
-        "min-h-screen scroll-smooth transition-colors duration-500",
-        isDark ? "bg-[#0B1418] text-[#EAF2F5]" : "bg-[#F8FAF7] text-[#14232B]"
-      )}
+      className="min-h-screen bg-[#F7F2E8] text-[#292721] selection:bg-[#D9C5A3]/60"
+      style={{ fontFamily: isAr ? '"IBM Plex Sans Arabic", ui-sans-serif, system-ui' : 'Inter, ui-sans-serif, system-ui' }}
     >
-      <MouseAura key={lang} isDark={isDark} />
+      <div className="pointer-events-none fixed inset-0 z-0 opacity-[0.42]" aria-hidden="true">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_10%,rgba(222,205,172,.65),transparent_28%),radial-gradient(circle_at_80%_0%,rgba(190,200,177,.45),transparent_30%),linear-gradient(180deg,rgba(255,255,255,.45),transparent_45%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(41,39,33,.025)_1px,transparent_1px),linear-gradient(90deg,rgba(41,39,33,.025)_1px,transparent_1px)] bg-[size:44px_44px]" />
+      </div>
 
-      <header
-        className={cx(
-          "sticky top-0 z-50 border-b backdrop-blur-xl transition-colors duration-500",
-          isDark ? "border-[#7CCBAE]/10 bg-[#0B1418]/90" : "border-[#195C85]/10 bg-[#F8FAF7]/90"
-        )}
-      >
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
-          <a href="#top" className="flex shrink-0">
-            <Monogram isDark={isDark} />
+      <header className="sticky top-0 z-50 border-b border-[#D8D0BF]/70 bg-[#F7F2E8]/82 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 sm:px-8 lg:px-12">
+          <a href="#top" className="flex items-center gap-3">
+            <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-[#CFC6B5] bg-[#FDFBF6] shadow-sm">
+              <span className="font-serif text-lg font-semibold text-[#38352E]">J</span>
+            </div>
+            <div className="hidden leading-tight sm:block">
+              <p className="text-sm font-medium tracking-wide text-[#38352E]">Portfolio</p>
+              <p className="text-xs text-[#7B806A]">Quiet digital identity</p>
+            </div>
           </a>
 
           <nav className="hidden items-center gap-8 lg:flex">
-            {copy.nav.map(([label, href]) => (
-              <a
-                key={href}
-                href={href}
-                className={cx(
-                  "text-sm font-semibold transition",
-                  isDark ? "text-[#EAF2F5]/70 hover:text-[#7CCBAE]" : "text-[#14232B]/70 hover:text-[#195C85]"
-                )}
-              >
+            {navItems.map(([label, href]) => (
+              <a key={href} href={href} className="text-sm text-[#5F5A4F] transition hover:text-[#292721]">
                 {label}
               </a>
             ))}
           </nav>
 
-          <div className="hidden items-center gap-4 lg:flex">
-            <ThemeToggle isDark={isDark} setIsDark={setIsDark} isAr={isAr} />
-            <LanguageToggle lang={lang} setLang={setLang} isDark={isDark} />
-            <Button href="#contact" isAr={isAr} isDark={isDark}>
-              {copy.cta}
-            </Button>
+          <div className="hidden items-center gap-3 lg:flex">
+            <button
+              type="button"
+              onClick={() => setLang(lang === "en" ? "ar" : "en")}
+              className="rounded-full border border-[#CFC6B5] bg-[#FDFBF6] px-4 py-2 text-xs font-medium text-[#555044] transition hover:-translate-y-0.5 hover:border-[#A9AA91]"
+            >
+              {lang === "en" ? "AR" : "EN"}
+            </button>
+            <a
+              href="#contact"
+              className="rounded-full bg-[#343229] px-5 py-2.5 text-sm font-medium text-[#FDFBF6] shadow-[0_18px_60px_rgba(52,50,41,.18)] transition hover:-translate-y-0.5 hover:bg-[#24231E]"
+            >
+              {t.secondary}
+            </a>
           </div>
 
-          <div className="flex items-center gap-2 lg:hidden">
-            <LanguageToggle lang={lang} setLang={setLang} isDark={isDark} />
-            <button
-              className={cx(
-                "flex h-11 w-11 items-center justify-center rounded-full border",
-                isDark ? "border-[#7CCBAE]/15 bg-[#102129] text-[#7CCBAE]" : "border-[#195C85]/10 bg-white text-[#195C85]"
-              )}
-              onClick={() => setMenuOpen(!menuOpen)}
-              type="button"
-            >
-              {menuOpen ? <XIcon className="h-5 w-5" /> : <MenuIcon className="h-5 w-5" />}
-            </button>
-          </div>
+          <button
+            type="button"
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-[#CFC6B5] bg-[#FDFBF6] lg:hidden"
+            aria-label="Open menu"
+          >
+            {menuOpen ? <XIcon className="h-5 w-5" /> : <MenuIcon className="h-5 w-5" />}
+          </button>
         </div>
 
         {menuOpen && (
-          <div
-            className={cx(
-              "border-t px-5 pb-7 pt-5 lg:hidden",
-              isDark ? "border-[#7CCBAE]/10 bg-[#0B1418]/95" : "border-[#195C85]/10 bg-[#F8FAF7]/95"
-            )}
-          >
+          <div className="border-t border-[#D8D0BF]/70 bg-[#F7F2E8]/95 px-5 py-5 lg:hidden">
             <div className="mx-auto flex max-w-sm flex-col gap-2">
-              {copy.nav.map(([label, href]) => (
+              {navItems.map(([label, href]) => (
                 <a
                   key={href}
                   href={href}
                   onClick={() => setMenuOpen(false)}
-                  className={cx(
-                    "rounded-2xl px-4 py-3 text-lg font-bold transition",
-                    isDark ? "text-[#EAF2F5]/80 hover:bg-[#17313B]" : "text-[#14232B]/75 hover:bg-white"
-                  )}
+                  className="rounded-2xl px-4 py-3 text-[#4A463B] transition hover:bg-[#FDFBF6]"
                 >
                   {label}
                 </a>
               ))}
-              <ThemeToggle isDark={isDark} setIsDark={setIsDark} isAr={isAr} />
+              <button
+                type="button"
+                onClick={() => setLang(lang === "en" ? "ar" : "en")}
+                className="mt-2 rounded-2xl border border-[#CFC6B5] bg-[#FDFBF6] px-4 py-3 text-start text-[#4A463B]"
+              >
+                {lang === "en" ? "العربية" : "English"}
+              </button>
             </div>
           </div>
         )}
       </header>
 
-      <main id="top">
-        <section className="relative overflow-hidden px-5 pb-20 pt-14 lg:px-8 lg:pb-28 lg:pt-20">
-          <AmbientAura isAr={isAr} isDark={isDark} />
+      <main id="top" className="relative z-10">
+        <section className="px-5 pb-24 pt-20 sm:px-8 lg:px-12 lg:pb-32 lg:pt-28">
+          <div className="mx-auto grid max-w-7xl items-center gap-16 lg:grid-cols-[1.1fr_.9fr]">
+            <div data-reveal className="translate-y-6 opacity-0 transition-all duration-700 ease-out">
+              <p className="text-xs font-semibold uppercase tracking-[0.32em] text-[#7B806A]">{t.eyebrow}</p>
+              <h1 className="mt-7 max-w-5xl font-serif text-5xl font-medium leading-[1.02] tracking-[-0.055em] text-[#292721] sm:text-7xl lg:text-8xl">
+                {t.heroTitle}
+              </h1>
+              <p className="mt-8 max-w-2xl text-xl leading-9 text-[#5F5A4F]">{t.heroText}</p>
 
-          <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
-            <div className={align}>
-              <SectionLabel isDark={isDark}>{copy.badge}</SectionLabel>
-              <HeroTitle title={copy.heroTitle} isAr={isAr} isDark={isDark} />
-
-              <p className={cx("mt-7 max-w-2xl text-lg leading-8 sm:text-xl", isDark ? "text-[#EAF2F5]/70" : "text-[#14232B]/72")}>
-                {copy.heroText}
-              </p>
-
-              <div className="mt-9 flex flex-col gap-4 sm:flex-row">
-                <Button href="#work" isAr={isAr} isDark={isDark}>
-                  {copy.primary}
-                </Button>
-                <Button href="#contact" variant="secondary" isAr={isAr} isDark={isDark}>
-                  {copy.secondary}
-                </Button>
-              </div>
-
-              <div className="mt-8 flex flex-wrap gap-3">
-                {copy.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className={cx(
-                      "rounded-full border px-4 py-2 text-sm font-semibold",
-                      isDark
-                        ? "border-[#7CCBAE]/15 bg-[#102129]/70 text-[#7CCBAE]"
-                        : "border-[#25A77A]/20 bg-white/70 text-[#195C85]"
-                    )}
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <div className="relative mx-auto mt-10 flex h-[360px] w-full max-w-[500px] items-center justify-center md:h-[470px] lg:mt-0">
-              <div className="absolute inset-4 rounded-full bg-gradient-to-br from-[#7CCBAE]/25 via-white to-[#F1912E]/10 blur-2xl" />
-              <div
-                className={cx(
-                  "relative w-full max-w-[420px] rounded-[3rem] border p-8 shadow-2xl backdrop-blur md:p-10",
-                  isDark
-                    ? "border-[#7CCBAE]/10 bg-[#102129]/92 shadow-black/25"
-                    : "border-[#195C85]/10 bg-white/90 shadow-[#195C85]/15"
-                )}
-              >
-                <div className="mx-auto flex h-44 w-44 items-center justify-center rounded-[3rem] bg-[#195C85] text-white shadow-xl shadow-[#195C85]/20">
-                  <div className="text-center">
-                    <p className="text-6xl font-black tracking-tight">JA</p>
-                    <p className="mt-2 text-xs font-bold uppercase tracking-[0.24em] text-[#7CCBAE]">
-                      Portfolio
-                    </p>
-                  </div>
-                </div>
-
-                <div
-                  className={cx(
-                    "mx-auto mt-8 max-w-[280px] rounded-3xl border px-5 py-4 text-center",
-                    isDark ? "border-[#7CCBAE]/20 bg-[#0B1418]/50" : "border-[#25A77A]/20 bg-[#F8FAF7]"
-                  )}
-                >
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#25A77A]">
-                    React / Vite / CMS
-                  </p>
-                  <p className={cx("mt-1 text-sm font-bold", isDark ? "text-[#EAF2F5]" : "text-[#14232B]")}>
-                    Built with real project experience
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="about" className="px-5 py-20 lg:px-8">
-          <div className="mx-auto max-w-7xl">
-            <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
-              <div className={align}>
-                <SectionLabel isDark={isDark}>{copy.aboutLabel}</SectionLabel>
-                <h2 className={`text-4xl font-bold tracking-tight text-[#195C85] md:text-5xl ${sectionTitleLeading}`}>
-                  {copy.aboutTitle}
-                </h2>
-              </div>
-
-              <div
-                className={cx(
-                  "rounded-[2.5rem] border p-8 shadow-sm md:p-10",
-                  isDark ? "border-[#7CCBAE]/10 bg-[#102129]/90" : "border-[#195C85]/10 bg-white"
-                )}
-              >
-                <p className={cx("text-xl leading-9", isDark ? "text-[#EAF2F5]/78" : "text-[#14232B]/80")}>
-                  {copy.aboutText1}
-                </p>
-                <p className={cx("mt-6 leading-8", isDark ? "text-[#EAF2F5]/65" : "text-[#14232B]/70")}>
-                  {copy.aboutText2}
-                </p>
-
-                <div className="mt-8 grid gap-4 sm:grid-cols-3">
-                  {copy.aboutCards.map(([title, text]) => (
-                    <div
-                      key={title}
-                      className={cx(
-                        "rounded-2xl p-4 ring-1",
-                        isDark ? "bg-[#0B1418]/45 ring-[#7CCBAE]/15" : "bg-[#F8FAF7] ring-[#7CCBAE]/25"
-                      )}
-                    >
-                      <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#25A77A]">
-                        {title}
-                      </p>
-                      <p className={cx("mt-2 text-sm font-semibold leading-7", isDark ? "text-[#EAF2F5]/82" : "text-[#14232B]")}>
-                        {text}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="work" className="px-5 py-20 lg:px-8">
-          <div className="mx-auto max-w-7xl">
-            <div
-              className={cx(
-                "overflow-hidden rounded-[3rem] border shadow-xl",
-                isDark ? "border-[#7CCBAE]/10 bg-[#102129]/90 shadow-black/20" : "border-[#195C85]/10 bg-white shadow-[#195C85]/10"
-              )}
-            >
-              <div className="grid gap-8 p-8 md:p-12 lg:grid-cols-[0.9fr_1.1fr] lg:p-14">
-                <div className={align}>
-                  <SectionLabel isDark={isDark}>{copy.workLabel}</SectionLabel>
-                  <h2 className={`text-4xl font-bold tracking-tight text-[#195C85] md:text-5xl ${sectionTitleLeading}`}>
-                    {copy.workTitle}
-                  </h2>
-                  <p className={cx("mt-6 text-lg leading-8", isDark ? "text-[#EAF2F5]/70" : "text-[#14232B]/72")}>
-                    {copy.workText}
-                  </p>
-
-                  <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-                    <Button href="https://syrianhumanists.org/" isAr={isAr} isDark={isDark}>
-                      {copy.liveWebsite}
-                    </Button>
-                    <Button href="#process" variant="secondary" isAr={isAr} isDark={isDark}>
-                      {copy.caseStudy}
-                    </Button>
-                  </div>
-                </div>
-
-                <div className="grid gap-4">
-                  {copy.workBullets.map((item) => (
-                    <div
-                      key={item}
-                      className={cx(
-                        "flex items-start gap-4 rounded-3xl border p-5",
-                        isDark ? "border-[#7CCBAE]/10 bg-[#0B1418]/40" : "border-[#25A77A]/20 bg-[#F8FAF7]"
-                      )}
-                    >
-                      <div className="mt-1 h-3 w-3 rounded-full bg-[#F1912E]" />
-                      <p className={cx("font-bold leading-7", isDark ? "text-[#EAF2F5]/82" : "text-[#14232B]/85")}>
-                        {item}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="skills" className="px-5 py-20 lg:px-8">
-          <div className="mx-auto max-w-7xl">
-            <div className="mx-auto mb-12 max-w-3xl text-center">
-              <SectionLabel isDark={isDark}>{copy.skillsLabel}</SectionLabel>
-              <h2 className={`text-4xl font-bold tracking-tight text-[#195C85] md:text-5xl ${sectionTitleLeading}`}>
-                {copy.skillsTitle}
-              </h2>
-            </div>
-            <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-              {copy.skills.map(([icon, title, text]) => (
-                <Card key={title} icon={icon} title={title} text={text} isDark={isDark} />
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section id="process" className="px-5 py-20 lg:px-8">
-          <div className="mx-auto max-w-7xl">
-            <div className={align}>
-              <SectionLabel isDark={isDark}>{copy.processLabel}</SectionLabel>
-              <h2 className={`max-w-3xl text-4xl font-bold tracking-tight text-[#195C85] md:text-5xl ${sectionTitleLeading}`}>
-                {copy.processTitle}
-              </h2>
-            </div>
-
-            <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
-              {copy.process.map(([number, title, text]) => (
-                <div
-                  key={number}
-                  className={cx(
-                    "rounded-[2rem] border p-6 shadow-sm",
-                    isDark ? "border-[#7CCBAE]/10 bg-[#102129]/90" : "border-[#195C85]/10 bg-white"
-                  )}
-                >
-                  <p className="text-sm font-black tracking-[0.24em] text-[#F1912E]">{number}</p>
-                  <h3 className={cx("mt-5 text-xl font-extrabold", isDark ? "text-[#EAF2F5]" : "text-[#14232B]")}>
-                    {title}
-                  </h3>
-                  <p className={cx("mt-3 leading-7", isDark ? "text-[#EAF2F5]/68" : "text-[#14232B]/70")}>
-                    {text}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section id="contact" className="px-5 py-20 lg:px-8">
-          <div className="mx-auto max-w-6xl overflow-hidden rounded-[3rem] bg-[#195C85] text-white shadow-2xl shadow-[#195C85]/20">
-            <div className="p-8 md:p-12 lg:p-16">
-              <div className={align}>
-                <SectionLabel isDark={false}>{copy.contactLabel}</SectionLabel>
-                <h2 className="max-w-4xl text-4xl font-bold leading-tight tracking-tight md:text-5xl">
-                  {copy.contactTitle}
-                </h2>
-                <p className="mt-6 max-w-2xl leading-8 text-white/82">
-                  {copy.contactText}
-                </p>
-
+              <div className="mt-10 flex flex-col gap-4 sm:flex-row">
                 <a
-                  href="mailto:jaafar.f.alrabbat@gmail.com"
-                  className="mt-9 inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-bold text-[#195C85] transition hover:-translate-y-0.5 hover:bg-[#F8FAF7]"
+                  href="#work"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#343229] px-6 py-3 text-sm font-medium text-[#FDFBF6] transition hover:-translate-y-0.5 hover:bg-[#24231E]"
                 >
-                  <MailIcon className="h-4 w-4" /> {copy.contactButton}
+                  {t.primary}
+                  <Arrow className={cx("h-4 w-4", isAr && "rotate-180")} />
+                </a>
+                <a
+                  href="#contact"
+                  className="inline-flex items-center justify-center rounded-full border border-[#CFC6B5] bg-[#FDFBF6]/70 px-6 py-3 text-sm font-medium text-[#343229] transition hover:-translate-y-0.5 hover:border-[#A9AA91]"
+                >
+                  {t.secondary}
                 </a>
               </div>
             </div>
+
+            <div data-reveal className="translate-y-6 opacity-0 transition-all delay-150 duration-700 ease-out">
+              <div className="relative mx-auto max-w-md">
+                <div className="absolute -inset-6 rounded-[3rem] bg-[#E6D8BF]/55 blur-3xl" />
+                <div className="relative overflow-hidden rounded-[2.5rem] border border-[#D3CAB9] bg-[#FDFBF6] p-5 shadow-[0_30px_110px_rgba(41,39,33,0.12)]">
+                  <div className="h-[420px] rounded-[2rem] border border-[#E3DCCF] bg-[radial-gradient(circle_at_30%_20%,rgba(232,212,181,.9),transparent_30%),radial-gradient(circle_at_70%_70%,rgba(166,177,150,.45),transparent_36%),linear-gradient(145deg,#F7F2E8,#ECE2D0)]" />
+                  <div className="absolute bottom-10 left-10 right-10 rounded-[1.5rem] border border-white/55 bg-[#FDFBF6]/72 p-5 shadow-[0_20px_70px_rgba(41,39,33,.12)] backdrop-blur-xl">
+                    <p className="font-serif text-2xl tracking-[-0.03em] text-[#292721]">Small details, carefully held.</p>
+                    <p className="mt-2 text-sm leading-6 text-[#686254]">{t.heroNote}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
+
+        <SectionShell id="about">
+          <div className="grid gap-12 lg:grid-cols-[.8fr_1.2fr] lg:items-start">
+            <SectionTitle eyebrow="About" title={t.aboutTitle} />
+            <div data-reveal className="translate-y-6 opacity-0 transition-all duration-700 ease-out">
+              <div className="rounded-[2.3rem] border border-[#D8D0BF] bg-[#FDFBF6]/72 p-8 shadow-[0_24px_80px_rgba(41,39,33,0.06)] lg:p-10">
+                <p className="text-xl leading-9 text-[#4F4A40]">{t.aboutText}</p>
+                <div className="mt-10 grid gap-4 sm:grid-cols-3">
+                  {t.aboutStats.map(([num, label]) => (
+                    <div key={num} className="rounded-3xl border border-[#E1DACD] bg-[#F7F2E8]/75 p-5">
+                      <p className="font-serif text-3xl text-[#7B806A]">{num}</p>
+                      <p className="mt-3 text-sm leading-6 text-[#5F5A4F]">{label}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </SectionShell>
+
+        <SectionShell id="work">
+          <SectionTitle eyebrow="Work" title={t.workTitle} intro={t.workIntro} align="center" />
+          <div className="mt-14 grid gap-6 lg:grid-cols-3">
+            {t.projects.map((project, index) => (
+              <article
+                key={project.title}
+                data-reveal
+                className="group translate-y-6 opacity-0 transition-all duration-700 ease-out"
+                style={{ transitionDelay: `${index * 90}ms` }}
+              >
+                <div className="h-full rounded-[2.25rem] border border-[#D8D0BF] bg-[#FDFBF6]/78 p-7 shadow-[0_20px_80px_rgba(41,39,33,0.05)] transition duration-500 group-hover:-translate-y-1 group-hover:shadow-[0_28px_100px_rgba(41,39,33,0.10)]">
+                  <div className="mb-8 flex items-center justify-between gap-5 text-xs uppercase tracking-[0.22em] text-[#8A8375]">
+                    <span>{project.role}</span>
+                    <span>{project.year}</span>
+                  </div>
+                  <div className="mb-7 h-44 rounded-[1.8rem] border border-[#E2DBCD] bg-[linear-gradient(135deg,rgba(239,232,217,.95),rgba(210,216,200,.78))]" />
+                  <h3 className="font-serif text-3xl tracking-[-0.04em] text-[#292721]">{project.title}</h3>
+                  <p className="mt-5 leading-8 text-[#625C50]">{project.desc}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </SectionShell>
+
+        <SectionShell id="focus">
+          <div className="grid gap-12 lg:grid-cols-[.85fr_1.15fr]">
+            <SectionTitle eyebrow="Focus" title={t.focusTitle} intro={t.focusIntro} />
+            <div className="grid gap-3">
+              {t.focus.map(([title, desc], index) => (
+                <div
+                  key={title}
+                  data-reveal
+                  className="translate-y-6 rounded-3xl border border-[#D8D0BF] bg-[#FDFBF6]/60 p-5 opacity-0 transition-all duration-700 ease-out hover:bg-[#FDFBF6]"
+                  style={{ transitionDelay: `${index * 45}ms` }}
+                >
+                  <div className="grid gap-3 sm:grid-cols-[.35fr_.65fr]">
+                    <h3 className="font-serif text-2xl tracking-[-0.03em] text-[#38352E]">{title}</h3>
+                    <p className="leading-7 text-[#625C50]">{desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </SectionShell>
+
+        <SectionShell id="approach" className="py-28">
+          <div data-reveal className="mx-auto max-w-5xl translate-y-6 opacity-0 transition-all duration-700 ease-out">
+            <div className="rounded-[3rem] border border-[#D8D0BF] bg-[#292721] p-8 text-[#F7F2E8] shadow-[0_34px_120px_rgba(41,39,33,.18)] sm:p-12 lg:p-16">
+              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#B7BD9E]">Approach</p>
+              <h2 className="mt-6 font-serif text-4xl font-medium tracking-[-0.045em] sm:text-6xl">{t.approachTitle}</h2>
+              <div className="mt-12 grid gap-5">
+                {t.approachLines.map((line) => (
+                  <p key={line} className="border-t border-[#F7F2E8]/12 pt-5 font-serif text-2xl tracking-[-0.03em] text-[#EEE6D7] sm:text-3xl">
+                    {line}
+                  </p>
+                ))}
+              </div>
+            </div>
+          </div>
+        </SectionShell>
+
+        <SectionShell id="details">
+          <SectionTitle eyebrow="Details" title={t.detailsTitle} intro={t.detailsIntro} align="center" />
+          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {t.detailLabels.map((label, index) => (
+              <DetailBlock key={label} label={label} index={index} />
+            ))}
+          </div>
+        </SectionShell>
+
+        <SectionShell id="contact" className="pb-16">
+          <div data-reveal className="translate-y-6 opacity-0 transition-all duration-700 ease-out">
+            <div className="rounded-[3rem] border border-[#D8D0BF] bg-[#FDFBF6]/78 p-8 shadow-[0_28px_100px_rgba(41,39,33,0.08)] sm:p-12 lg:p-16">
+              <div className="grid gap-10 lg:grid-cols-[1fr_.7fr] lg:items-end">
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#7B806A]">Contact</p>
+                  <h2 className="mt-6 max-w-4xl font-serif text-4xl font-medium tracking-[-0.045em] text-[#292721] sm:text-6xl">
+                    {t.contactTitle}
+                  </h2>
+                  <p className="mt-6 max-w-2xl text-lg leading-8 text-[#5F5A4F]">{t.contactText}</p>
+                </div>
+                <div className="lg:text-end">
+                  <a
+                    href="mailto:hello@example.com"
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-[#343229] px-6 py-3 text-sm font-medium text-[#FDFBF6] transition hover:-translate-y-0.5 hover:bg-[#24231E]"
+                  >
+                    {t.contactButton}
+                    <Arrow className={cx("h-4 w-4", isAr && "rotate-180")} />
+                  </a>
+                  <p className="mt-5 text-sm text-[#756F63]">{t.finalLine}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </SectionShell>
       </main>
 
-      <footer
-        className={cx(
-          "border-t px-5 py-10 lg:px-8",
-          isDark ? "border-[#7CCBAE]/10 bg-[#0E1A20]" : "border-[#195C85]/10 bg-white"
-        )}
-      >
-        <div className="mx-auto flex max-w-7xl flex-col gap-5 md:flex-row md:items-center md:justify-between">
-          <Monogram isDark={isDark} />
-          <p className={cx("max-w-xl text-sm leading-7", isDark ? "text-[#EAF2F5]/55" : "text-[#14232B]/55")}>
-            © {new Date().getFullYear()} {copy.footer}
-          </p>
+      <footer className="relative z-10 border-t border-[#D8D0BF]/80 px-5 py-10 sm:px-8 lg:px-12">
+        <div className="mx-auto flex max-w-7xl flex-col justify-between gap-5 text-sm text-[#756F63] sm:flex-row">
+          <p>© {new Date().getFullYear()} Personal Portfolio</p>
+          <p>Quiet work. Clear presence. Human detail.</p>
         </div>
       </footer>
     </div>
