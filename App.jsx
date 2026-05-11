@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 
 const profile = {
   name: "Jaafar Al-Rabbat",
-  email: "your.email@example.com",
+  email: "jaafar.f.alrabbat@gmail.com",
 };
 
 const content = {
@@ -229,12 +229,23 @@ function SignatureMark() {
   return (
     <div className="flex items-center gap-3">
       <div className="relative flex h-12 w-12 items-center justify-center rounded-2xl border border-[#D7CDBA] bg-[#FFFDF8] shadow-sm">
-        <span className="font-serif text-xl font-semibold text-[#272720]">J</span>
-        <span className="absolute -bottom-1 -right-1 h-3 w-3 rounded-full bg-[#B78368]" />
+        <span className="font-serif text-2xl font-medium leading-none text-[#272720]">J</span>
+        <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-[#B78368]" />
       </div>
       <div className="leading-tight">
-        <p className="text-sm font-medium text-[#272720]">Jaafar Al-Rabbat</p>
+        <p className="text-sm font-medium tracking-[-0.01em] text-[#272720]">Jaafar Al-Rabbat</p>
         <p className="text-xs text-[#78806B]">Bilingual digital presence</p>
+      </div>
+    </div>
+  );
+}
+
+function HeroMark() {
+  return (
+    <div className="flex h-32 w-32 items-center justify-center rounded-[2rem] border border-[#D7CDBA] bg-[#FFFDF8] shadow-[0_24px_80px_rgba(39,39,32,0.10)]">
+      <div className="relative">
+        <span className="font-serif text-7xl font-medium leading-none text-[#272720]">J</span>
+        <span className="absolute -right-3 top-2 h-2.5 w-2.5 rounded-full bg-[#B78368]" />
       </div>
     </div>
   );
@@ -400,10 +411,11 @@ export default function JaafarPortfolio() {
               <div className="relative mx-auto max-w-md">
                 <div className="absolute -inset-8 rounded-[3.5rem] bg-[#E5D4B9]/60 blur-3xl" />
                 <div className="relative overflow-hidden rounded-[2.7rem] border border-[#D5CBB8] bg-[#FFFDF8] p-5 shadow-[0_34px_120px_rgba(39,39,32,0.13)]">
-                  <div className="relative h-[440px] overflow-hidden rounded-[2.2rem] border border-[#E4DCCF] bg-[radial-gradient(circle_at_30%_22%,rgba(232,210,174,.95),transparent_30%),radial-gradient(circle_at_72%_68%,rgba(151,167,133,.45),transparent_34%),linear-gradient(145deg,#F8F3EA,#E7DCC9)]">
+                  <div className="relative flex h-[440px] items-center justify-center overflow-hidden rounded-[2.2rem] border border-[#E4DCCF] bg-[radial-gradient(circle_at_30%_22%,rgba(232,210,174,.95),transparent_30%),radial-gradient(circle_at_72%_68%,rgba(151,167,133,.45),transparent_34%),linear-gradient(145deg,#F8F3EA,#E7DCC9)]">
                     <div className="absolute left-10 top-12 h-32 w-px bg-[#6F775F]/25" />
                     <div className="absolute bottom-16 right-12 h-20 w-20 rounded-full border border-[#B78368]/35" />
                     <div className="absolute bottom-20 left-12 h-1 w-32 rounded-full bg-[#B78368]/25" />
+                    <HeroMark />
                   </div>
                   <div className="absolute bottom-10 left-10 right-10 rounded-[1.6rem] border border-white/55 bg-[#FFFDF8]/76 p-5 shadow-[0_20px_70px_rgba(39,39,32,.12)] backdrop-blur-xl">
                     <p className="font-serif text-2xl tracking-[-0.035em] text-[#272720]">Structure with feeling.</p>
@@ -531,7 +543,7 @@ export default function JaafarPortfolio() {
                 </div>
                 <div className="lg:text-end">
                   <a
-                    href="mailto:your.email@example.com"
+                    href={`mailto:${profile.email}`}
                     className="inline-flex items-center justify-center gap-2 rounded-full bg-[#FFFDF8] px-6 py-3 text-sm font-medium text-[#303026] transition hover:-translate-y-0.5 hover:bg-[#F8F3EA]"
                   >
                     {t.contactButton}
