@@ -548,4 +548,9 @@ export default function JaafarPortfolio() {
       <footer className="relative z-10 border-t border-[#D8D0BF]/80 px-5 py-10 sm:px-8 lg:px-12">
         <div className="mx-auto flex max-w-7xl flex-col justify-between gap-5 text-sm text-[#756E61] sm:flex-row">
           <p>© {new Date().getFullYear()} Jaafar Al-Rabbat</p>
-          <p>Quiet work. Clear presence. Human detai
+          <p>Quiet work. Clear presence. Human detail.</p>
+        </div>
+      </footer>
+    </div>
+  );
+}
