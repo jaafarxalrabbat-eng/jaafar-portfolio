@@ -545,3 +545,16 @@ em {
     font-size: 3.2rem !important;
   }
 }
+/* Replace side-badge J. with the logo mark */
+.side-badge strong {
+  font-size: 0 !important;
+  line-height: 0 !important;
+  width: 28px !important;
+  height: 28px !important;
+  display: block !important;
+  background-image: url("/assets/logo-mark.png") !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: contain !important;
+  filter: brightness(0) invert(1) !important;
+}
