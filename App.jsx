@@ -247,7 +247,7 @@ export default function App() {
           that stay with people
         </p>
 
-        <h1 className="hero-name">JAAFAR AL RABBAT</h1>
+        <h1 className="hero-name">JAAFAR</h1>
 
         {trail.map((item) => (
           <img
