@@ -31,7 +31,7 @@ em {
   font-style: italic !important;
 }
 
-/* Logo in top-left */
+/* Top-left logo */
 .hero-logo {
   position: absolute !important;
   top: 22px !important;
@@ -47,99 +47,118 @@ em {
   object-fit: contain !important;
 }
 
-/* Refined hero name */
+/* Hero name */
 .hero-name {
   font-weight: 400 !important;
   letter-spacing: -0.055em !important;
   transform: translateY(-38px) scaleX(0.92) !important;
 }
 
-/* English scroll text position */
 .scroll-indicator {
   bottom: 2.2rem !important;
 }
 
-/* Cleaner Cases section */
+/* ============================= */
+/* CASES SECTION — CLEAN BENTO */
+/* ============================= */
+
 .cases-section {
-  padding: 5rem 1.2rem 7rem !important;
   background: #f4f4f2 !important;
+  padding: 6rem 1.2rem 8rem !important;
 }
 
 .section-head {
-  margin-bottom: 1.4rem !important;
-  padding: 0 0.3rem !important;
+  max-width: 1780px !important;
+  margin: 0 auto 1.4rem !important;
+  padding: 0 0.2rem !important;
+  align-items: end !important;
 }
 
 .section-head h2 {
-  font-size: clamp(3.2rem, 4vw, 5.8rem) !important;
+  font-size: clamp(3.4rem, 4vw, 6rem) !important;
   font-weight: 400 !important;
   letter-spacing: -0.055em !important;
 }
 
 .section-head button {
-  font-size: 1.35rem !important;
+  font-size: 1.3rem !important;
 }
 
-/* Smaller, calmer grid like reference */
+/* Main grid */
 .cases-grid {
+  max-width: 1780px !important;
+  margin: 0 auto !important;
   display: grid !important;
-  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  grid-template-columns: repeat(12, minmax(0, 1fr)) !important;
   gap: 1.2rem !important;
   align-items: start !important;
 }
 
-/* Base card size */
+/* Reset old sizing */
 .case-card,
 .case-card.is-wide {
   min-height: 0 !important;
   max-height: none !important;
-  height: clamp(280px, 31vw, 470px) !important;
+  height: auto !important;
   border-radius: 1.4rem !important;
   overflow: hidden !important;
-  background: #ececea !important;
+  background: #e9e9e6 !important;
 }
 
-/* Make the rhythm closer to the third reference */
+/* Bento layout */
 .case-card:nth-child(1) {
-  height: clamp(300px, 30vw, 460px) !important;
+  grid-column: 1 / span 7 !important;
+  height: 420px !important;
 }
 
 .case-card:nth-child(2) {
-  height: clamp(240px, 24vw, 380px) !important;
+  grid-column: 8 / span 5 !important;
+  height: 420px !important;
 }
 
 .case-card:nth-child(3) {
-  height: clamp(280px, 31vw, 470px) !important;
+  grid-column: 1 / span 5 !important;
+  height: 360px !important;
 }
 
 .case-card:nth-child(4) {
-  height: clamp(260px, 28vw, 430px) !important;
+  grid-column: 6 / span 7 !important;
+  height: 360px !important;
 }
 
-/* Images less aggressive */
+/* Image behavior */
 .case-card img {
+  width: 100% !important;
+  height: 100% !important;
   object-fit: cover !important;
   object-position: center !important;
-  transform: scale(1.01) !important;
+  transform: scale(1) !important;
+  filter: none !important;
+  transition: transform 0.55s cubic-bezier(.16, 1, .3, 1) !important;
+}
+
+/* Calm hover */
+.case-card:hover img {
+  transform: scale(1.025) !important;
   filter: none !important;
 }
 
-.case-card:hover img {
-  transform: scale(1.035) !important;
-  filter: blur(2px) !important;
-}
-
-/* Softer overlay */
+/* Soft overlay */
 .case-card::after {
   background: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0.02),
-    rgba(0, 0, 0, 0.08) 45%,
-    rgba(0, 0, 0, 0.42)
+    rgba(0, 0, 0, 0.03),
+    rgba(0, 0, 0, 0.10) 48%,
+    rgba(0, 0, 0, 0.46)
   ) !important;
+  opacity: 1 !important;
 }
 
-/* Smaller tags */
+.case-card:hover::after {
+  opacity: 0.92 !important;
+}
+
+/* Tags */
 .case-tags {
   left: 1.4rem !important;
   top: 1.4rem !important;
@@ -147,32 +166,47 @@ em {
 }
 
 .case-tags span {
-  padding: 0.65rem 0.85rem !important;
+  padding: 0.62rem 0.82rem !important;
   border-radius: 0.55rem !important;
-  font-size: 1.15rem !important;
+  font-size: 1.1rem !important;
   background: rgba(255, 255, 255, 0.22) !important;
+  backdrop-filter: blur(8px) !important;
 }
 
-/* Smaller arrow */
+/* Arrow */
 .case-arrow {
-  right: 1.6rem !important;
+  right: 1.5rem !important;
   top: 50% !important;
-  width: 5.4rem !important;
-  height: 5.4rem !important;
+  width: 5.2rem !important;
+  height: 5.2rem !important;
+  background: #171717 !important;
+  cursor: pointer !important;
 }
 
-/* Smaller titles */
+.case-card:hover .case-arrow {
+  transform: rotate(45deg) scale(1.03) !important;
+}
+
+/* Titles */
 .case-card h3 {
   left: 1.6rem !important;
   bottom: 1.5rem !important;
-  font-size: clamp(2.9rem, 3.6vw, 5.6rem) !important;
-  line-height: 0.95 !important;
+  right: 1.6rem !important;
+  font-size: clamp(2.8rem, 3.35vw, 5.2rem) !important;
+  line-height: 0.94 !important;
   font-weight: 400 !important;
   letter-spacing: -0.055em !important;
 }
 
 .case-card h3 em {
   font-weight: 400 !important;
+  letter-spacing: -0.04em !important;
+}
+
+/* Side badge less aggressive */
+.side-badge {
+  width: 48px !important;
+  height: 142px !important;
 }
 
 /* Tablet */
@@ -189,24 +223,24 @@ em {
   }
 
   .cases-section {
-    padding: 4rem 1rem 6rem !important;
+    padding: 4.5rem 1rem 6rem !important;
   }
 
   .cases-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
     gap: 1rem !important;
   }
 
-  .case-card,
-  .case-card.is-wide,
   .case-card:nth-child(1),
   .case-card:nth-child(2),
   .case-card:nth-child(3),
   .case-card:nth-child(4) {
-    height: clamp(240px, 42vw, 360px) !important;
+    grid-column: auto !important;
+    height: 340px !important;
   }
 
   .case-card h3 {
-    font-size: clamp(2.7rem, 5.8vw, 4.8rem) !important;
+    font-size: clamp(2.8rem, 5.5vw, 4.8rem) !important;
   }
 }
 
@@ -230,48 +264,20 @@ em {
     gap: 1rem !important;
   }
 
-  .case-card,
-  .case-card.is-wide,
   .case-card:nth-child(1),
   .case-card:nth-child(2),
   .case-card:nth-child(3),
   .case-card:nth-child(4) {
-    height: 330px !important;
-    border-radius: 1.2rem !important;
+    grid-column: auto !important;
+    height: 320px !important;
   }
 
   .case-arrow {
-    width: 4.8rem !important;
-    height: 4.8rem !important;
+    width: 4.6rem !important;
+    height: 4.6rem !important;
   }
 
   .case-card h3 {
-    font-size: 3.4rem !important;
+    font-size: 3.2rem !important;
   }
-}
-/* Cleaner card hover: no heavy blur */
-.case-card {
-  cursor: default !important;
-}
-
-.case-card img {
-  filter: none !important;
-  transition: transform 0.55s cubic-bezier(.16, 1, .3, 1), opacity 0.35s ease !important;
-}
-
-.case-card:hover img {
-  filter: none !important;
-  transform: scale(1.025) !important;
-}
-
-.case-card:hover::after {
-  opacity: 0.85 !important;
-}
-
-.case-arrow {
-  cursor: pointer !important;
-}
-
-.case-card:hover .case-arrow {
-  transform: rotate(45deg) scale(1.03) !important;
 }
