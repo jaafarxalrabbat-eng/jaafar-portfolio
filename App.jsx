@@ -256,7 +256,7 @@ export default function App() {
         ))}
 
         <button className="scroll-indicator" type="button" onClick={() => scrollToId("slogan")}>
-          Scroll voor meer
+          Scroll for more
         </button>
       </section>
 
