@@ -235,11 +235,9 @@ export default function App() {
       </aside>
 
       <section id="home" className="hero-section" ref={heroRef} onMouseMove={handleHeroMove}>
-        <p className="hero-kicker">
-          I create <em>quiet</em> websites
-          <br />
-          that stay with people
-        </p>
+       <div className="hero-logo" aria-label="Jaafar Al Rabbat logo">
+  <img src="/assets/logo-mark.png" alt="Jaafar Al Rabbat logo" />
+</div>
 
         <h1 className="hero-name">JAAFAR AL RABBAT</h1>
 
@@ -566,19 +564,20 @@ em { font-family: var(--serif); font-style: italic; font-weight: 400; }
   padding: 8rem 2rem;
 }
 
-.hero-kicker {
+.hero-logo {
   position: absolute;
-  top: 1.6rem;
+  top: 1.8rem;
   left: 2rem;
   z-index: 20;
-  margin: 0;
-  font-size: clamp(2.5rem, 2.05vw, 3.4rem);
-  line-height: 1.22;
-  letter-spacing: -.055em;
-  font-weight: 650;
+  width: clamp(4.8rem, 5vw, 7.2rem);
+  height: auto;
 }
 
-.hero-kicker em { font-size: 1.06em; }
+.hero-logo img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
 
 .hero-name {
   position: relative;
@@ -1029,7 +1028,7 @@ em { font-family: var(--serif); font-style: italic; font-weight: 400; }
     transform: scaleX(.92);
   }
 
-  .hero-kicker { font-size: 2.5rem; }
+  .hero-logo { width: 5.4rem; }
   .side-badge { display: none; }
 
   .slogan-section {
@@ -1059,7 +1058,11 @@ em { font-family: var(--serif); font-style: italic; font-weight: 400; }
 @media (max-width: 520px) {
   .menu-button { top: 14px; right: 14px; }
   .menu-panel { top: 14px; right: 14px; }
-  .hero-kicker { left: 1.6rem; top: 1.6rem; font-size: 2.2rem; }
+  .hero-logo {
+  left: 1.6rem;
+  top: 1.6rem;
+  width: 4.8rem;
+}
 
   .hero-name {
     white-space: normal;
