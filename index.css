@@ -485,7 +485,7 @@ em {
   }
 
   .hero-name::before {
-    content: "JAAFAR\A AL RABBAT";
+    content: "JAAFAR\A ALRABBAT";
     white-space: pre-line !important;
     display: block !important;
     width: 92vw !important;
