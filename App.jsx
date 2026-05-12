@@ -1,703 +1,492 @@
-import React, { useEffect, useRef, useState } from "react";
-
-const heroTrailImages = [
-  "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80",
-  "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=900&q=80",
-  "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=80",
-  "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=900&q=80",
-  "https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?auto=format&fit=crop&w=900&q=80",
-  "https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=900&q=80",
-  "https://images.unsplash.com/photo-1483058712412-4245e9b90334?auto=format&fit=crop&w=900&q=80",
-];
-
-const projectImages = {
-  fiber: "https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?auto=format&fit=crop&w=1400&q=80",
-  desert: "https://images.unsplash.com/photo-1509316785289-025f5b846b35?auto=format&fit=crop&w=1600&q=80",
-  studio: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=80",
-  abstract: "https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=1200&q=80",
-};
-
-const faqs = [
-  {
-    q: "What is this website for?",
-    a: "A calm personal website that can hold selected projects, writing, identity work, and the story behind the work without feeling loud or overdesigned.",
-  },
-  {
-    q: "What kind of work can appear here?",
-    a: "Syrian Humanists, visual direction, personal portfolio work, writing, ideas, collaborations, or anything that needs clarity, taste, and a humane presentation.",
-  },
-  {
-    q: "Who is behind it?",
-    a: "Jaafar Al Rabbat. The final text can later become more personal, more formal, or more focused on Syrian Humanists depending on the direction you choose.",
-  },
-  {
-    q: "Can the content change later?",
-    a: "Yes. This first version is about matching the visual system, motion, rhythm, and layout. The words and projects are temporary and easy to replace.",
-  },
-];
-
-function Menu({ open, onClose }) {
-  useEffect(() => {
-    const close = (e) => e.key === "Escape" && onClose();
-    window.addEventListener("keydown", close);
-    return () => window.removeEventListener("keydown", close);
-  }, [onClose]);
-
-  return (
-    <div className={`menu-layer ${open ? "is-open" : ""}`} onClick={onClose}>
-      <nav className="menu-card" onClick={(e) => e.stopPropagation()}>
-        <div className="menu-top">
-          <span>Menu</span>
-          <button className="menu-close" onClick={onClose} aria-label="Close menu">
-            <span />
-            <span />
-          </button>
-        </div>
-        <a onClick={onClose} href="#home">Home</a>
-        <a onClick={onClose} href="#work">Werk</a>
-        <a onClick={onClose} href="#contact">Contact</a>
-      </nav>
-    </div>
-  );
-}
-
-function Header({ onMenu }) {
-  return (
-    <header className="site-header">
-      <a className="hero-kicker" href="#home">
-        I create <em>quiet</em> spaces
-        <br />
-        that stay with people
-      </a>
-      <button className="nav-toggle" onClick={onMenu} aria-label="Open menu">
-        <span />
-        <span />
-      </button>
-    </header>
-  );
-}
-
-function CursorDot() {
-  const dot = useRef(null);
-  const target = useRef({ x: 0, y: 0 });
-  const current = useRef({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const onMove = (e) => {
-      target.current.x = e.clientX;
-      target.current.y = e.clientY;
-      if (dot.current) dot.current.style.opacity = "1";
-    };
-
-    let raf;
-    const animate = () => {
-      current.current.x += (target.current.x - current.current.x) * 0.18;
-      current.current.y += (target.current.y - current.current.y) * 0.18;
-      if (dot.current) {
-        dot.current.style.transform = `translate3d(${current.current.x - 5}px, ${current.current.y - 5}px, 0)`;
-      }
-      raf = requestAnimationFrame(animate);
-    };
-
-    window.addEventListener("mousemove", onMove);
-    raf = requestAnimationFrame(animate);
-    return () => {
-      window.removeEventListener("mousemove", onMove);
-      cancelAnimationFrame(raf);
-    };
-  }, []);
-
-  return <div ref={dot} className="cursor-dot" />;
-}
-
-function SideBadge() {
-  return (
-    <aside className="side-badge">
-      <strong>J.</strong>
-      <span>Selected</span>
-    </aside>
-  );
-}
-
-function Hero() {
-  const root = useRef(null);
-  const old = useRef({ x: 0, y: 0, ready: false });
-  const distance = useRef(0);
-  const imageIndex = useRef(0);
-
-  const createMedia = (x, y) => {
-    const el = root.current;
-    if (!el || window.innerWidth < 768) return;
-
-    const image = document.createElement("img");
-    image.src = heroTrailImages[imageIndex.current];
-    image.alt = "";
-    image.decoding = "async";
-    image.style.position = "absolute";
-    image.style.width = "10vw";
-    image.style.height = "12vw";
-    image.style.objectFit = "cover";
-    image.style.borderRadius = "4%";
-    image.style.left = `${x}px`;
-    image.style.top = `${y}px`;
-    image.style.zIndex = "5";
-    image.style.pointerEvents = "none";
-    image.style.transform = "translate(-50%, -50%) scale(1) rotate(0deg)";
-    image.style.opacity = "1";
-
-    el.appendChild(image);
-
-    const rotation = (Math.random() - 0.5) * 30;
-    image.animate(
-      [
-        { transform: "translate(-50%, -50%) scale(1) rotate(0deg)" },
-        { transform: `translate(-50%, -50%) scale(1) rotate(${rotation}deg)` },
-      ],
-      { duration: 1200, easing: "cubic-bezier(.22,1,.36,1)", fill: "forwards" }
-    );
-
-    const fade = image.animate(
-      [
-        { opacity: 1, transform: `translate(-50%, -50%) scale(1) rotate(${rotation}deg)` },
-        { opacity: 0, transform: `translate(-50%, -50%) scale(0.3) rotate(${rotation}deg)` },
-      ],
-      { duration: 400, delay: 600, easing: "cubic-bezier(.68,-.55,.27,1.55)", fill: "forwards" }
-    );
-
-    fade.onfinish = () => image.remove();
-    imageIndex.current = (imageIndex.current + 1) % heroTrailImages.length;
-  };
-
-  const onMouseMove = (e) => {
-    const el = root.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    if (!old.current.ready) {
-      old.current = { x, y, ready: true };
-      return;
-    }
-
-    distance.current += Math.abs(x - old.current.x) + Math.abs(y - old.current.y);
-    if (distance.current > window.innerWidth / 12) {
-      distance.current = 0;
-      createMedia(x, y);
-    }
-    old.current = { x, y, ready: true };
-  };
-
-  return (
-    <section id="home" ref={root} onMouseMove={onMouseMove} className="hero-section">
-      <h1 className="hero-title">
-        <span>JAAFAR AL RABBAT</span>
-      </h1>
-      <p className="scroll-note">Scroll for more</p>
-    </section>
-  );
-}
-
-function IntroStatement() {
-  return (
-    <section className="intro-statement">
-      <p className="mini-label">Jaafar</p>
-      <h2>
-        I am a <em>quiet</em> visual thinker who creates calm digital experiences where design, story, and presence come together with real <em>impact</em>.
-      </h2>
-    </section>
-  );
-}
-
-function Cases() {
-  return (
-    <section id="work" className="project-grid">
-      <div className="section-heading">
-        <h2>Cases</h2>
-        <a href="#work">View all</a>
-      </div>
-
-      <div className="cases-grid">
-        <a className="case-card case-large" href="#story">
-          <img src={projectImages.abstract} alt="Abstract identity work" />
-          <div className="case-tags">
-            <span>Concept</span>
-            <span>Humanism</span>
-          </div>
-          <h3>Syrian <em>Humanists</em></h3>
-          <span className="case-arrow">↗</span>
-        </a>
-
-        <a className="case-card case-logo" href="#story">
-          <div className="fake-logo">
-            <strong>JAAFAR</strong>
-            <span>Studio</span>
-          </div>
-        </a>
-
-        <a className="case-card case-image" href="#story">
-          <img src={projectImages.fiber} alt="Hands working with tools" />
-        </a>
-
-        <a className="case-card case-wide" href="#story">
-          <img src={projectImages.desert} alt="Desert landscape" />
-        </a>
-      </div>
-
-      <div className="marquee" aria-hidden="true">
-        <div>
-          <span>IMMERSIVE — BRANDING — CREATIVE — HUMAN — DIGITAL — </span>
-          <span>IMMERSIVE — BRANDING — CREATIVE — HUMAN — DIGITAL — </span>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Story() {
-  return (
-    <section id="story" className="story-section">
-      <div className="story-image-wrap">
-        <img
-          src="/jaafar-story.jpg"
-          alt="Jaafar Al Rabbat"
-          onError={(e) => {
-            e.currentTarget.src = projectImages.studio;
-          }}
-        />
-      </div>
-      <div className="story-copy">
-        <h2>
-          The story
-          <br />
-          behind <em>Jaafar</em>
-        </h2>
-        <p>
-          This first version keeps the same quiet rhythm: image on the left, story on the right, large direct heading, and short paragraphs with enough space to breathe.
-        </p>
-        <p>
-          Later we can make this section more personal, more professional, or more focused on Syrian Humanists. For now, it is built to match the structure before changing the soul.
-        </p>
-        <a className="button-dark" href="#contact">Get in touch <span>→</span></a>
-      </div>
-    </section>
-  );
-}
-
-function FAQ() {
-  const [open, setOpen] = useState(0);
-  return (
-    <section className="faq-section">
-      <h2>Frequently asked <em>questions</em></h2>
-      <div className="faq-list">
-        {faqs.map((item, index) => (
-          <article className="faq-item" key={item.q}>
-            <button onClick={() => setOpen(open === index ? -1 : index)}>
-              <span className="faq-number">{String(index + 1).padStart(2, "0")}.</span>
-              <span className="faq-question">{item.q}</span>
-              <span className="faq-plus">+</span>
-            </button>
-            <div className={`faq-answer ${open === index ? "open" : ""}`}>
-              <p>{item.a}</p>
-            </div>
-          </article>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function Contact() {
-  return (
-    <footer id="contact" className="contact-section">
-      <div className="contact-title">
-        <h2>Let us <em>quietly</em><br />make something memorable</h2>
-        <a className="button-dark" href="mailto:hello@example.com">Send a mail <span>→</span></a>
-      </div>
-      <div className="contact-columns">
-        <div>
-          <h3>Menu</h3>
-          <a href="#home">Home</a>
-          <a href="#work">Werk</a>
-          <a href="#contact">Contact</a>
-        </div>
-        <div>
-          <h3>Socials</h3>
-          <a href="https://www.linkedin.com" target="_blank" rel="noreferrer">LinkedIn</a>
-          <a href="https://www.instagram.com" target="_blank" rel="noreferrer">Instagram</a>
-        </div>
-        <div>
-          <h3>Contact</h3>
-          <a href="mailto:hello@example.com">hello@example.com</a>
-        </div>
-      </div>
-      <strong className="footer-word">JAAFAR</strong>
-    </footer>
-  );
-}
+import React, { useEffect, useMemo, useRef, useState } from "react";
 
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [cursor, setCursor] = useState({ x: -40, y: -40 });
+  const [openFaq, setOpenFaq] = useState(0);
+  const heroRef = useRef(null);
+  const trailIndex = useRef(0);
+  const lastMouse = useRef({ x: 0, y: 0, ready: false });
+  const distance = useRef(0);
+  const sloganRef = useRef(null);
+  const [highlightProgress, setHighlightProgress] = useState(0);
+
+  const trailImages = useMemo(
+    () => [
+      "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1495567720989-cebdbdd97913?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=800&q=80",
+    ],
+    []
+  );
+
+  const cases = [
+    {
+      title: "Syrian Humanists",
+      italic: "Identity",
+      tags: ["Concept", "Public voice"],
+      image:
+        "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=80",
+      large: true,
+    },
+    {
+      title: "Visual",
+      italic: "Direction",
+      tags: ["Taste", "Composition"],
+      image:
+        "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?auto=format&fit=crop&w=1200&q=80",
+    },
+    {
+      title: "Writing",
+      italic: "Ideas",
+      tags: ["Text", "Meaning"],
+      image:
+        "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=1200&q=80",
+    },
+    {
+      title: "Personal",
+      italic: "Portfolio",
+      tags: ["Selected", "Quiet"],
+      image:
+        "https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=1400&q=80",
+      wide: true,
+    },
+  ];
+
+  const words = [
+    { text: "Ik", italic: false },
+    { text: "ben", italic: false },
+    { text: "een", italic: false },
+    { text: "creatieve", italic: true },
+    { text: "freelancer", italic: false },
+    { text: "die", italic: false },
+    { text: "onvergetelijke", italic: false },
+    { text: "ervaringen", italic: true },
+    { text: "creëert.", italic: false },
+    { text: "Waar", italic: false },
+    { text: "design", italic: false },
+    { text: "en", italic: false },
+    { text: "beleving", italic: false },
+    { text: "samenkomen", italic: false },
+    { text: "om", italic: false },
+    { text: "echt", italic: false },
+    { text: "impact", italic: true },
+    { text: "te", italic: false },
+    { text: "maken.", italic: false },
+  ];
+
+  const faqs = [
+    {
+      q: "What kind of work do you do?",
+      a: "I work on thoughtful digital identity, simple portfolio systems, writing direction, and calm visual presentation. The goal is not decoration; it is clarity with taste.",
+    },
+    {
+      q: "Can this become more personal later?",
+      a: "Yes. This version is a visual container. The structure is ready; the next step is replacing the temporary text, project cards, and photos with your own material.",
+    },
+    {
+      q: "Why this minimal style?",
+      a: "Because your direction needs restraint. Too many effects would make it feel performative. The stronger direction is quiet, confident, and precise.",
+    },
+    {
+      q: "Can we change colors and typography?",
+      a: "Yes. The system is built with variables, so the identity can shift without breaking the layout or animation logic.",
+    },
+  ];
+
+  useEffect(() => {
+    const move = (e) => setCursor({ x: e.clientX, y: e.clientY });
+    window.addEventListener("mousemove", move);
+    return () => window.removeEventListener("mousemove", move);
+  }, []);
+
+  useEffect(() => {
+    const onScroll = () => {
+      if (!sloganRef.current) return;
+      const rect = sloganRef.current.getBoundingClientRect();
+      const vh = window.innerHeight || 1;
+      const start = vh * 0.86;
+      const end = vh * 0.24;
+      const raw = (start - rect.top) / (start - end);
+      setHighlightProgress(Math.max(0, Math.min(1, raw)));
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    const root = heroRef.current;
+    if (!root) return;
+
+    const createTrail = (x, y) => {
+      const img = document.createElement("img");
+      img.src = trailImages[trailIndex.current];
+      img.className = "trail-image";
+      img.style.left = `${x}px`;
+      img.style.top = `${y}px`;
+      img.style.transform = `translate(-50%, -50%) rotate(${(Math.random() - 0.5) * 28}deg) scale(0.96)`;
+      root.appendChild(img);
+
+      requestAnimationFrame(() => {
+        img.style.opacity = "1";
+        img.style.transform = `translate(-50%, -50%) rotate(${(Math.random() - 0.5) * 22}deg) scale(1)`;
+      });
+
+      window.setTimeout(() => {
+        img.style.opacity = "0";
+        img.style.transform += " scale(.34)";
+      }, 620);
+
+      window.setTimeout(() => img.remove(), 1100);
+      trailIndex.current = (trailIndex.current + 1) % trailImages.length;
+    };
+
+    const onMove = (e) => {
+      const rect = root.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      if (!lastMouse.current.ready) {
+        lastMouse.current = { x, y, ready: true };
+        return;
+      }
+      distance.current += Math.abs(x - lastMouse.current.x) + Math.abs(y - lastMouse.current.y);
+      const resetDistance = window.innerWidth / 12;
+      if (distance.current > resetDistance) {
+        distance.current = 0;
+        createTrail(x, y);
+      }
+      lastMouse.current = { x, y, ready: true };
+    };
+
+    const onLeave = () => {
+      lastMouse.current.ready = false;
+      distance.current = 0;
+    };
+
+    root.addEventListener("mousemove", onMove);
+    root.addEventListener("mouseleave", onLeave);
+    return () => {
+      root.removeEventListener("mousemove", onMove);
+      root.removeEventListener("mouseleave", onLeave);
+    };
+  }, [trailImages]);
 
   return (
-    <main>
-      <style>{styles}</style>
-      <CursorDot />
-      <Header onMenu={() => setMenuOpen(true)} />
-      <Menu open={menuOpen} onClose={() => setMenuOpen(false)} />
-      <SideBadge />
-      <Hero />
-      <IntroStatement />
-      <Cases />
-      <Story />
-      <FAQ />
-      <Contact />
+    <main className={`site ${menuOpen ? "menu-is-open" : ""}`}>
+      <style>{css}</style>
+
+      <div
+        className="cursor-dot"
+        style={{ transform: `translate3d(${cursor.x - 5}px, ${cursor.y - 5}px, 0)` }}
+      />
+
+      <button
+        className="menu-button"
+        aria-label="Toggle menu"
+        onClick={() => setMenuOpen((v) => !v)}
+      >
+        <span />
+        <span />
+      </button>
+
+      <nav className="floating-menu" data-open={menuOpen ? "true" : "false"}>
+        <div className="menu-kicker">MENU</div>
+        <button className="menu-close" onClick={() => setMenuOpen(false)} aria-label="Close menu">
+          ×
+        </button>
+        <a href="#home" onClick={() => setMenuOpen(false)}>Home</a>
+        <a href="#work" onClick={() => setMenuOpen(false)}>Work</a>
+        <a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a>
+      </nav>
+
+      <div className="side-badge">
+        <strong>J.</strong>
+        <span>Selected</span>
+      </div>
+
+      <section id="home" ref={heroRef} className="hero section-light">
+        <p className="hero-line">
+          Ik <em>creëer</em> websites
+          <br />
+          die je bij zullen blijven
+        </p>
+        <h1 className="hero-name">JAAFAR AL RABBAT</h1>
+        <p className="scroll-note">Scroll voor meer</p>
+      </section>
+
+      <section className="slogan-section section-light" ref={sloganRef}>
+        <div className="tiny-label">Jaafar</div>
+        <h2 className="slogan">
+          {words.map((word, index) => {
+            const threshold = index / words.length;
+            const active = highlightProgress > threshold;
+            const partial = Math.max(0, Math.min(1, (highlightProgress - threshold) * words.length));
+            return (
+              <span
+                key={`${word.text}-${index}`}
+                className={word.italic ? "serif" : ""}
+                style={{
+                  color: active ? `rgba(38,38,38,${0.25 + partial * 0.75})` : "rgba(38,38,38,.16)",
+                }}
+              >
+                {word.text}{" "}
+              </span>
+            );
+          })}
+        </h2>
+      </section>
+
+      <section id="work" className="cases section-light">
+        <div className="section-heading-row">
+          <h2>Cases</h2>
+          <a href="#contact">Bekijk alles</a>
+        </div>
+
+        <div className="case-grid">
+          {cases.map((item, index) => (
+            <article
+              key={item.title}
+              className={`case-card ${item.large ? "case-large" : ""} ${item.wide ? "case-wide" : ""}`}
+            >
+              <img src={item.image} alt="" />
+              <div className="case-shade" />
+              <div className="case-tags">
+                {item.tags.map((tag) => (
+                  <span key={tag}>{tag}</span>
+                ))}
+              </div>
+              <button aria-label="Open case" className="case-arrow">↗</button>
+              <h3>
+                {item.title} <em>{item.italic}</em>
+              </h3>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="marquee-strip" aria-hidden="true">
+        <div className="marquee-track">
+          <span>QUIET DESIGN — HUMAN IDEAS — SELECTED WORK — </span>
+          <span>QUIET DESIGN — HUMAN IDEAS — SELECTED WORK — </span>
+        </div>
+      </section>
+
+      <section className="story section-light">
+        <div className="portrait-card">
+          <img
+            src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=900&q=80"
+            alt="Portrait placeholder"
+          />
+        </div>
+        <div className="story-copy">
+          <h2>
+            Het verhaal
+            <br />
+            achter <em>Jaafar</em>
+          </h2>
+          <p>
+            I build a visual language around calm confidence, careful thinking, and human presence. The design should not shout. It should stay in the mind because it feels exact.
+          </p>
+          <p>
+            This website is intentionally restrained: large type, quiet rhythm, selective images, and soft motion. Every part should feel considered, not decorated.
+          </p>
+          <a className="dark-button" href="#contact">Kennismaken <span>↗</span></a>
+        </div>
+      </section>
+
+      <section className="faq section-light">
+        <h2>
+          Meest gestelde <em>vragen</em>
+        </h2>
+        <div className="faq-list">
+          {faqs.map((item, index) => (
+            <button
+              key={item.q}
+              className="faq-item"
+              data-open={openFaq === index ? "true" : "false"}
+              onClick={() => setOpenFaq(openFaq === index ? -1 : index)}
+            >
+              <span className="faq-number">{String(index + 1).padStart(2, "0")}.</span>
+              <span className="faq-content">
+                <strong>{item.q}</strong>
+                <span>{item.a}</span>
+              </span>
+              <span className="faq-plus">+</span>
+            </button>
+          ))}
+        </div>
+      </section>
+
+      <footer id="contact" className="contact section-light">
+        <div>
+          <h2>
+            Laten we <em>samen</em>
+            <br />
+            iets sterks maken
+          </h2>
+          <a className="dark-button" href="mailto:contact@example.com">Stuur een mail <span>↗</span></a>
+        </div>
+        <div className="footer-col">
+          <span>Menu</span>
+          <a href="#home">Home</a>
+          <a href="#work">Work</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <div className="footer-col">
+          <span>Socials</span>
+          <a href="https://instagram.com" target="_blank" rel="noreferrer">Instagram</a>
+          <a href="https://linkedin.com" target="_blank" rel="noreferrer">LinkedIn</a>
+        </div>
+        <div className="footer-col">
+          <span>Contact</span>
+          <a href="mailto:contact@example.com">contact@example.com</a>
+        </div>
+      </footer>
     </main>
   );
 }
 
-const styles = `
-  :root {
-    --bg: #fcfcfc;
-    --ink: #262626;
-    --muted: rgba(38, 38, 38, 0.62);
-    --line: rgba(38, 38, 38, 0.55);
-    --soft: #f1f1ef;
-    --dark: #111111;
-    --green: #063f2f;
-  }
+const css = `
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap');
 
-  * { box-sizing: border-box; }
-  html { font-size: 62.5%; scroll-behavior: smooth; }
-  body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--ink);
-    font-family: "PPNeueMontreal", "PP Neue Montreal", Inter, Arial, sans-serif;
-    font-size: 1.6rem;
-    line-height: 1.15;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-  }
-  a { color: inherit; text-decoration: none; }
-  button { font: inherit; }
-  em {
-    font-family: "Saans", "Times New Roman", serif;
-    font-style: italic;
-    font-weight: 400;
-    letter-spacing: -0.07em;
-  }
+:root {
+  --bg: #fcfcfc;
+  --ink: rgb(38, 38, 38);
+  --muted: rgba(38, 38, 38, .55);
+  --soft: #f1f1ef;
+  --menu: #e9e8e5;
+  --line: rgba(38, 38, 38, .34);
+  --radius: 18px;
+  --gap: 16px;
+  --sans: "PPNeueMontreal", "PP Neue Montreal", "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --serif: "Instrument Serif", "Times New Roman", serif;
+}
 
-  .cursor-dot {
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: 1000;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: #000;
-    pointer-events: none;
-    opacity: 0;
-  }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 62.5%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--sans); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; cursor: none; }
+a, button { cursor: none; }
 
-  .site-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 80;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 1.8rem 2rem;
-    pointer-events: none;
-  }
+.site { min-height: 100vh; background: var(--bg); color: var(--ink); overflow-x: clip; transition: background-color .75s ease; }
+.site.menu-is-open { background: #b5b5b5; }
+.section-light { background: var(--bg); transition: background-color .75s ease; }
+.menu-is-open .section-light { background: #b5b5b5; }
 
-  .hero-kicker {
-    pointer-events: auto;
-    max-width: 36rem;
-    font-size: clamp(2.4rem, 2vw, 3.2rem);
-    font-weight: 600;
-    letter-spacing: -0.055em;
-    line-height: 1.08;
-  }
+.cursor-dot { position: fixed; width: 10px; height: 10px; border-radius: 50%; background: #fff; mix-blend-mode: difference; z-index: 10000; pointer-events: none; transition: width .2s ease, height .2s ease, opacity .2s ease; }
 
-  .hero-kicker em { font-size: 1.05em; }
+.menu-button { position: fixed; top: 20px; right: 20px; width: 44px; height: 44px; border-radius: 50%; border: 0; background: #e5e5e3; z-index: 2000; display: flex; align-items: center; justify-content: center; padding: 0; transition: transform .7s cubic-bezier(.5,.5,0,1), background .3s ease; }
+.menu-button:hover { transform: rotate(.001turn) scale(1.04); }
+.menu-button span { position: absolute; width: 14px; height: 1.5px; background: var(--ink); border-radius: 99px; transition: .35s ease; }
+.menu-button span:first-child { transform: translateY(-3px); }
+.menu-button span:last-child { transform: translateY(3px); }
+.menu-is-open .menu-button { opacity: 0; pointer-events: none; }
 
-  .nav-toggle {
-    pointer-events: auto;
-    position: relative;
-    width: 44px;
-    height: 44px;
-    border: 0;
-    border-radius: 50%;
-    background: #e8e8e6;
-    color: #000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    transition: transform 0.7s cubic-bezier(0.5, 0.5, 0, 1), background 0.3s ease;
-  }
+.floating-menu { position: fixed; top: 20px; right: 20px; width: clamp(205px, 13.4vw, 236px); min-height: 202px; padding: 26px 22px 22px; border-radius: 28px; background: var(--menu); z-index: 3000; display: flex; flex-direction: column; justify-content: flex-start; transform-origin: top right; transform: scale(.86); opacity: 0; pointer-events: none; transition: opacity .28s ease, transform .48s cubic-bezier(.5,.5,0,1); }
+.floating-menu[data-open="true"] { transform: scale(1); opacity: 1; pointer-events: auto; }
+.menu-kicker { color: rgba(38,38,38,.48); font-size: 12px; letter-spacing: .05em; text-transform: uppercase; margin-bottom: 12px; }
+.menu-close { position: absolute; right: 18px; top: 16px; width: 30px; height: 30px; border: 0; background: transparent; font-size: 34px; line-height: 24px; color: var(--ink); font-weight: 300; }
+.floating-menu a { color: var(--ink); text-decoration: none; font-size: clamp(31px, 2.45vw, 42px); line-height: .98; letter-spacing: -.055em; font-weight: 400; margin: 4px 0; }
 
-  .nav-toggle:hover { transform: rotate(0.001deg) scale(0.94); background: #dededb; }
-  .nav-toggle span {
-    position: absolute;
-    width: 14px;
-    height: 1.5px;
-    background: currentColor;
-  }
-  .nav-toggle span:first-child { transform: translateY(-3px); }
-  .nav-toggle span:last-child { transform: translateY(3px); }
+.side-badge { position: fixed; right: 0; top: 52%; transform: translateY(-50%); width: 60px; height: 154px; background: #000; color: #fff; z-index: 1500; display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 15px 0 16px; }
+.side-badge strong { font-size: 26px; line-height: 1; letter-spacing: -.06em; }
+.side-badge span { writing-mode: vertical-rl; transform: rotate(180deg); font-size: 13px; font-weight: 700; letter-spacing: .02em; }
 
-  .menu-layer {
-    position: fixed;
-    inset: 0;
-    z-index: 120;
-    background: rgba(0, 0, 0, 0.32);
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity .35s ease, visibility .35s ease;
-  }
+.hero { position: relative; height: 100svh; min-height: 690px; overflow: hidden; display: flex; align-items: center; justify-content: center; padding: 20px; }
+.hero-line { position: absolute; left: 20px; top: 14px; margin: 0; font-size: clamp(27px, 2.08vw, 34px); line-height: 1.38; letter-spacing: -.055em; font-weight: 650; z-index: 7; }
+em, .serif { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -.03em; }
+.hero-name { position: relative; margin: 0; z-index: 4; font-size: clamp(52px, 8.05vw, 154px); line-height: .82; letter-spacing: -.062em; font-weight: 800; white-space: nowrap; text-align: center; transform: translateY(2.4vh); }
+.scroll-note { position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); margin: 0; font-size: 14px; color: rgba(38,38,38,.78); z-index: 7; }
+.trail-image { position: absolute; width: 10vw; height: 12vw; min-width: 112px; min-height: 132px; max-width: 178px; max-height: 214px; object-fit: cover; border-radius: 4%; opacity: 0; pointer-events: none; z-index: 5; transition: opacity .42s ease, transform 1.05s cubic-bezier(.22,1,.36,1); box-shadow: 0 12px 44px rgba(0,0,0,.10); }
 
-  .menu-layer.is-open { opacity: 1; visibility: visible; }
-  .menu-card {
-    position: absolute;
-    top: 1.8rem;
-    right: 1.8rem;
-    width: 23.6rem;
-    min-height: 18.7rem;
-    padding: 2.1rem 2.1rem 2.6rem;
-    border-radius: 2.4rem;
-    background: #f1f0ed;
-    color: var(--ink);
-    transform: translateY(-1rem) scale(.98);
-    opacity: 0;
-    transition: transform .45s cubic-bezier(.22,1,.36,1), opacity .25s ease;
-  }
-  .menu-layer.is-open .menu-card { transform: translateY(0) scale(1); opacity: 1; }
-  .menu-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1.2rem; }
-  .menu-top span { text-transform: uppercase; font-size: 1.1rem; letter-spacing: .05em; color: rgba(38,38,38,.55); }
-  .menu-close { position: relative; width: 28px; height: 28px; border: 0; background: transparent; cursor: pointer; }
-  .menu-close span { position: absolute; left: 4px; top: 13px; width: 22px; height: 2px; background: var(--ink); }
-  .menu-close span:first-child { transform: rotate(45deg); }
-  .menu-close span:last-child { transform: rotate(-45deg); }
-  .menu-card a {
-    display: block;
-    width: fit-content;
-    font-size: 3.2rem;
-    line-height: 1.02;
-    letter-spacing: -0.075em;
-    font-weight: 400;
-    transition: transform .25s ease;
-  }
-  .menu-card a:hover { transform: translateX(.4rem); }
+.slogan-section { position: relative; min-height: 90vh; padding: 18vh 20px 12vh; display: grid; grid-template-columns: minmax(120px, 22vw) 1fr; align-items: start; column-gap: 28px; }
+.tiny-label { font-size: 16px; color: rgba(38,38,38,.72); padding-top: 18px; }
+.slogan { margin: 0; max-width: 1260px; font-size: clamp(54px, 6.1vw, 116px); line-height: 1.13; letter-spacing: -.065em; font-weight: 700; }
+.slogan span { transition: color .1s linear; }
 
-  .side-badge {
-    position: fixed;
-    right: 0;
-    top: 50%;
-    z-index: 70;
-    transform: translateY(-50%);
-    width: 48px;
-    height: 156px;
-    background: #000;
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1.5rem 0 1.8rem;
-  }
-  .side-badge strong { font-size: 1.8rem; line-height: 1; }
-  .side-badge span { writing-mode: vertical-rl; transform: rotate(180deg); font-size: 1.2rem; font-weight: 600; }
+.cases { padding: 26px 20px 90px; }
+.section-heading-row { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 28px; }
+.section-heading-row h2 { margin: 0; font-size: clamp(48px, 4.4vw, 82px); line-height: .92; letter-spacing: -.065em; }
+.section-heading-row a { color: var(--ink); font-size: 18px; text-decoration: underline; text-underline-offset: 4px; }
+.case-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--gap); }
+.case-card { position: relative; min-height: 390px; grid-column: span 6; border-radius: var(--radius); overflow: hidden; background: #e9e9e5; isolation: isolate; }
+.case-card.case-large { grid-column: span 7; min-height: 430px; }
+.case-card.case-wide { grid-column: span 7; }
+.case-card:nth-child(2) { grid-column: span 5; }
+.case-card:nth-child(3) { grid-column: span 5; }
+.case-card img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; transition: transform .8s cubic-bezier(.22,1,.36,1), filter .7s ease; }
+.case-card:hover img { transform: scale(1.045); filter: blur(9px) saturate(.86); }
+.case-shade { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,.04), rgba(0,0,0,.54)); z-index: 1; opacity: .6; transition: opacity .35s ease; }
+.case-card:hover .case-shade { opacity: .85; }
+.case-tags { position: absolute; left: 24px; top: 24px; display: flex; gap: 10px; z-index: 2; }
+.case-tags span { color: #fff; background: rgba(255,255,255,.18); backdrop-filter: blur(8px); padding: 11px 14px; border-radius: 8px; font-size: 14px; }
+.case-arrow { position: absolute; right: 28px; top: 50%; transform: translateY(-50%); z-index: 3; width: 74px; height: 74px; border-radius: 50%; border: 0; color: #fff; background: var(--ink); font-size: 48px; line-height: 1; display: flex; align-items: center; justify-content: center; transition: transform .45s cubic-bezier(.22,1,.36,1); }
+.case-card:hover .case-arrow { transform: translateY(-50%) rotate(45deg) scale(1.03); }
+.case-card h3 { position: absolute; left: 24px; bottom: 22px; margin: 0; color: #fff; z-index: 2; font-size: clamp(40px, 3.2vw, 62px); line-height: .9; letter-spacing: -.06em; font-weight: 650; }
+.case-card h3 em { font-size: 1.05em; }
 
-  .hero-section {
-    position: relative;
-    min-height: 100svh;
-    overflow: hidden;
-    background: var(--bg);
-  }
-  .hero-title {
-    position: absolute;
-    left: 50%;
-    top: 53%;
-    z-index: 10;
-    transform: translate(-50%, -50%);
-    margin: 0;
-    width: 100%;
-    text-align: center;
-    pointer-events: none;
-  }
-  .hero-title span {
-    display: inline-block;
-    white-space: nowrap;
-    font-size: clamp(6.4rem, 8.15vw, 15.5rem);
-    font-weight: 700;
-    line-height: .8;
-    letter-spacing: -0.085em;
-  }
-  .scroll-note {
-    position: absolute;
-    z-index: 20;
-    left: 50%;
-    bottom: 2.4rem;
-    transform: translateX(-50%);
-    margin: 0;
-    font-size: 1.4rem;
-    color: rgba(38,38,38,.8);
-  }
+.marquee-strip { overflow: hidden; background: var(--bg); padding: 72px 0 110px; }
+.marquee-track { display: flex; width: max-content; animation: marquee 22s linear infinite; }
+.marquee-track span { white-space: nowrap; font-size: clamp(84px, 8vw, 156px); line-height: .85; font-weight: 800; letter-spacing: -.065em; padding-right: 34px; color: var(--ink); }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-  .intro-statement {
-    position: relative;
-    padding: 11rem 2rem 7rem;
-    background: var(--bg);
-  }
-  .mini-label { margin: 0 0 2rem; font-size: 1.4rem; }
-  .intro-statement h2 {
-    margin: 0;
-    max-width: 150rem;
-    font-size: clamp(5.2rem, 6.3vw, 10.6rem);
-    line-height: 1.08;
-    letter-spacing: -0.07em;
-    font-weight: 600;
-  }
+.story { min-height: 92vh; display: grid; grid-template-columns: 1fr 1.25fr; gap: 8vw; padding: 10vh 14vw 12vh; align-items: start; }
+.portrait-card { width: 100%; max-width: 470px; border-radius: 18px; overflow: hidden; align-self: start; }
+.portrait-card img { width: 100%; height: 520px; object-fit: cover; display: block; filter: saturate(.86); }
+.story-copy { max-width: 690px; padding-top: 28vh; }
+.story-copy h2 { margin: 0 0 26px; font-size: clamp(52px, 4.2vw, 80px); line-height: .98; letter-spacing: -.065em; }
+.story-copy p { font-size: 18px; line-height: 1.46; color: rgba(38,38,38,.82); margin: 0 0 26px; max-width: 620px; }
+.dark-button { display: inline-flex; align-items: center; gap: 10px; background: var(--ink); color: #fff; text-decoration: none; border-radius: 5px; font-size: 16px; font-weight: 700; padding: 13px 14px; margin-top: 8px; }
+.dark-button span { display: inline-flex; width: 18px; height: 18px; border-radius: 3px; background: #fff; color: var(--ink); align-items: center; justify-content: center; font-size: 14px; }
 
-  .project-grid {
-    padding: 6.4rem 1.6rem 3.2rem;
-    background: var(--bg);
-  }
-  .section-heading {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    margin-bottom: 5rem;
-  }
-  .section-heading h2 { margin: 0; font-size: 5rem; letter-spacing: -0.075em; font-weight: 600; }
-  .section-heading a { font-size: 1.8rem; text-decoration: underline; text-underline-offset: .3em; }
-  .cases-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.8rem;
-  }
-  .case-card {
-    position: relative;
-    overflow: hidden;
-    min-height: 40rem;
-    border-radius: 1.4rem;
-    background: #f3f3ef;
-    display: block;
-  }
-  .case-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .case-large { min-height: 40rem; color: #fff; }
-  .case-large img { filter: grayscale(1) blur(4px); transform: scale(1.04); opacity: .72; }
-  .case-large::after { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,.22); }
-  .case-tags { position: absolute; top: 2.2rem; left: 2.2rem; z-index: 2; display: flex; gap: 1.2rem; }
-  .case-tags span { padding: 1.2rem 1.4rem; border-radius: .6rem; background: rgba(255,255,255,.18); font-size: 1.4rem; }
-  .case-large h3 { position: absolute; left: 2.4rem; bottom: 2.8rem; z-index: 2; margin: 0; font-size: 4.8rem; line-height: .9; letter-spacing: -.075em; }
-  .case-arrow { position: absolute; right: 2rem; bottom: 2rem; z-index: 2; width: 7.2rem; height: 7.2rem; border-radius: 50%; display: grid; place-items: center; background: #1f1f1f; color: #fff; font-size: 4rem; }
-  .case-logo { display: grid; place-items: center; }
-  .fake-logo { color: var(--green); font-weight: 700; text-align: left; }
-  .fake-logo strong { display: block; font-size: 7rem; letter-spacing: -.08em; line-height: .8; }
-  .fake-logo span { display: block; margin-left: 13rem; font-size: 6rem; letter-spacing: -.08em; }
-  .case-wide { grid-column: span 1; }
+.faq { padding: 11vh 14vw 13vh; }
+.faq h2 { margin: 0 0 48px; font-size: clamp(50px, 4.4vw, 86px); line-height: .95; letter-spacing: -.065em; }
+.faq-list { max-width: 1030px; }
+.faq-item { width: 100%; display: grid; grid-template-columns: 70px 1fr 32px; gap: 22px; background: transparent; border: 0; border-bottom: 1px solid var(--line); text-align: left; padding: 25px 0 20px; color: var(--ink); }
+.faq-number { font-family: var(--serif); font-style: italic; font-size: 27px; line-height: 1; }
+.faq-content { display: flex; flex-direction: column; gap: 12px; }
+.faq-content strong { font-size: clamp(24px, 1.75vw, 34px); line-height: 1; letter-spacing: -.045em; font-weight: 700; }
+.faq-content span { font-size: 16px; line-height: 1.44; color: rgba(38,38,38,.76); max-height: 0; overflow: hidden; opacity: 0; transition: max-height .45s ease, opacity .28s ease; max-width: 930px; }
+.faq-item[data-open="true"] .faq-content span { max-height: 160px; opacity: 1; }
+.faq-plus { font-size: 30px; line-height: 1; transition: transform .35s ease; }
+.faq-item[data-open="true"] .faq-plus { transform: rotate(45deg); }
 
-  .marquee {
-    overflow: hidden;
-    margin: 9rem -1.6rem 12rem;
-    white-space: nowrap;
-  }
-  .marquee div { display: inline-flex; animation: marquee 18s linear infinite; }
-  .marquee span {
-    font-size: clamp(7rem, 8.2vw, 14rem);
-    font-weight: 700;
-    line-height: .85;
-    letter-spacing: -.075em;
-    padding-right: 4rem;
-  }
-  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.contact { min-height: 68vh; padding: 12vh 7vw 9vh; display: grid; grid-template-columns: 1.3fr .32fr .36fr .55fr; gap: 6vw; align-items: start; }
+.contact h2 { margin: 0 0 26px; font-size: clamp(40px, 3vw, 58px); line-height: 1.02; letter-spacing: -.06em; }
+.footer-col { display: flex; flex-direction: column; gap: 11px; font-size: 17px; }
+.footer-col span { color: rgba(38,38,38,.48); margin-bottom: 8px; }
+.footer-col a { color: var(--ink); text-decoration: none; }
+.footer-col a:hover { text-decoration: underline; text-underline-offset: 4px; }
 
-  .story-section {
-    display: grid;
-    grid-template-columns: .82fr 1.18fr;
-    gap: 12rem;
-    align-items: start;
-    padding: 9rem 14vw 12rem;
-    background: var(--bg);
-  }
-  .story-image-wrap {
-    overflow: hidden;
-    border-radius: 1.4rem;
-    background: #eee;
-  }
-  .story-image-wrap img { width: 100%; height: 40rem; object-fit: cover; display: block; }
-  .story-copy { padding-top: 44rem; }
-  .story-copy h2 {
-    margin: 0 0 3rem;
-    font-size: clamp(5rem, 5vw, 8rem);
-    line-height: .96;
-    letter-spacing: -.075em;
-    font-weight: 600;
-  }
-  .story-copy p { max-width: 68rem; margin: 0 0 2.8rem; font-size: 1.6rem; line-height: 1.45; color: rgba(38,38,38,.78); }
-  .button-dark { display: inline-flex; align-items: center; gap: .8rem; border-radius: .4rem; background: #202020; color: #fff; padding: 1.3rem 1.5rem; font-size: 1.6rem; font-weight: 600; }
-  .button-dark span { display: inline-grid; place-items: center; width: 1.8rem; height: 1.8rem; border-radius: .3rem; background: #fff; color: #202020; }
+@media (max-width: 900px) {
+  body, a, button { cursor: auto; }
+  .cursor-dot { display: none; }
+  .side-badge { width: 52px; height: 136px; }
+  .hero { min-height: 650px; }
+  .hero-line { font-size: 26px; }
+  .hero-name { font-size: clamp(46px, 11vw, 96px); white-space: normal; }
+  .slogan-section { grid-template-columns: 1fr; padding: 16vh 18px 10vh; }
+  .tiny-label { margin-bottom: 24px; }
+  .slogan { font-size: clamp(48px, 10vw, 74px); }
+  .case-grid { grid-template-columns: 1fr; }
+  .case-card, .case-card.case-large, .case-card.case-wide, .case-card:nth-child(2), .case-card:nth-child(3) { grid-column: auto; min-height: 380px; }
+  .story { grid-template-columns: 1fr; padding: 8vh 18px 10vh; gap: 28px; }
+  .story-copy { padding-top: 0; }
+  .portrait-card img { height: 420px; }
+  .faq { padding: 8vh 18px 11vh; }
+  .faq-item { grid-template-columns: 52px 1fr 26px; }
+  .contact { grid-template-columns: 1fr; padding: 10vh 18px; gap: 32px; }
+}
 
-  .faq-section { padding: 12rem 14vw 12rem; background: var(--bg); }
-  .faq-section h2 { margin: 0 0 5rem; font-size: clamp(5rem, 5vw, 8rem); line-height: .95; letter-spacing: -.075em; font-weight: 600; }
-  .faq-list { max-width: 92rem; }
-  .faq-item { border-bottom: 1px solid rgba(38,38,38,.65); }
-  .faq-item button {
-    width: 100%;
-    display: grid;
-    grid-template-columns: 6rem 1fr 4rem;
-    gap: 0;
-    align-items: start;
-    padding: 2.7rem 0 1.6rem;
-    border: 0;
-    background: transparent;
-    text-align: left;
-    color: var(--ink);
-    cursor: pointer;
-  }
-  .faq-number { font-family: "Saans", "Times New Roman", serif; font-style: italic; font-size: 2.5rem; line-height: 1; }
-  .faq-question { font-size: 2.5rem; font-weight: 600; letter-spacing: -.045em; line-height: 1.1; }
-  .faq-plus { text-align: right; font-size: 3rem; line-height: .8; }
-  .faq-answer { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .35s ease; }
-  .faq-answer.open { grid-template-rows: 1fr; }
-  .faq-answer p { overflow: hidden; margin: 0 0 1.8rem 6rem; max-width: 78rem; font-size: 1.6rem; line-height: 1.45; color: rgba(38,38,38,.82); }
-
-  .contact-section {
-    position: relative;
-    overflow: hidden;
-    min-height: 100svh;
-    padding: 16rem 11rem 0;
-    background: var(--bg);
-  }
-  .contact-title { display: grid; grid-template-columns: 1fr 1.5fr; align-items: start; gap: 8rem; }
-  .contact-title h2 { margin: 0; max-width: 50rem; font-size: 3.2rem; line-height: 1.08; letter-spacing: -.055em; font-weight: 600; }
-  .contact-columns { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8rem; margin-left: auto; max-width: 70rem; }
-  .contact-columns h3 { margin: 0 0 1.6rem; font-size: 1.8rem; color: rgba(38,38,38,.48); font-weight: 400; }
-  .contact-columns a { display: block; margin: 0 0 1rem; font-size: 1.6rem; }
-  .footer-word {
-    position: absolute;
-    left: 9rem;
-    bottom: -3rem;
-    font-size: clamp(10rem, 16vw, 26rem);
-    line-height: .8;
-    letter-spacing: -.085em;
-    font-weight: 700;
-  }
-
-  @media (max-width: 900px) {
-    .side-badge { display: none; }
-    .hero-title span { white-space: normal; font-size: 18vw; }
-    .intro-statement h2 { font-size: 4.8rem; }
-    .cases-grid, .story-section, .contact-title, .contact-columns { grid-template-columns: 1fr; }
-    .story-section, .faq-section, .contact-section { padding-left: 2rem; padding-right: 2rem; }
-    .story-copy { padding-top: 0; }
-    .contact-section { padding-top: 10rem; }
-    .footer-word { left: 2rem; font-size: 18vw; }
-  }
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  .trail-image { display: none; }
+}
 `;
