@@ -309,3 +309,46 @@ em {
     line-height: 1.08 !important;
   }
 }
+/* Calm down slogan section */
+.slogan-section {
+  min-height: 62vh !important;
+  grid-template-columns: 1fr !important;
+  padding: 8rem 12vw 7rem !important;
+  align-items: center !important;
+}
+
+.mini-label {
+  display: none !important;
+}
+
+.slogan-text {
+  max-width: 980px !important;
+  margin: 0 auto !important;
+  font-size: clamp(3.2rem, 4.6vw, 6.8rem) !important;
+  line-height: 1.05 !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.045em !important;
+  text-align: center !important;
+}
+
+.slogan-text span {
+  opacity: 1 !important;
+}
+
+.slogan-text .is-italic {
+  font-size: 1em !important;
+  font-style: normal !important;
+  letter-spacing: -0.045em !important;
+}
+
+@media (max-width: 900px) {
+  .slogan-section {
+    min-height: 52vh !important;
+    padding: 6rem 2rem !important;
+  }
+
+  .slogan-text {
+    font-size: clamp(3rem, 8vw, 5.2rem) !important;
+    text-align: left !important;
+  }
+}
