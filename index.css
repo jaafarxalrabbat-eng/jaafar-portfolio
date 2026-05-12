@@ -1,9 +1,16 @@
-@import "tailwindcss";
+/* Small logo override */
 
-html {
-  scroll-behavior: smooth;
+.hero-logo {
+  position: absolute !important;
+  top: 22px !important;
+  left: 22px !important;
+  z-index: 30 !important;
+  width: 42px !important;
+  height: 42px !important;
 }
 
-body {
-  margin: 0;
+.hero-logo img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
 }
