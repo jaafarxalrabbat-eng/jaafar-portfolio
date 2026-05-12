@@ -6,7 +6,7 @@
   font-display: swap;
 }
 
-/* Apply Halenoir to the whole website */
+/* Global font */
 html,
 body,
 button,
@@ -27,12 +27,12 @@ em {
   font-family: "Halenoir", "Helvetica Neue", Arial, sans-serif !important;
 }
 
-/* Keep italic text italic, but with the same font */
+/* Keep italic style, but use the same font */
 em {
   font-style: italic !important;
 }
 
-/* Small logo override */
+/* Logo in top-left */
 .hero-logo {
   position: absolute !important;
   top: 22px !important;
@@ -47,8 +47,45 @@ em {
   height: 100% !important;
   object-fit: contain !important;
 }
-/* Make main hero name slightly thinner */
+
+/* Refined hero name */
 .hero-name {
-  font-weight: 500 !important;
-  letter-spacing: -0.065em !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.055em !important;
+  transform: translateY(-38px) scaleX(0.92) !important;
+}
+
+/* Move scroll text slightly lower so it does not compete with the name */
+.scroll-indicator {
+  bottom: 2.2rem !important;
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  .hero-logo {
+    width: 38px !important;
+    height: 38px !important;
+  }
+
+  .hero-name {
+    font-weight: 400 !important;
+    letter-spacing: -0.045em !important;
+    transform: translateY(-24px) scaleX(0.94) !important;
+  }
+}
+
+/* Mobile */
+@media (max-width: 520px) {
+  .hero-logo {
+    top: 16px !important;
+    left: 16px !important;
+    width: 34px !important;
+    height: 34px !important;
+  }
+
+  .hero-name {
+    font-weight: 400 !important;
+    letter-spacing: -0.035em !important;
+    transform: translateY(-18px) scaleX(0.96) !important;
+  }
 }
