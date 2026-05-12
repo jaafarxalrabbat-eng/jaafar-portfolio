@@ -47,3 +47,8 @@ em {
   height: 100% !important;
   object-fit: contain !important;
 }
+/* Make main hero name slightly thinner */
+.hero-name {
+  font-weight: 500 !important;
+  letter-spacing: -0.065em !important;
+}
