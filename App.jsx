@@ -1,7 +1,12 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 
 const TRAIL_IMAGES = [
-  
+    "/assets/trail-01.jpg",
+  "/assets/trail-02.jpg",
+  "/assets/trail-03.jpg",
+  "/assets/trail-04.jpg",
+  "/assets/trail-05.jpg",
+  "/assets/trail-06.jpg",
 ];
 
 const CASES = [
@@ -83,12 +88,9 @@ export default function App() {
   const [sloganProgress, setSloganProgress] = useState(0);
   const [openFaq, setOpenFaq] = useState(0);
 
-  useEffect(() => {
-    document.title = "Jaafar Al Rabbat";
-
-    document
-      .querySelectorAll('link[rel="icon"], link[rel="shortcut icon"], link[rel="apple-touch-icon"]')
-      .forEach((icon) => icon.remove());
+useEffect(() => {
+  document.title = "Jaafar Al Rabbat";
+}, []);
 
     const favicon = document.createElement("link");
     favicon.rel = "icon";
@@ -317,7 +319,7 @@ export default function App() {
       <section className="story-section">
         <div className="story-image">
           <img
-            src="https://images.unsplash.com/photo-1492447166138-50c3889fccb1?auto=format&fit=crop&w=1200&q=85"
+           src="/assets/story-portrait.jpg"
             alt="Portrait placeholder"
           />
         </div>
