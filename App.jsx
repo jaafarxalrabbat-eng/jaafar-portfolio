@@ -1,504 +1,648 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useState } from "react";
 
-const profile = {
-  name: "Jaafar Al-Rabbat",
-  email: "jaafar.f.alrabbat@gmail.com",
+const palette = {
+  ink: "#1E2527",
+  stone: "#F4EFE7",
+  paper: "#FBF8F2",
+  mist: "#D8E1DD",
+  canal: "#6E8587",
+  green: "#566F5B",
+  brick: "#A6654E",
+  clay: "#C98B68",
 };
 
-const copy = {
-  en: {
-    nav: ["Index", "Work", "Method", "Notes", "Contact"],
-    introSmall: "Personal digital presence",
-    name: "Jaafar Al-Rabbat",
-    headline: "I shape calm digital spaces where language, structure, and visual judgment meet.",
-    paragraph:
-      "A portfolio for quiet work: websites, bilingual presence, thoughtful content, and digital identities built with attention to tone, rhythm, evidence, and the details most people pass by.",
-    ctaWork: "See the work",
-    ctaContact: "Write to me",
-    sideNote: "Stone. Water. Light. Language. Structure.",
+const navItems = [
+  { label: "Work", href: "#work" },
+  { label: "Taste", href: "#taste" },
+  { label: "Story", href: "#story" },
+  { label: "Contact", href: "#contact" },
+];
 
-    indexTitle: "Index of attention",
-    indexText:
-      "This site is not designed to shout expertise. It is designed to show how I see: through clarity, restraint, cultural detail, and the quiet discipline of ordering ideas.",
-    indexItems: [
-      ["01", "Language", "Clear words, careful tone, and bilingual structure."],
-      ["02", "Visual judgment", "Space, rhythm, softness, alignment, and what should be removed."],
-      ["03", "Structured thinking", "A way to read purpose, evidence, risk, and consequence."],
-      ["04", "Digital building", "Practical websites that can be edited, launched, and trusted."],
-    ],
-
-    workTitle: "One live project, fully carried through.",
-    workText:
-      "A bilingual initiative website developed from early concept to public launch: content structure, interface design, Arabic/English direction, Sanity CMS, SEO basics, debugging, DNS, and deployment.",
-    projectName: "Syrian Humanists Website",
-    projectMeta: "React / Vite / Sanity CMS / Arabic-English / SEO / Deployment",
-    projectPoints: [
-      "Built a calm bilingual interface from an early-stage concept.",
-      "Structured content for Arabic and English reading experiences.",
-      "Connected editable content through Sanity CMS.",
-      "Handled build errors, hosting, DNS, and live deployment.",
-    ],
-    live: "Open live project",
-
-    methodTitle: "Method, not noise.",
-    methodText:
-      "A website becomes credible when the decisions behind it are disciplined: what to say, what to remove, how to guide the eye, and how to make the visitor feel oriented without pressure.",
-    method: [
-      ["Observe", "Read the person, project, tone, audience, and quiet tension."],
-      ["Reduce", "Remove vague language, visual noise, and decorative weakness."],
-      ["Order", "Turn the idea into a readable hierarchy and a calm journey."],
-      ["Build", "Translate the structure into a responsive, usable website."],
-      ["Launch", "Test, deploy, connect the domain, and fix what breaks."],
-    ],
-
-    notesTitle: "Visual notes",
-    notesText:
-      "The visual direction is drawn from small things: canal light, museum quiet, stone texture, muted flowers, old brick, soft rooms, and the discipline of stopping before the design becomes loud.",
-    notes: ["Canal light", "Stone texture", "Museum quiet", "Muted flowers", "Old brick", "Soft room"],
-
-    contactTitle: "For work that needs clarity without noise.",
-    contactText:
-      "Reach out for a website, portfolio, bilingual identity, or digital presence that needs to feel calm, mature, and precise.",
-    contactButton: "Send a message",
+const cases = [
+  {
+    number: "01",
+    tag: "Visual direction",
+    title: "A calm identity system",
+    text: "A refined digital direction built around silence, proportion, soft contrast, and a human sense of detail.",
   },
-  ar: {
-    nav: ["الفهرس", "العمل", "المنهج", "ملاحظات", "تواصل"],
-    introSmall: "حضور رقمي شخصي",
-    name: "جعفر الرباط",
-    headline: "أصنع مساحات رقمية هادئة تلتقي فيها اللغة، البنية، والحكم البصري.",
-    paragraph:
-      "بورتفوليو لعمل هادئ: مواقع، حضور ثنائي اللغة، محتوى مدروس، وهويات رقمية مبنية بانتباه إلى النبرة، الإيقاع، الدليل، والتفاصيل التي يمرّ عنها معظم الناس.",
-    ctaWork: "شاهد العمل",
-    ctaContact: "راسلني",
-    sideNote: "حجر. ماء. ضوء. لغة. بنية.",
-
-    indexTitle: "فهرس الانتباه",
-    indexText:
-      "هذا الموقع لا يحاول الصراخ بالخبرة. هو يحاول أن يريك طريقة الرؤية: وضوح، اختزال، تفاصيل ثقافية، وانضباط هادئ في ترتيب الأفكار.",
-    indexItems: [
-      ["01", "اللغة", "كلمات واضحة، نبرة دقيقة، وبنية ثنائية اللغة."],
-      ["02", "الحكم البصري", "مساحة، إيقاع، نعومة، محاذاة، وما يجب حذفه."],
-      ["03", "التفكير المنظم", "طريقة لقراءة الهدف، الدليل، الخطر، والنتيجة."],
-      ["04", "البناء الرقمي", "مواقع عملية قابلة للتعديل والنشر والثقة."],
-    ],
-
-    workTitle: "مشروع حي تم حمله حتى النهاية.",
-    workText:
-      "موقع مبادرة ثنائي اللغة تم تطويره من الفكرة الأولى إلى النشر العام: بنية محتوى، تصميم واجهة، اتجاه عربي/إنجليزي، Sanity CMS، أساسيات SEO، حل أخطاء، DNS، ونشر.",
-    projectName: "موقع Syrian Humanists",
-    projectMeta: "React / Vite / Sanity CMS / Arabic-English / SEO / Deployment",
-    projectPoints: [
-      "بناء واجهة ثنائية اللغة هادئة من فكرة في مرحلة مبكرة.",
-      "ترتيب المحتوى لتجربة قراءة عربية وإنجليزية.",
-      "ربط المحتوى بلوحة Sanity CMS قابلة للتعديل.",
-      "حل أخطاء البناء، الاستضافة، DNS، والنشر المباشر.",
-    ],
-    live: "افتح المشروع المباشر",
-
-    methodTitle: "منهج، لا ضجيج.",
-    methodText:
-      "يصبح الموقع موثوقاً عندما تكون القرارات خلفه منضبطة: ماذا يقال، ماذا يُحذف، كيف تُقاد العين، وكيف يشعر الزائر أنه موجّه دون ضغط.",
-    method: [
-      ["ملاحظة", "قراءة الشخص، المشروع، النبرة، الجمهور، والتوتر الهادئ."],
-      ["اختزال", "حذف اللغة الغائمة، الضجيج البصري، والزينة الضعيفة."],
-      ["ترتيب", "تحويل الفكرة إلى هرم قراءة ورحلة هادئة."],
-      ["بناء", "ترجمة البنية إلى موقع متجاوب وقابل للاستخدام."],
-      ["إطلاق", "اختبار، نشر، ربط الدومين، وإصلاح ما يتعطل."],
-    ],
-
-    notesTitle: "ملاحظات بصرية",
-    notesText:
-      "الاتجاه البصري مأخوذ من أشياء صغيرة: ضوء القناة، هدوء المتحف، ملمس الحجر، زهور خافتة، طوب قديم، غرف ناعمة، والانضباط الذي يعرف متى يتوقف التصميم قبل أن يصبح صاخباً.",
-    notes: ["ضوء القناة", "ملمس الحجر", "هدوء المتحف", "زهور خافتة", "طوب قديم", "غرفة ناعمة"],
-
-    contactTitle: "لعمل يحتاج وضوحاً بلا ضجيج.",
-    contactText:
-      "تواصل من أجل موقع، بورتفوليو، هوية ثنائية اللغة، أو حضور رقمي يحتاج أن يبدو هادئاً، ناضجاً، ودقيقاً.",
-    contactButton: "أرسل رسالة",
+  {
+    number: "02",
+    tag: "Website concept",
+    title: "Editorial portfolio structure",
+    text: "A one-page portfolio that presents taste, thinking, and selected work without becoming loud or over-personal.",
   },
-};
+  {
+    number: "03",
+    tag: "Human-centered design",
+    title: "Quiet public presence",
+    text: "A visual language that feels intelligent, warm, serious, and sensitive without looking fragile.",
+  },
+  {
+    number: "04",
+    tag: "Content tone",
+    title: "Clear words, less noise",
+    text: "Short, mature copy that gives enough meaning without explaining everything or turning the site into a biography.",
+  },
+];
 
-function cx(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
+const tasteWords = [
+  "QUIET",
+  "INTELLIGENT",
+  "REFINED",
+  "WARM",
+  "PRECISE",
+  "HUMAN",
+  "CALM",
+];
 
-function Arrow({ className = "" }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M5 12h14" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
-      <path d="m13 6 6 6-6 6" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
+const approach = [
+  {
+    title: "Quiet before impressive",
+    text: "The design should not beg for attention. It should make people slow down, look closer, and trust the person behind it.",
+  },
+  {
+    title: "Details carry the mood",
+    text: "Soft shadows, careful spacing, subtle lines, and natural colors say more than heavy effects or exaggerated visuals.",
+  },
+  {
+    title: "Taste, not decoration",
+    text: "Every section has a reason. Nothing is added only to look modern. The page should feel edited, not filled.",
+  },
+];
 
-function MenuIcon({ className = "" }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-    </svg>
-  );
-}
+const faqs = [
+  {
+    q: "What is this website for?",
+    a: "It is a personal portfolio: a place to show visual taste, selected work, and a clear way of thinking without turning everything into a long personal story.",
+  },
+  {
+    q: "Why is the design so minimal?",
+    a: "Because the strongest impression here is calm confidence. The site should feel mature, thoughtful, and selective, not crowded or performative.",
+  },
+  {
+    q: "What kind of work can be shown here?",
+    a: "Visual direction, writing, website concepts, identity thinking, selected collaborations, and any project where clarity and taste matter.",
+  },
+  {
+    q: "Is this meant to look corporate?",
+    a: "No. It should feel personal, editorial, warm, and refined. Serious, but not cold. Sensitive, but not weak.",
+  },
+];
 
-function XIcon({ className = "" }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M6 6l12 12M18 6 6 18" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function useReveal() {
-  useEffect(() => {
-    const elements = Array.from(document.querySelectorAll("[data-reveal]"));
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("opacity-100", "translate-y-0");
-            entry.target.classList.remove("opacity-0", "translate-y-8");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.12 }
-    );
-
-    elements.forEach((element) => observer.observe(element));
-    return () => observer.disconnect();
-  }, []);
-}
-
-function Grain() {
-  return (
-    <div className="pointer-events-none fixed inset-0 z-0" aria-hidden="true">
-      <div className="absolute inset-0 bg-[#F4EDE1]" />
-      <div className="absolute inset-0 opacity-[0.55] bg-[radial-gradient(circle_at_14%_8%,rgba(191,159,127,.34),transparent_27%),radial-gradient(circle_at_88%_12%,rgba(95,125,138,.18),transparent_28%),radial-gradient(circle_at_82%_82%,rgba(138,91,69,.16),transparent_30%)]" />
-      <div className="absolute inset-0 opacity-[0.23] bg-[linear-gradient(rgba(37,37,31,.04)_1px,transparent_1px),linear-gradient(90deg,rgba(37,37,31,.035)_1px,transparent_1px)] bg-[size:38px_38px]" />
-    </div>
-  );
-}
-
-function Wordmark() {
-  return (
-    <a href="#top" className="group flex items-center gap-3" aria-label="Home">
-      <span className="relative flex h-11 w-11 items-center justify-center rounded-full border border-[#D3C7B6] bg-[#FFFDF8]/78 shadow-sm transition group-hover:-translate-y-0.5">
-        <span className="font-serif text-2xl font-medium text-[#25251F]">J</span>
-        <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-[#A76E57]" />
-      </span>
-      <span className="hidden leading-tight sm:block">
-        <span className="block text-sm font-medium tracking-[-0.01em] text-[#25251F]">Jaafar Al-Rabbat</span>
-        <span className="block text-xs text-[#6B735F]">Quiet digital presence</span>
-      </span>
-    </a>
-  );
-}
-
-function MobileMenu({ open, nav, setOpen, lang, setLang }) {
-  if (!open) return null;
-
-  return (
-    <div className="border-t border-[#D6CBBB] bg-[#F4EDE1]/96 px-5 py-5 lg:hidden">
-      <div className="mx-auto flex max-w-sm flex-col gap-2">
-        {nav.map(([label, href]) => (
-          <a key={href} href={href} onClick={() => setOpen(false)} className="rounded-2xl px-4 py-3 text-[#4D473D] transition hover:bg-[#FFFDF8]">
-            {label}
-          </a>
-        ))}
-        <button
-          type="button"
-          onClick={() => setLang(lang === "en" ? "ar" : "en")}
-          className="mt-2 rounded-2xl border border-[#D3C7B6] bg-[#FFFDF8] px-4 py-3 text-start text-[#4D473D]"
-        >
-          {lang === "en" ? "العربية" : "English"}
-        </button>
-      </div>
-    </div>
-  );
-}
-
-function SectionTitle({ label, title, text, large = false }) {
-  return (
-    <div data-reveal className="translate-y-8 opacity-0 transition-all duration-700 ease-out">
-      <p className="text-xs font-semibold uppercase tracking-[0.32em] text-[#6B735F]">{label}</p>
-      <h2 className={cx("mt-5 font-serif font-medium tracking-[-0.055em] text-[#25251F]", large ? "text-5xl sm:text-7xl" : "text-4xl sm:text-6xl")}>
-        {title}
-      </h2>
-      {text && <p className="mt-6 max-w-2xl text-lg leading-8 text-[#5C574E]">{text}</p>}
-    </div>
-  );
-}
-
-function EditorialVisual() {
-  return (
-    <div data-reveal className="relative translate-y-8 opacity-0 transition-all delay-150 duration-700 ease-out lg:mt-10">
-      <div className="relative min-h-[540px] w-full">
-        <div className="absolute left-[6%] top-0 h-72 w-[52%] rounded-[2.5rem] border border-[#D3C7B6] bg-[linear-gradient(145deg,#5F7D8A,#DCE4E0)] shadow-[0_30px_100px_rgba(37,37,31,.12)]" />
-        <div className="absolute right-0 top-28 h-80 w-[58%] rounded-[2.5rem] border border-[#D3C7B6] bg-[linear-gradient(145deg,#E8DCC8,#F9F4EA)] shadow-[0_30px_100px_rgba(37,37,31,.10)]" />
-        <div className="absolute bottom-0 left-0 h-64 w-[46%] rounded-[2.5rem] border border-[#D3C7B6] bg-[linear-gradient(145deg,#8A5B45,#D4AF92)] shadow-[0_30px_100px_rgba(37,37,31,.10)]" />
-        <div className="absolute bottom-12 right-[12%] h-44 w-44 rounded-full border border-[#A76E57]/30 bg-[#FFFDF8]/54 backdrop-blur-sm" />
-        <div className="absolute left-[18%] top-[36%] max-w-[260px] rounded-[1.6rem] border border-white/60 bg-[#FFFDF8]/80 p-5 shadow-[0_20px_70px_rgba(37,37,31,.12)] backdrop-blur-xl">
-          <p className="font-serif text-2xl tracking-[-0.04em] text-[#25251F]">A page should know when to be quiet.</p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function IndexRow({ item, delay }) {
-  const [number, title, text] = item;
+function MenuOverlay({ open, onClose }) {
   return (
     <div
-      data-reveal
-      className="grid translate-y-8 gap-5 border-t border-[#D3C7B6] py-7 opacity-0 transition-all duration-700 ease-out sm:grid-cols-[.18fr_.28fr_.54fr]"
-      style={{ transitionDelay: `${delay}ms` }}
+      className={`fixed inset-0 z-40 bg-[#1E2527] text-[#FBF8F2] transition-all duration-500 ${
+        open ? "visible opacity-100" : "invisible opacity-0"
+      }`}
     >
-      <p className="font-serif text-2xl text-[#A76E57]">{number}</p>
-      <h3 className="font-serif text-3xl tracking-[-0.04em] text-[#25251F]">{title}</h3>
-      <p className="leading-8 text-[#5C574E]">{text}</p>
-    </div>
-  );
-}
+      <div className="mx-auto flex min-h-screen max-w-[1500px] flex-col px-6 py-5 sm:px-10 lg:px-14">
+        <div className="flex items-center justify-between">
+          <a href="#top" onClick={onClose} className="group flex items-center gap-3">
+            <span className="grid h-10 w-10 place-items-center rounded-full border border-[#FBF8F2]/25 font-serif text-lg italic">
+              J.
+            </span>
+            <span className="text-sm tracking-[0.28em] text-[#FBF8F2]/70">
+              JAAFAR
+            </span>
+          </a>
 
-function ProjectBlock({ t, isAr }) {
-  return (
-    <div data-reveal className="translate-y-8 opacity-0 transition-all duration-700 ease-out">
-      <div className="grid overflow-hidden rounded-[2.8rem] border border-[#D3C7B6] bg-[#FFFDF8]/72 shadow-[0_30px_110px_rgba(37,37,31,.10)] lg:grid-cols-[.95fr_1.05fr]">
-        <div className="min-h-[430px] bg-[radial-gradient(circle_at_30%_18%,rgba(95,125,138,.28),transparent_34%),radial-gradient(circle_at_70%_72%,rgba(138,91,69,.20),transparent_32%),linear-gradient(145deg,#F4EDE1,#D8D0C3)] p-8 lg:p-10">
-          <div className="flex h-full flex-col justify-between border-l border-[#25251F]/12 pl-6">
-            <p className="text-xs uppercase tracking-[0.28em] text-[#6B735F]">Case Study</p>
-            <div>
-              <h3 className="font-serif text-5xl tracking-[-0.06em] text-[#25251F] sm:text-6xl">{t.projectName}</h3>
-              <p className="mt-5 max-w-sm text-sm leading-7 text-[#5C574E]">{t.projectMeta}</p>
-            </div>
-          </div>
-        </div>
-        <div className="p-8 lg:p-12">
-          <p className="text-lg leading-8 text-[#4D473D]">{t.workText}</p>
-          <div className="mt-9 space-y-5">
-            {t.projectPoints.map((point) => (
-              <div key={point} className="flex gap-4 border-t border-[#D8D0C3] pt-5">
-                <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-[#A76E57]" />
-                <p className="leading-7 text-[#5C574E]">{point}</p>
-              </div>
-            ))}
-          </div>
-          <a
-            href="https://syrianhumanists.org/"
-            className="mt-10 inline-flex items-center gap-2 rounded-full bg-[#25251F] px-6 py-3 text-sm font-medium text-[#FFFDF8] transition hover:-translate-y-0.5 hover:bg-[#151510]"
+          <button
+            onClick={onClose}
+            className="rounded-full border border-[#FBF8F2]/25 px-5 py-3 text-xs uppercase tracking-[0.24em] text-[#FBF8F2]/75 transition hover:bg-[#FBF8F2] hover:text-[#1E2527]"
           >
-            {t.live}
-            <Arrow className={cx("h-4 w-4", isAr && "rotate-180")} />
-          </a>
+            Close
+          </button>
         </div>
-      </div>
-    </div>
-  );
-}
 
-function MethodColumn({ item, index }) {
-  const [title, text] = item;
-  return (
-    <div
-      data-reveal
-      className="translate-y-8 border-l border-[#D3C7B6] pl-6 opacity-0 transition-all duration-700 ease-out"
-      style={{ transitionDelay: `${index * 70}ms` }}
-    >
-      <p className="font-serif text-5xl tracking-[-0.06em] text-[#A76E57]">{String(index + 1).padStart(2, "0")}</p>
-      <h3 className="mt-6 font-serif text-3xl tracking-[-0.04em] text-[#25251F]">{title}</h3>
-      <p className="mt-4 leading-8 text-[#5C574E]">{text}</p>
-    </div>
-  );
-}
-
-function NoteTile({ label, index }) {
-  const styles = [
-    "bg-[linear-gradient(145deg,#5F7D8A,#D9E2DE)]",
-    "bg-[linear-gradient(145deg,#CFC4B4,#F8F0E4)]",
-    "bg-[linear-gradient(145deg,#25251F,#7B7468)]",
-    "bg-[linear-gradient(145deg,#6F7B5F,#DCE1CE)]",
-    "bg-[linear-gradient(145deg,#8A5B45,#D6B49A)]",
-    "bg-[linear-gradient(145deg,#FFFDF8,#D8D0C3)]",
-  ];
-
-  return (
-    <div data-reveal className="group translate-y-8 opacity-0 transition-all duration-700 ease-out" style={{ transitionDelay: `${index * 60}ms` }}>
-      <div className={cx("h-72 rounded-[2.4rem] border border-[#D3C7B6] shadow-[0_24px_90px_rgba(37,37,31,.08)] transition duration-500 group-hover:-translate-y-1", styles[index % styles.length])} />
-      <p className="mt-4 text-sm text-[#6F695F]">{label}</p>
-    </div>
-  );
-}
-
-export default function JaafarPortfolio() {
-  const [lang, setLang] = useState("en");
-  const [open, setOpen] = useState(false);
-  const t = copy[lang];
-  const isAr = lang === "ar";
-
-  useReveal();
-
-  const nav = useMemo(
-    () => [
-      [t.nav[0], "#index"],
-      [t.nav[1], "#work"],
-      [t.nav[2], "#method"],
-      [t.nav[3], "#notes"],
-      [t.nav[4], "#contact"],
-    ],
-    [t.nav]
-  );
-
-  useEffect(() => {
-    document.title = isAr ? "جعفر الرباط | بورتفوليو" : "Jaafar Al-Rabbat | Portfolio";
-    document.body.style.background = "#F4EDE1";
-    document.documentElement.style.scrollBehavior = "smooth";
-  }, [isAr]);
-
-  return (
-    <div
-      dir={isAr ? "rtl" : "ltr"}
-      lang={lang}
-      className="min-h-screen overflow-x-hidden bg-[#F4EDE1] text-[#25251F] selection:bg-[#C69A7A]/45"
-      style={{ fontFamily: isAr ? '"IBM Plex Sans Arabic", ui-sans-serif, system-ui' : 'Inter, ui-sans-serif, system-ui' }}
-    >
-      <Grain />
-
-      <header className="fixed left-0 right-0 top-0 z-50 border-b border-[#D6CBBB]/70 bg-[#F4EDE1]/78 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-[1500px] items-center justify-between px-5 py-5 sm:px-8 lg:px-10">
-          <Wordmark />
-
-          <nav className="hidden items-center gap-8 lg:flex">
-            {nav.map(([label, href]) => (
-              <a key={href} href={href} className="text-sm text-[#5C574E] transition hover:text-[#25251F]">
-                {label}
+        <div className="grid flex-1 items-center gap-12 py-16 lg:grid-cols-[1.2fr_0.8fr]">
+          <nav className="space-y-3">
+            {navItems.map((item, index) => (
+              <a
+                key={item.href}
+                href={item.href}
+                onClick={onClose}
+                className="group flex items-end gap-5 border-b border-[#FBF8F2]/10 py-4"
+              >
+                <span className="mb-3 text-xs text-[#C98B68]">
+                  0{index + 1}
+                </span>
+                <span className="font-serif text-6xl leading-none tracking-[-0.07em] text-[#FBF8F2] transition group-hover:translate-x-3 sm:text-7xl lg:text-8xl">
+                  {item.label}
+                </span>
               </a>
             ))}
           </nav>
 
-          <div className="hidden items-center gap-3 lg:flex">
-            <button
-              type="button"
-              onClick={() => setLang(lang === "en" ? "ar" : "en")}
-              className="rounded-full border border-[#D3C7B6] bg-[#FFFDF8]/80 px-4 py-2 text-xs font-medium text-[#4D473D] transition hover:-translate-y-0.5"
-            >
-              {lang === "en" ? "AR" : "EN"}
-            </button>
-            <a href="#contact" className="rounded-full bg-[#25251F] px-5 py-2.5 text-sm font-medium text-[#FFFDF8] transition hover:-translate-y-0.5 hover:bg-[#151510]">
-              {t.secondary}
-            </a>
+          <div className="max-w-sm justify-self-start rounded-[2rem] border border-[#FBF8F2]/10 bg-[#FBF8F2]/5 p-8 text-[#FBF8F2]/72 lg:justify-self-end">
+            <p className="text-xs uppercase tracking-[0.24em] text-[#C98B68]">
+              Direction
+            </p>
+            <p className="mt-5 text-2xl font-light leading-tight tracking-[-0.04em] text-[#FBF8F2]">
+              A portfolio with space, silence, and a precise human tone.
+            </p>
+            <p className="mt-6 text-sm leading-7">
+              Not a loud self-promotion page. More like a quiet room where the
+              work, taste, and thinking become visible.
+            </p>
           </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
-          <button type="button" onClick={() => setOpen(!open)} className="flex h-11 w-11 items-center justify-center rounded-full border border-[#D3C7B6] bg-[#FFFDF8]/80 lg:hidden" aria-label="Open menu">
-            {open ? <XIcon className="h-5 w-5" /> : <MenuIcon className="h-5 w-5" />}
+function Header() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      <header className="fixed left-0 right-0 top-0 z-30 px-4 py-4 sm:px-6 lg:px-10">
+        <div className="mx-auto flex max-w-[1500px] items-center justify-between rounded-full border border-[#1E2527]/10 bg-[#FBF8F2]/80 px-4 py-3 shadow-[0_12px_40px_rgba(30,37,39,0.06)] backdrop-blur-xl">
+          <a href="#top" className="group flex items-center gap-3">
+            <span className="grid h-9 w-9 place-items-center rounded-full bg-[#1E2527] font-serif text-base italic text-[#FBF8F2] transition group-hover:bg-[#A6654E]">
+              J.
+            </span>
+            <span className="hidden text-xs uppercase tracking-[0.26em] text-[#1E2527]/70 sm:block">
+              Jaafar Al Rabbat
+            </span>
+          </a>
+
+          <nav className="hidden items-center gap-8 md:flex">
+            {navItems.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                className="text-xs uppercase tracking-[0.22em] text-[#1E2527]/55 transition hover:text-[#1E2527]"
+              >
+                {item.label}
+              </a>
+            ))}
+          </nav>
+
+          <button
+            onClick={() => setOpen(true)}
+            className="group flex items-center gap-3 rounded-full bg-[#1E2527] px-4 py-3 text-xs uppercase tracking-[0.22em] text-[#FBF8F2] transition hover:bg-[#A6654E]"
+          >
+            Menu
+            <span className="flex h-3.5 w-5 flex-col justify-between">
+              <span className="block h-px bg-current transition group-hover:translate-x-1" />
+              <span className="block h-px bg-current transition group-hover:-translate-x-1" />
+              <span className="block h-px bg-current transition group-hover:translate-x-1" />
+            </span>
           </button>
         </div>
-        <MobileMenu open={open} nav={nav} setOpen={setOpen} lang={lang} setLang={setLang} />
       </header>
 
-      <main id="top" className="relative z-10 pt-24">
-        <section className="min-h-[calc(100vh-6rem)] px-5 py-16 sm:px-8 lg:px-10 lg:py-24">
-          <div className="mx-auto grid max-w-[1500px] gap-14 lg:grid-cols-[.52fr_.48fr] lg:items-end">
-            <div data-reveal className="translate-y-8 opacity-0 transition-all duration-700 ease-out">
-              <p className="text-xs font-semibold uppercase tracking-[0.34em] text-[#6B735F]">{t.introSmall}</p>
-              <p className="mt-8 font-serif text-3xl tracking-[-0.04em] text-[#5C574E] sm:text-4xl">{t.name}</p>
-              <h1 className="mt-8 max-w-6xl font-serif text-6xl font-medium leading-[0.96] tracking-[-0.07em] text-[#25251F] sm:text-8xl lg:text-[8.5rem]">
-                {t.headline}
-              </h1>
-              <div className="mt-10 grid gap-8 lg:grid-cols-[.72fr_.28fr]">
-                <p className="max-w-2xl text-xl leading-9 text-[#5C574E]">{t.paragraph}</p>
-                <p className="border-l border-[#D3C7B6] pl-5 text-sm leading-7 text-[#756F64]">{t.sideNote}</p>
-              </div>
-              <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-                <a href="#work" className="inline-flex items-center justify-center gap-2 rounded-full bg-[#25251F] px-6 py-3 text-sm font-medium text-[#FFFDF8] transition hover:-translate-y-0.5 hover:bg-[#151510]">
-                  {t.ctaWork}
-                  <Arrow className={cx("h-4 w-4", isAr && "rotate-180")} />
-                </a>
-                <a href="#contact" className="inline-flex items-center justify-center rounded-full border border-[#D3C7B6] bg-[#FFFDF8]/70 px-6 py-3 text-sm font-medium text-[#25251F] transition hover:-translate-y-0.5">
-                  {t.ctaContact}
-                </a>
-              </div>
+      <MenuOverlay open={open} onClose={() => setOpen(false)} />
+    </>
+  );
+}
+
+function Hero() {
+  return (
+    <section
+      id="top"
+      className="relative min-h-screen overflow-hidden bg-[#F4EFE7] px-5 pt-32 sm:px-8 lg:px-12"
+    >
+      <div className="absolute left-[-10rem] top-24 h-80 w-80 rounded-full bg-[#D8E1DD] blur-3xl" />
+      <div className="absolute bottom-10 right-[-8rem] h-96 w-96 rounded-full bg-[#C98B68]/20 blur-3xl" />
+
+      <div className="mx-auto flex min-h-[calc(100vh-8rem)] max-w-[1500px] flex-col justify-between">
+        <div className="grid items-start gap-12 lg:grid-cols-[0.78fr_1.22fr]">
+          <div className="relative z-10 max-w-md pt-8 lg:pt-16">
+            <p className="text-[0.72rem] uppercase tracking-[0.32em] text-[#A6654E]">
+              Personal portfolio
+            </p>
+
+            <h1 className="mt-7 max-w-sm text-4xl font-light leading-[0.95] tracking-[-0.07em] text-[#1E2527] sm:text-5xl">
+              Calm digital presence for thoughtful work.
+            </h1>
+
+            <p className="mt-7 text-base leading-8 text-[#1E2527]/66">
+              A quiet, editorial portfolio shaped around taste, clarity, visual
+              restraint, and the small details most people miss.
+            </p>
+
+            <div className="mt-9 flex flex-wrap gap-3">
+              <a
+                href="#work"
+                className="rounded-full bg-[#1E2527] px-6 py-4 text-xs uppercase tracking-[0.2em] text-[#FBF8F2] transition hover:bg-[#A6654E]"
+              >
+                View work
+              </a>
+
+              <a
+                href="#story"
+                className="rounded-full border border-[#1E2527]/15 px-6 py-4 text-xs uppercase tracking-[0.2em] text-[#1E2527] transition hover:border-[#1E2527]"
+              >
+                Read tone
+              </a>
+            </div>
+          </div>
+
+          <div className="relative z-10 lg:pt-24">
+            <div className="overflow-hidden">
+              <h2 className="max-w-[1050px] font-serif text-[18vw] font-normal leading-[0.72] tracking-[-0.12em] text-[#1E2527] sm:text-[15vw] lg:text-[10.4rem]">
+                Jaafar
+                <br />
+                Al Rabbat
+              </h2>
             </div>
 
-            <EditorialVisual />
-          </div>
-        </section>
-
-        <section id="index" className="px-5 py-24 sm:px-8 lg:px-10">
-          <div className="mx-auto grid max-w-[1500px] gap-16 lg:grid-cols-[.42fr_.58fr]">
-            <SectionTitle label="Index" title={t.indexTitle} text={t.indexText} large />
-            <div>
-              {t.indexItems.map((item, index) => (
-                <IndexRow key={item[1]} item={item} delay={index * 70} />
+            <div className="mt-10 grid gap-5 sm:grid-cols-3">
+              {[
+                ["01", "Taste", "Soft light, generous space, natural colors."],
+                ["02", "Thinking", "Clear structure before beautiful surfaces."],
+                ["03", "Presence", "Sensitive, mature, quiet, not fragile."],
+              ].map(([n, title, text]) => (
+                <div
+                  key={title}
+                  className="rounded-[1.6rem] border border-[#1E2527]/10 bg-[#FBF8F2]/60 p-5 backdrop-blur"
+                >
+                  <p className="text-xs text-[#A6654E]">{n}</p>
+                  <h3 className="mt-5 text-lg tracking-[-0.04em] text-[#1E2527]">
+                    {title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-6 text-[#1E2527]/58">
+                    {text}
+                  </p>
+                </div>
               ))}
             </div>
           </div>
-        </section>
+        </div>
 
-        <section id="work" className="px-5 py-24 sm:px-8 lg:px-10">
-          <div className="mx-auto max-w-[1500px]">
-            <SectionTitle label="Work" title={t.workTitle} />
-            <div className="mt-14">
-              <ProjectBlock t={t} isAr={isAr} />
-            </div>
+        <div className="relative z-10 mb-8 mt-16 flex items-center justify-between border-t border-[#1E2527]/10 pt-5 text-xs uppercase tracking-[0.24em] text-[#1E2527]/45">
+          <span>Scroll for more</span>
+          <span>Amsterdam / Digital</span>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Intro() {
+  return (
+    <section className="bg-[#FBF8F2] px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
+      <div className="mx-auto grid max-w-[1500px] gap-12 lg:grid-cols-[0.8fr_1.2fr]">
+        <div>
+          <p className="text-xs uppercase tracking-[0.28em] text-[#A6654E]">
+            What this is
+          </p>
+        </div>
+
+        <div>
+          <p className="max-w-5xl font-serif text-5xl leading-[0.94] tracking-[-0.075em] text-[#1E2527] sm:text-7xl lg:text-8xl">
+            Not a loud website. A carefully edited space for taste, thinking,
+            and selected work.
+          </p>
+
+          <div className="mt-12 grid gap-8 md:grid-cols-2">
+            <p className="text-lg leading-9 text-[#1E2527]/67">
+              The goal is simple: to make the first impression feel calm,
+              intelligent, refined, and human. The site does not need to explain
+              everything. It needs to feel right.
+            </p>
+
+            <p className="text-lg leading-9 text-[#1E2527]/67">
+              Inspired by minimal portfolio sites, but softened with warm
+              neutrals, botanical green, canal blue-gray, old brick, and careful
+              editorial spacing.
+            </p>
           </div>
-        </section>
+        </div>
+      </div>
+    </section>
+  );
+}
 
-        <section id="method" className="px-5 py-24 sm:px-8 lg:px-10">
-          <div className="mx-auto max-w-[1500px]">
-            <div className="grid gap-16 lg:grid-cols-[.38fr_.62fr]">
-              <SectionTitle label="Method" title={t.methodTitle} text={t.methodText} />
-              <div className="grid gap-10 sm:grid-cols-2">
-                {t.method.map((item, index) => (
-                  <MethodColumn key={item[0]} item={item} index={index} />
-                ))}
+function Work() {
+  return (
+    <section
+      id="work"
+      className="bg-[#F4EFE7] px-5 py-24 sm:px-8 lg:px-12 lg:py-32"
+    >
+      <div className="mx-auto max-w-[1500px]">
+        <div className="mb-14 flex flex-col justify-between gap-8 md:flex-row md:items-end">
+          <div>
+            <p className="text-xs uppercase tracking-[0.28em] text-[#A6654E]">
+              Selected work
+            </p>
+            <h2 className="mt-5 font-serif text-6xl leading-[0.9] tracking-[-0.08em] text-[#1E2527] sm:text-8xl lg:text-9xl">
+              Cases
+            </h2>
+          </div>
+
+          <a
+            href="#contact"
+            className="w-fit rounded-full border border-[#1E2527]/15 px-6 py-4 text-xs uppercase tracking-[0.22em] text-[#1E2527] transition hover:bg-[#1E2527] hover:text-[#FBF8F2]"
+          >
+            Discuss a project
+          </a>
+        </div>
+
+        <div className="grid gap-4 md:grid-cols-2">
+          {cases.map((item) => (
+            <article
+              key={item.number}
+              className="group min-h-[340px] rounded-[2rem] border border-[#1E2527]/10 bg-[#FBF8F2] p-6 transition duration-500 hover:-translate-y-1 hover:shadow-[0_28px_80px_rgba(30,37,39,0.09)] sm:p-8"
+            >
+              <div className="flex items-center justify-between border-b border-[#1E2527]/10 pb-5">
+                <span className="text-sm text-[#A6654E]">{item.number}</span>
+                <span className="rounded-full border border-[#1E2527]/10 px-4 py-2 text-[0.68rem] uppercase tracking-[0.22em] text-[#1E2527]/50">
+                  {item.tag}
+                </span>
               </div>
-            </div>
-          </div>
-        </section>
 
-        <section id="notes" className="px-5 py-24 sm:px-8 lg:px-10">
-          <div className="mx-auto max-w-[1500px]">
-            <div className="grid gap-12 lg:grid-cols-[.42fr_.58fr] lg:items-end">
-              <SectionTitle label="Notes" title={t.notesTitle} text={t.notesText} />
-              <div className="grid grid-cols-2 gap-5 lg:grid-cols-3">
-                {t.notes.map((label, index) => (
-                  <NoteTile key={label} label={label} index={index} />
-                ))}
+              <div className="flex h-[250px] flex-col justify-end">
+                <h3 className="max-w-lg font-serif text-5xl leading-[0.95] tracking-[-0.07em] text-[#1E2527] transition group-hover:text-[#A6654E] sm:text-6xl">
+                  {item.title}
+                </h3>
+
+                <p className="mt-7 max-w-md text-base leading-7 text-[#1E2527]/62">
+                  {item.text}
+                </p>
               </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function TasteMarquee() {
+  return (
+    <section id="taste" className="overflow-hidden bg-[#1E2527] py-12 text-[#FBF8F2]">
+      <div className="marquee flex whitespace-nowrap">
+        {[...tasteWords, ...tasteWords, ...tasteWords].map((word, i) => (
+          <span
+            key={`${word}-${i}`}
+            className="mx-5 font-serif text-6xl leading-none tracking-[-0.08em] sm:text-8xl lg:text-9xl"
+          >
+            {word}
+            <span className="ml-10 text-[#C98B68]">•</span>
+          </span>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function Story() {
+  return (
+    <section
+      id="story"
+      className="bg-[#FBF8F2] px-5 py-24 sm:px-8 lg:px-12 lg:py-32"
+    >
+      <div className="mx-auto grid max-w-[1500px] gap-16 lg:grid-cols-[0.9fr_1.1fr]">
+        <div className="relative min-h-[500px] overflow-hidden rounded-[2.4rem] bg-[#D8E1DD] p-8">
+          <div className="absolute left-[-20%] top-[-10%] h-72 w-72 rounded-full bg-[#566F5B]/20 blur-3xl" />
+          <div className="absolute bottom-[-15%] right-[-15%] h-80 w-80 rounded-full bg-[#C98B68]/25 blur-3xl" />
+
+          <div className="relative flex h-full flex-col justify-between">
+            <p className="text-xs uppercase tracking-[0.28em] text-[#1E2527]/50">
+              Visual note
+            </p>
+
+            <div>
+              <p className="font-serif text-7xl leading-[0.86] tracking-[-0.1em] text-[#1E2527] sm:text-8xl">
+                soft light
+                <br />
+                clear mind
+              </p>
+
+              <p className="mt-8 max-w-sm text-base leading-7 text-[#1E2527]/58">
+                The visual mood is closer to a quiet room, a river reflection,
+                paper texture, and a small detail noticed at the right time.
+              </p>
             </div>
           </div>
-        </section>
+        </div>
 
-        <section id="contact" className="px-5 pb-16 pt-24 sm:px-8 lg:px-10">
-          <div className="mx-auto max-w-[1500px]">
-            <div data-reveal className="translate-y-8 opacity-0 transition-all duration-700 ease-out">
-              <div className="rounded-[3rem] bg-[#25251F] p-8 text-[#FFFDF8] shadow-[0_34px_120px_rgba(37,37,31,.18)] sm:p-12 lg:p-16">
-                <div className="grid gap-10 lg:grid-cols-[1fr_.45fr] lg:items-end">
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.32em] text-[#D8CFBC]">Contact</p>
-                    <h2 className="mt-6 max-w-5xl font-serif text-5xl font-medium leading-[1.02] tracking-[-0.06em] sm:text-7xl">
-                      {t.contactTitle}
-                    </h2>
-                    <p className="mt-7 max-w-2xl text-lg leading-8 text-[#EDE6DA]/82">{t.contactText}</p>
-                  </div>
-                  <div className="lg:text-end">
-                    <a href={`mailto:${profile.email}`} className="inline-flex items-center justify-center gap-2 rounded-full bg-[#FFFDF8] px-6 py-3 text-sm font-medium text-[#25251F] transition hover:-translate-y-0.5 hover:bg-[#F4EDE1]">
-                      {t.contactButton}
-                      <Arrow className={cx("h-4 w-4", isAr && "rotate-180")} />
-                    </a>
-                  </div>
+        <div className="self-center">
+          <p className="text-xs uppercase tracking-[0.28em] text-[#A6654E]">
+            The story behind the tone
+          </p>
+
+          <h2 className="mt-6 max-w-4xl font-serif text-6xl leading-[0.92] tracking-[-0.08em] text-[#1E2527] sm:text-8xl">
+            A site that feels like how you look at things.
+          </h2>
+
+          <div className="mt-10 space-y-7 text-lg leading-9 text-[#1E2527]/66">
+            <p>
+              This portfolio is not built around noise, slogans, or a dramatic
+              identity. It is built around observation: what you notice, what you
+              choose, what you remove, and how you give something form.
+            </p>
+
+            <p>
+              The strongest impression should be calm confidence. A visitor
+              should feel that there is thought behind the silence, taste behind
+              the spacing, and warmth behind the restraint.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Approach() {
+  return (
+    <section className="bg-[#F4EFE7] px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
+      <div className="mx-auto max-w-[1500px]">
+        <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
+          <div>
+            <p className="text-xs uppercase tracking-[0.28em] text-[#A6654E]">
+              Approach
+            </p>
+
+            <h2 className="mt-6 font-serif text-6xl leading-[0.9] tracking-[-0.08em] text-[#1E2527] sm:text-8xl">
+              How it should feel
+            </h2>
+          </div>
+
+          <div className="grid gap-4">
+            {approach.map((item, index) => (
+              <div
+                key={item.title}
+                className="group grid gap-6 rounded-[2rem] border border-[#1E2527]/10 bg-[#FBF8F2] p-6 transition hover:bg-[#1E2527] sm:grid-cols-[120px_1fr] sm:p-8"
+              >
+                <span className="font-serif text-5xl tracking-[-0.08em] text-[#A6654E]">
+                  0{index + 1}
+                </span>
+
+                <div>
+                  <h3 className="font-serif text-4xl leading-none tracking-[-0.06em] text-[#1E2527] transition group-hover:text-[#FBF8F2]">
+                    {item.title}
+                  </h3>
+
+                  <p className="mt-5 max-w-2xl text-base leading-7 text-[#1E2527]/60 transition group-hover:text-[#FBF8F2]/66">
+                    {item.text}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function FAQ() {
+  const [active, setActive] = useState(0);
+
+  return (
+    <section className="bg-[#FBF8F2] px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
+      <div className="mx-auto grid max-w-[1500px] gap-12 lg:grid-cols-[0.75fr_1.25fr]">
+        <div>
+          <p className="text-xs uppercase tracking-[0.28em] text-[#A6654E]">
+            Questions
+          </p>
+
+          <h2 className="mt-6 font-serif text-6xl leading-[0.9] tracking-[-0.08em] text-[#1E2527] sm:text-8xl">
+            FAQ
+          </h2>
+        </div>
+
+        <div className="border-t border-[#1E2527]/10">
+          {faqs.map((item, index) => (
+            <div key={item.q} className="border-b border-[#1E2527]/10 py-2">
+              <button
+                onClick={() => setActive(active === index ? -1 : index)}
+                className="flex w-full items-center justify-between gap-6 py-6 text-left"
+              >
+                <span className="text-xl tracking-[-0.04em] text-[#1E2527] sm:text-2xl">
+                  {item.q}
+                </span>
+
+                <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-[#1E2527]/10 text-[#1E2527]">
+                  {active === index ? "−" : "+"}
+                </span>
+              </button>
+
+              <div
+                className={`grid transition-all duration-500 ${
+                  active === index
+                    ? "grid-rows-[1fr] opacity-100"
+                    : "grid-rows-[0fr] opacity-0"
+                }`}
+              >
+                <div className="overflow-hidden">
+                  <p className="max-w-2xl pb-7 text-base leading-8 text-[#1E2527]/62">
+                    {item.a}
+                  </p>
                 </div>
               </div>
             </div>
-          </div>
-        </section>
-      </main>
-
-      <footer className="relative z-10 border-t border-[#D6CBBB]/80 px-5 py-10 sm:px-8 lg:px-10">
-        <div className="mx-auto flex max-w-[1500px] flex-col justify-between gap-5 text-sm text-[#716B60] sm:flex-row">
-          <p>© {new Date().getFullYear()} Jaafar Al-Rabbat</p>
-          <p>Quiet work. Clear presence. Human detail.</p>
+          ))}
         </div>
-      </footer>
-    </div>
+      </div>
+    </section>
+  );
+}
+
+function Contact() {
+  return (
+    <section
+      id="contact"
+      className="overflow-hidden bg-[#1E2527] px-5 py-24 text-[#FBF8F2] sm:px-8 lg:px-12 lg:py-32"
+    >
+      <div className="mx-auto max-w-[1500px]">
+        <div className="grid gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
+          <div>
+            <p className="text-xs uppercase tracking-[0.28em] text-[#C98B68]">
+              Contact
+            </p>
+
+            <h2 className="mt-6 max-w-5xl font-serif text-6xl leading-[0.88] tracking-[-0.09em] text-[#FBF8F2] sm:text-8xl lg:text-9xl">
+              Let’s shape something calm, clear, and worth remembering.
+            </h2>
+          </div>
+
+          <div className="rounded-[2rem] border border-[#FBF8F2]/10 bg-[#FBF8F2]/5 p-8">
+            <p className="text-sm leading-7 text-[#FBF8F2]/64">
+              Use this space for a real contact email, Instagram, LinkedIn, or a
+              simple form later. For now, keep the invitation warm and minimal.
+            </p>
+
+            <a
+              href="mailto:hello@example.com"
+              className="mt-8 inline-flex rounded-full bg-[#FBF8F2] px-6 py-4 text-xs uppercase tracking-[0.22em] text-[#1E2527] transition hover:bg-[#C98B68] hover:text-[#FBF8F2]"
+            >
+              Start a conversation
+            </a>
+          </div>
+        </div>
+
+        <div className="mt-24 border-t border-[#FBF8F2]/10 pt-8">
+          <p className="font-serif text-[18vw] leading-[0.7] tracking-[-0.12em] text-[#FBF8F2] opacity-95 sm:text-[15vw] lg:text-[12rem]">
+            Jaafar
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="bg-[#1E2527] px-5 pb-10 text-[#FBF8F2]/55 sm:px-8 lg:px-12">
+      <div className="mx-auto flex max-w-[1500px] flex-col justify-between gap-8 border-t border-[#FBF8F2]/10 pt-8 text-xs uppercase tracking-[0.22em] md:flex-row">
+        <p>© {new Date().getFullYear()} Jaafar Al Rabbat</p>
+
+        <div className="flex flex-wrap gap-6">
+          {navItems.map((item) => (
+            <a key={item.href} href={item.href} className="transition hover:text-[#FBF8F2]">
+              {item.label}
+            </a>
+          ))}
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+export default function App() {
+  return (
+    <main className="selection:bg-[#A6654E] selection:text-[#FBF8F2]">
+      <style>{`
+        html {
+          scroll-behavior: smooth;
+        }
+
+        body {
+          background: ${palette.stone};
+        }
+
+        .marquee {
+          animation: marquee 30s linear infinite;
+        }
+
+        @keyframes marquee {
+          0% {
+            transform: translateX(0);
+          }
+
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+      `}</style>
+
+      <Header />
+      <Hero />
+      <Intro />
+      <Work />
+      <TasteMarquee />
+      <Story />
+      <Approach />
+      <FAQ />
+      <Contact />
+      <Footer />
+    </main>
   );
 }
