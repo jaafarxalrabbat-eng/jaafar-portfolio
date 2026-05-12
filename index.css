@@ -473,3 +473,29 @@ em {
     text-align: center !important;
   }
 }
+/* Force exact two-line mobile hero name */
+@media (max-width: 520px) {
+  .hero-name {
+    font-size: 0 !important;
+    line-height: 0 !important;
+    text-align: center !important;
+    white-space: normal !important;
+    transform: translateY(-18px) scaleX(0.98) !important;
+    max-width: 100% !important;
+  }
+
+  .hero-name::before {
+    content: "JAAFAR\A AL RABBAT";
+    white-space: pre-line !important;
+    display: block !important;
+    width: 92vw !important;
+    max-width: 390px !important;
+    margin: 0 auto !important;
+    font-family: "Halenoir", "Helvetica Neue", Arial, sans-serif !important;
+    font-size: clamp(4.2rem, 11.5vw, 5.4rem) !important;
+    line-height: 0.92 !important;
+    letter-spacing: -0.055em !important;
+    font-weight: 400 !important;
+    text-align: center !important;
+  }
+}
