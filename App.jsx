@@ -1,1319 +1,972 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 
+const TRAIL_IMAGES = [
+  "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80",
+  "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=900&q=80",
+  "https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=900&q=80",
+  "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?auto=format&fit=crop&w=900&q=80",
+  "https://images.unsplash.com/photo-1516541196182-6bdb0516ed27?auto=format&fit=crop&w=900&q=80",
+  "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=900&q=80",
+];
+
+const CASES = [
+  {
+    title: "Visual Direction",
+    italic: "Archive",
+    tags: ["Mood", "Identity"],
+    image: "https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=1400&q=85",
+    type: "image",
+    wide: true,
+  },
+  {
+    title: "Quiet Portfolio",
+    italic: "System",
+    tags: ["Personal", "Web"],
+    image: "https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=1400&q=85",
+    type: "image",
+  },
+  {
+    title: "Writing",
+    italic: "Ideas",
+    tags: ["Text", "Voice"],
+    image: "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=1400&q=85",
+    type: "image",
+  },
+  {
+    title: "Selected Work",
+    italic: "Study",
+    tags: ["Concept", "Human"],
+    image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=85",
+    type: "image",
+    wide: true,
+  },
+];
+
+const FAQS = [
+  {
+    q: "What is this website about?",
+    a: "A personal portfolio built around calm visual identity, selected work, writing, and future projects. The content is temporary and can be replaced step by step.",
+  },
+  {
+    q: "Can the colors and images change later?",
+    a: "Yes. The structure is intentionally clean, so photos, text, colors, and sections can be changed without rebuilding the whole website.",
+  },
+  {
+    q: "Is this a copy of another website?",
+    a: "No. It uses a similar interaction logic: large hero, image trail, quiet grid, soft menu, strong typography, and scroll-based text reveal. The identity and content are yours.",
+  },
+  {
+    q: "What should be edited first?",
+    a: "Start with the hero sentence, the main name, the images, and the cases. These define the first impression before anything else.",
+  },
+];
+
+function ArrowIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M7 17L17 7" />
+      <path d="M9 7h8v8" />
+    </svg>
+  );
+}
+
+function PlusIcon({ open }) {
+  return (
+    <span className={open ? "faq-plus is-open" : "faq-plus"} aria-hidden="true">
+      <span />
+      <span />
+    </span>
+  );
+}
+
 export default function App() {
   const heroRef = useRef(null);
-  const trail = useRef({ x: 0, y: 0, distance: 0, index: 0, ready: false });
+  const lastPoint = useRef({ x: 0, y: 0, ready: false, distance: 0, index: 0 });
+  const [trail, setTrail] = useState([]);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [cursor, setCursor] = useState({ x: -40, y: -40 });
+  const [sloganProgress, setSloganProgress] = useState(0);
   const [openFaq, setOpenFaq] = useState(0);
-
-  const trailImages = useMemo(
-    () => [
-      svgCard("#e7ded4", "#1f1f1f", "quiet"),
-      svgCard("#d7cec4", "#1f1f1f", "human"),
-      svgCard("#cfd8d5", "#1f1f1f", "visual"),
-      svgCard("#eeeae3", "#1f1f1f", "detail"),
-      svgCard("#c8b7aa", "#1f1f1f", "space"),
-    ],
-    []
-  );
 
   useEffect(() => {
     document.title = "Jaafar Al Rabbat";
 
-    const favicon =
-      document.querySelector("link[rel='icon']") || document.createElement("link");
+    document
+      .querySelectorAll('link[rel="icon"], link[rel="shortcut icon"], link[rel="apple-touch-icon"]')
+      .forEach((icon) => icon.remove());
 
+    const favicon = document.createElement("link");
     favicon.rel = "icon";
     favicon.href =
-      "data:image/svg+xml," +
-      encodeURIComponent(`
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-          <rect width="64" height="64" rx="12" fill="#202020"/>
-          <text x="50%" y="55%" text-anchor="middle" font-family="Arial" font-size="34" font-weight="700" fill="#fcfcfc">J</text>
-        </svg>
-      `);
-
+      "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23262626'/%3E%3Ctext x='50%25' y='56%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial, sans-serif' font-size='30' font-weight='700' fill='white'%3EJ%3C/text%3E%3C/svg%3E";
     document.head.appendChild(favicon);
   }, []);
 
   useEffect(() => {
-    const cursor = document.querySelector(".cursor");
-    if (!cursor) return;
-
-    const move = (e) => {
-      cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
-    };
-
-    window.addEventListener("pointermove", move);
-    return () => window.removeEventListener("pointermove", move);
+    const onMove = (event) => setCursor({ x: event.clientX, y: event.clientY });
+    window.addEventListener("pointermove", onMove, { passive: true });
+    return () => window.removeEventListener("pointermove", onMove);
   }, []);
 
-  function createTrailImage(x, y) {
-    const root = heroRef.current;
-    if (!root) return;
+  useEffect(() => {
+    let raf = 0;
 
-    const img = document.createElement("img");
-    img.src = trailImages[trail.current.index];
-    img.className = "hero-trail";
-    img.style.left = `${x}px`;
-    img.style.top = `${y}px`;
+    const update = () => {
+      const section = document.querySelector(".slogan-section");
+      if (!section) return;
 
-    root.appendChild(img);
+      const rect = section.getBoundingClientRect();
+      const start = window.innerHeight * 0.88;
+      const end = window.innerHeight * 0.18;
+      const raw = (start - rect.top) / (start - end);
+      const clamped = Math.max(0, Math.min(1, raw));
+      setSloganProgress(clamped);
+    };
 
-    img.animate(
-      [
-        {
-          opacity: 0,
-          transform: "translate(-50%, -50%) scale(.65) rotate(0deg)",
-        },
-        {
-          opacity: 1,
-          transform: `translate(-50%, -50%) scale(1) rotate(${
-            (Math.random() - 0.5) * 24
-          }deg)`,
-          offset: 0.22,
-        },
-        {
-          opacity: 0,
-          transform: `translate(-50%, -50%) scale(.32) rotate(${
-            (Math.random() - 0.5) * 34
-          }deg)`,
-        },
-      ],
-      {
-        duration: 1300,
-        easing: "cubic-bezier(.22,.8,.18,1)",
-        fill: "forwards",
-      }
-    ).onfinish = () => img.remove();
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(update);
+    };
 
-    trail.current.index = (trail.current.index + 1) % trailImages.length;
-  }
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
 
-  function handleHeroMove(e) {
-    if (window.innerWidth < 850) return;
+  useEffect(() => {
+    document.documentElement.style.overflow = menuOpen ? "hidden" : "";
+    return () => {
+      document.documentElement.style.overflow = "";
+    };
+  }, [menuOpen]);
 
+  const sloganTokens = useMemo(
+    () => [
+      { text: "I", italic: false },
+      { text: "shape", italic: false },
+      { text: "quiet", italic: true },
+      { text: "digital", italic: false },
+      { text: "experiences", italic: true },
+      { text: "where", italic: false },
+      { text: "clarity", italic: false },
+      { text: "and", italic: false },
+      { text: "feeling", italic: true },
+      { text: "meet", italic: false },
+      { text: "with", italic: false },
+      { text: "purpose.", italic: false },
+    ],
+    []
+  );
+
+  function handleHeroMove(event) {
     const root = heroRef.current;
     if (!root) return;
 
     const rect = root.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    const state = trail.current;
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+    const state = lastPoint.current;
 
     if (!state.ready) {
-      state.x = e.clientX;
-      state.y = e.clientY;
+      state.x = x;
+      state.y = y;
       state.ready = true;
       return;
     }
 
-    state.distance += Math.abs(e.clientX - state.x) + Math.abs(e.clientY - state.y);
+    state.distance += Math.abs(x - state.x) + Math.abs(y - state.y);
+    const resetDistance = window.innerWidth / 12;
 
-    if (state.distance > window.innerWidth / 12) {
+    if (state.distance > resetDistance) {
+      const id = `${Date.now()}-${Math.random()}`;
+      const image = TRAIL_IMAGES[state.index % TRAIL_IMAGES.length];
+      const rotation = (Math.random() - 0.5) * 30;
+
+      setTrail((items) => [...items, { id, x, y, image, rotation }]);
+      window.setTimeout(() => {
+        setTrail((items) => items.filter((item) => item.id !== id));
+      }, 1250);
+
+      state.index += 1;
       state.distance = 0;
-      createTrailImage(x, y);
     }
 
-    state.x = e.clientX;
-    state.y = e.clientY;
+    state.x = x;
+    state.y = y;
   }
 
-  const cases = [
-    {
-      title: "Visual Direction",
-      italic: "Direction",
-      tags: ["Identity", "Mood"],
-      type: "symbol",
-      tone: "light",
-    },
-    {
-      title: "Personal Portfolio",
-      italic: "Portfolio",
-      tags: ["Website", "Motion"],
-      type: "portrait",
-      tone: "grey",
-    },
-    {
-      title: "Writing Ideas",
-      italic: "Ideas",
-      tags: ["Editorial", "Archive"],
-      type: "text",
-      tone: "sand",
-    },
-    {
-      title: "Quiet Interface",
-      italic: "Interface",
-      tags: ["System", "Design"],
-      type: "interface",
-      tone: "blue",
-    },
-  ];
-
-  const faqs = [
-    {
-      q: "What is this website for?",
-      a: "A simple personal portfolio for selected work, visual direction, writing, and digital ideas.",
-    },
-    {
-      q: "Can the content be changed later?",
-      a: "Yes. The structure is intentionally flexible. You can replace the text, images, projects, and links step by step.",
-    },
-    {
-      q: "Why is it so minimal?",
-      a: "Because the effect depends on proportion, typography, spacing, and movement — not decoration.",
-    },
-    {
-      q: "Can it become more personal?",
-      a: "Yes, but carefully. The strongest version should reveal taste without explaining too much.",
-    },
-  ];
+  function scrollToId(id) {
+    const target = document.getElementById(id);
+    if (!target) return;
+    setMenuOpen(false);
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
 
   return (
-    <main className={`site ${menuOpen ? "is-menu-open" : ""}`}>
-      <div className="cursor" />
+    <main className="site-shell">
+      <style>{css}</style>
+
+      <div
+        className="cursor-dot"
+        style={{ transform: `translate3d(${cursor.x}px, ${cursor.y}px, 0) translate(-50%, -50%)` }}
+      />
 
       <button
-        className="menu-toggle"
-        aria-label="Open menu"
-        onClick={() => setMenuOpen(true)}
+        className={menuOpen ? "menu-button is-open" : "menu-button"}
+        type="button"
+        aria-label={menuOpen ? "Close menu" : "Open menu"}
+        onClick={() => setMenuOpen((value) => !value)}
       >
         <span />
         <span />
       </button>
 
-      <nav className={`menu-panel ${menuOpen ? "active" : ""}`}>
-        <button
-          className="menu-close"
-          aria-label="Close menu"
-          onClick={() => setMenuOpen(false)}
-        >
-          ×
-        </button>
+      <div className={menuOpen ? "menu-layer is-open" : "menu-layer"} onClick={() => setMenuOpen(false)}>
+        <nav className="menu-panel" aria-label="Main menu" onClick={(event) => event.stopPropagation()}>
+          <p>MENU</p>
+          <button type="button" onClick={() => scrollToId("home")}>Home</button>
+          <button type="button" onClick={() => scrollToId("work")}>Work</button>
+          <button type="button" onClick={() => scrollToId("contact")}>Contact</button>
+        </nav>
+      </div>
 
-        <p>MENU</p>
-
-        <a href="#home" onClick={() => setMenuOpen(false)}>
-          Home
-        </a>
-        <a href="#work" onClick={() => setMenuOpen(false)}>
-          Work
-        </a>
-        <a href="#contact" onClick={() => setMenuOpen(false)}>
-          Contact
-        </a>
-      </nav>
-
-      <aside className="selected-badge">
+      <aside className="side-badge" aria-label="Selected">
         <strong>J.</strong>
         <span>Selected</span>
       </aside>
 
-      <section
-        id="home"
-        ref={heroRef}
-        className="hero"
-        onMouseMove={handleHeroMove}
-      >
-        <div className="hero-line">
-          <span>I create </span>
-          <em>quiet</em>
-          <span> websites</span>
+      <section id="home" className="hero-section" ref={heroRef} onMouseMove={handleHeroMove}>
+        <p className="hero-kicker">
+          I create <em>quiet</em> websites
           <br />
-          <span>that stay with people</span>
-        </div>
+          that stay with people
+        </p>
 
-        <h1>JAAFAR AL RABBAT</h1>
+        <h1 className="hero-name">JAAFAR AL RABBAT</h1>
 
-        <div className="scroll-indicator">Scroll voor meer</div>
+        {trail.map((item) => (
+          <img
+            key={item.id}
+            className="trail-image"
+            src={item.image}
+            alt=""
+            style={{
+              left: item.x,
+              top: item.y,
+              "--rotation": `${item.rotation}deg`,
+            }}
+          />
+        ))}
+
+        <button className="scroll-indicator" type="button" onClick={() => scrollToId("slogan")}>
+          Scroll voor meer
+        </button>
       </section>
 
-      <section className="statement">
-        <p>Your space</p>
-
-        <h2>
-          I shape <em>calm</em> digital experiences where visual clarity,
-          thoughtful rhythm, and quiet confidence come together.
+      <section id="slogan" className="slogan-section" aria-label="Intro statement">
+        <div className="mini-label">Jaafar</div>
+        <h2 className="slogan-text">
+          {sloganTokens.map((token, index) => {
+            const local = Math.max(0.18, Math.min(1, (sloganProgress * 1.25 - index * 0.055) / 0.35));
+            return (
+              <span
+                key={`${token.text}-${index}`}
+                className={token.italic ? "is-italic" : ""}
+                style={{ opacity: local }}
+              >
+                {token.text}{" "}
+              </span>
+            );
+          })}
         </h2>
       </section>
 
-      <section id="work" className="work">
+      <section id="work" className="cases-section">
         <div className="section-head">
           <h2>Cases</h2>
-          <a href="#contact">Bekijk alles</a>
+          <button type="button">Bekijk alles</button>
         </div>
 
-        <div className="case-grid">
-          {cases.map((item, index) => (
-            <article className={`case ${item.tone}`} key={item.title}>
+        <div className="cases-grid">
+          {CASES.map((item, index) => (
+            <article key={item.title} className={item.wide ? "case-card is-wide" : "case-card"}>
+              <img src={item.image} alt="" />
               <div className="case-tags">
                 {item.tags.map((tag) => (
                   <span key={tag}>{tag}</span>
                 ))}
               </div>
-
-              <div className="case-visual">
-                {item.type === "symbol" && <Symbol />}
-                {item.type === "portrait" && <Portrait />}
-                {item.type === "text" && <TextVisual />}
-                {item.type === "interface" && <InterfaceVisual />}
-              </div>
-
-              {index === 1 && <div className="blur-layer" />}
-
-              <div className="case-bottom">
-                <h3>
-                  {item.title.replace(item.italic, "")} <em>{item.italic}</em>
-                </h3>
-                <button>↗</button>
-              </div>
+              <button className="case-arrow" type="button" aria-label={`Open ${item.title}`}>
+                <ArrowIcon />
+              </button>
+              <h3>
+                {item.title} <em>{item.italic}</em>
+              </h3>
             </article>
           ))}
         </div>
       </section>
 
-      <section className="marquee">
-        <div>
-          <span>QUIET DESIGN — VISUAL DIRECTION — PERSONAL PORTFOLIO — </span>
-          <span>QUIET DESIGN — VISUAL DIRECTION — PERSONAL PORTFOLIO — </span>
+      <section className="marquee-section" aria-hidden="true">
+        <div className="marquee-track">
+          <span>VISUAL DIRECTION — PERSONAL PORTFOLIO — WRITING — QUIET WEB — </span>
+          <span>VISUAL DIRECTION — PERSONAL PORTFOLIO — WRITING — QUIET WEB — </span>
         </div>
       </section>
 
-      <section className="about">
-        <div className="about-image">
-          <Portrait />
+      <section className="story-section">
+        <div className="story-image">
+          <img
+            src="https://images.unsplash.com/photo-1492447166138-50c3889fccb1?auto=format&fit=crop&w=1200&q=85"
+            alt="Portrait placeholder"
+          />
         </div>
-
-        <div className="about-copy">
+        <div className="story-copy">
           <h2>
-            A quiet visual space for <em>selected</em> work
+            The story behind <em>the work</em>
           </h2>
-
           <p>
-            This website is built to feel calm, mature, and visually precise.
-            It avoids noise and lets the work breathe through scale, spacing,
-            movement, and simple typography.
+            This is a temporary personal section. It should later become more precise: who you are, what you notice, what kind of work you want to show, and why your taste matters.
           </p>
-
           <p>
-            The content can stay minimal now and become more personal later.
-            The structure is ready for projects, writing, images, and selected
-            ideas.
+            The tone should stay calm, intelligent, and human. Not loud. Not corporate. Not over-explained. The website should feel like a refined visual room around your name.
           </p>
-
-          <a className="button" href="#contact">
-            Contact <span>↗</span>
-          </a>
+          <button type="button" onClick={() => scrollToId("contact")}>Contact me <ArrowIcon /></button>
         </div>
       </section>
 
-      <section className="faq">
+      <section className="faq-section">
         <h2>
           Frequently asked <em>questions</em>
         </h2>
-
         <div className="faq-list">
-          {faqs.map((item, index) => (
-            <div className="faq-item" key={item.q}>
-              <button onClick={() => setOpenFaq(openFaq === index ? -1 : index)}>
-                <span>{String(index + 1).padStart(2, "0")}.</span>
-                <strong>{item.q}</strong>
-                <b>{openFaq === index ? "−" : "+"}</b>
-              </button>
-
-              <div className={`faq-answer ${openFaq === index ? "show" : ""}`}>
-                <p>{item.a}</p>
-              </div>
-            </div>
-          ))}
+          {FAQS.map((faq, index) => {
+            const open = openFaq === index;
+            return (
+              <article key={faq.q} className={open ? "faq-item is-open" : "faq-item"}>
+                <button type="button" onClick={() => setOpenFaq(open ? -1 : index)}>
+                  <span className="faq-number">{String(index + 1).padStart(2, "0")}.</span>
+                  <span>{faq.q}</span>
+                  <PlusIcon open={open} />
+                </button>
+                <div className="faq-answer">
+                  <p>{faq.a}</p>
+                </div>
+              </article>
+            );
+          })}
         </div>
       </section>
 
-      <section id="contact" className="contact">
+      <footer id="contact" className="contact-section">
         <div>
           <h2>
-            Let’s make something <em>quiet</em> and clear
+            Let’s make something <em>clear</em>
+            <br />
+            and memorable.
           </h2>
-
-          <a className="button" href="mailto:contact@example.com">
-            Send an email <span>↗</span>
-          </a>
+          <a href="mailto:contact@example.com">Send an email <ArrowIcon /></a>
         </div>
-
-        <div className="contact-grid">
+        <nav>
           <div>
             <p>Menu</p>
-            <a href="#home">Home</a>
-            <a href="#work">Work</a>
-            <a href="#contact">Contact</a>
+            <button type="button" onClick={() => scrollToId("home")}>Home</button>
+            <button type="button" onClick={() => scrollToId("work")}>Work</button>
+            <button type="button" onClick={() => scrollToId("contact")}>Contact</button>
           </div>
-
           <div>
             <p>Socials</p>
-            <a href="https://instagram.com/" target="_blank" rel="noreferrer">
-              Instagram
-            </a>
-            <a href="https://linkedin.com/" target="_blank" rel="noreferrer">
-              LinkedIn
-            </a>
+            <a href="https://www.instagram.com/" target="_blank" rel="noreferrer">Instagram</a>
+            <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">LinkedIn</a>
           </div>
-
           <div>
             <p>Contact</p>
             <a href="mailto:contact@example.com">contact@example.com</a>
           </div>
-        </div>
-      </section>
-
-      <style>{css}</style>
+        </nav>
+        <strong className="footer-name">JAAFAR</strong>
+      </footer>
     </main>
   );
 }
 
-function svgCard(bg, fg, word) {
-  return (
-    "data:image/svg+xml;charset=UTF-8," +
-    encodeURIComponent(`
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 960">
-        <rect width="800" height="960" rx="42" fill="${bg}"/>
-        <circle cx="400" cy="430" r="150" fill="${fg}" opacity=".08"/>
-        <path d="M105 700 C230 560 360 810 525 650 S700 560 735 680" fill="none" stroke="${fg}" stroke-width="18" opacity=".14"/>
-        <text x="58" y="120" font-family="Arial" font-size="74" font-weight="700" fill="${fg}" opacity=".88">${word}</text>
-      </svg>
-    `)
-  );
-}
-
-function Symbol() {
-  return (
-    <svg viewBox="0 0 300 300">
-      {Array.from({ length: 16 }).map((_, i) => (
-        <line
-          key={i}
-          x1="150"
-          y1="150"
-          x2="150"
-          y2="20"
-          stroke="currentColor"
-          strokeWidth="5"
-          strokeLinecap="round"
-          transform={`rotate(${i * 22.5} 150 150)`}
-        />
-      ))}
-    </svg>
-  );
-}
-
-function Portrait() {
-  return (
-    <div className="portrait">
-      <div className="face" />
-      <div className="body" />
-      <div className="light" />
-    </div>
-  );
-}
-
-function TextVisual() {
-  return (
-    <div className="text-visual">
-      <span>Notes</span>
-      <p>quiet observations</p>
-      <p>visual language</p>
-      <p>human rhythm</p>
-    </div>
-  );
-}
-
-function InterfaceVisual() {
-  return (
-    <div className="interface-visual">
-      <div />
-      <div />
-      <div />
-      <span />
-    </div>
-  );
-}
-
 const css = `
-@font-face {
-  font-family: "Radona";
-  src: url("/fonts/RadonaExtendedDemi.otf") format("opentype");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "HelveticaNeueLocal";
-  src: url("/fonts/HelveticaNeueRoman.otf") format("opentype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "HelveticaNeueLocal";
-  src: url("/fonts/HelveticaNeueMedium.otf") format("opentype");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "HelveticaNeueLocal";
-  src: url("/fonts/HelveticaNeueBold.otf") format("opentype");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "HelveticaNeueLocal";
-  src: url("/fonts/HelveticaNeueItalic.ttf") format("truetype");
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-}
-
 :root {
   --bg: #fcfcfc;
   --text: #262626;
-  --soft: #efeeee;
-  --panel: #f0efed;
-  --black: #050505;
-  --sans: "HelveticaNeueLocal", "Helvetica Neue", Arial, sans-serif;
-  --display: "Radona", "HelveticaNeueLocal", "Helvetica Neue", Arial, sans-serif;
+  --muted: #7d7d7a;
+  --line: rgba(38, 38, 38, 0.42);
+  --soft: #efefed;
+  --panel: #e8e7e4;
+  --black: #111111;
+  --green: #073f2f;
+  --radius: 24px;
+  --sans: "PP Neue Montreal", "Inter", "Helvetica Neue", Arial, sans-serif;
+  --serif: "Cormorant Garamond", "Times New Roman", Georgia, serif;
 }
 
-* {
-  box-sizing: border-box;
-}
-
-html {
-  font-size: 62.5%;
-  scroll-behavior: smooth;
-}
-
+* { box-sizing: border-box; }
+html { font-size: 62.5%; scroll-behavior: smooth; }
 body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
   font-family: var(--sans);
-  font-weight: 400;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  cursor: none;
+  overflow-x: hidden;
 }
+button, a { font: inherit; color: inherit; }
+button { border: 0; background: transparent; cursor: pointer; }
+a { text-decoration: none; }
+img { display: block; width: 100%; height: 100%; object-fit: cover; }
+em { font-family: var(--serif); font-style: italic; font-weight: 400; }
 
-a,
-button {
-  color: inherit;
-  font-family: inherit;
-}
-
-.site {
+.site-shell {
   position: relative;
   min-height: 100vh;
-  overflow: hidden;
   background: var(--bg);
+  isolation: isolate;
 }
 
-.site::before {
-  content: "";
+.cursor-dot {
   position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0);
-  z-index: 20;
-  pointer-events: none;
-  transition: background .45s ease;
-}
-
-.site.is-menu-open::before {
-  background: rgba(0,0,0,.31);
-}
-
-.cursor {
-  position: fixed;
-  top: 0;
   left: 0;
-  width: 1rem;
-  height: 1rem;
-  border-radius: 50%;
+  top: 0;
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
   background: #fff;
   mix-blend-mode: difference;
   pointer-events: none;
   z-index: 9999;
+  transition: width .2s ease, height .2s ease;
 }
 
-/* MENU */
-
-.menu-toggle {
+.menu-button {
   position: fixed;
-  top: 2rem;
-  right: 2rem;
-  width: 4.4rem;
-  height: 4.4rem;
-  border: 0;
+  right: 20px;
+  top: 20px;
+  z-index: 120;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  background: #ecebea;
-  z-index: 60;
+  background: #e6e6e3;
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: none;
   transition: transform .7s cubic-bezier(.5,.5,0,1), background .25s ease;
 }
-
-.menu-toggle:hover {
-  transform: rotate(90deg);
-  background: #deddda;
-}
-
-.menu-toggle span {
+.menu-button:hover { transform: rotate(90deg); background: #dededb; }
+.menu-button span {
   position: absolute;
-  width: 1.35rem;
+  width: 14px;
   height: 1.5px;
   background: #222;
-  border-radius: 99px;
+  transition: transform .35s ease;
 }
+.menu-button span:first-child { transform: translateY(-2.5px); }
+.menu-button span:last-child { transform: translateY(2.5px); }
+.menu-button.is-open span:first-child { transform: rotate(45deg); }
+.menu-button.is-open span:last-child { transform: rotate(-45deg); }
 
-.menu-toggle span:first-child {
-  transform: translateY(-.24rem);
-}
-
-.menu-toggle span:last-child {
-  transform: translateY(.24rem);
-}
-
-.menu-panel {
+.menu-layer {
   position: fixed;
-  top: 2rem;
-  right: 2rem;
-  width: min(25rem, calc(100vw - 4rem));
-  padding: 2.2rem 2.3rem 2.5rem;
-  border-radius: 2.6rem;
-  background: var(--panel);
-  z-index: 80;
+  inset: 0;
+  z-index: 110;
+  background: rgba(0,0,0,.30);
   opacity: 0;
-  transform: scale(.94);
-  transform-origin: top right;
   pointer-events: none;
-  transition: opacity .32s ease, transform .45s cubic-bezier(.22,.8,.18,1);
+  transition: opacity .35s ease;
 }
-
-.menu-panel.active {
-  opacity: 1;
-  transform: scale(1);
-  pointer-events: auto;
+.menu-layer.is-open { opacity: 1; pointer-events: auto; }
+.menu-panel {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: min(26rem, calc(100vw - 40px));
+  padding: 2.2rem 2.1rem 2.6rem;
+  background: #ecebe8;
+  border-radius: 2.8rem;
+  transform: translateY(-8px) scale(.97);
+  transform-origin: top right;
+  transition: transform .35s cubic-bezier(.16,1,.3,1);
 }
-
+.menu-layer.is-open .menu-panel { transform: translateY(0) scale(1); }
 .menu-panel p {
   margin: 0 0 1.4rem;
+  color: #7b7b78;
   font-size: 1.2rem;
-  line-height: 1;
-  color: #777;
-  letter-spacing: .03em;
+  letter-spacing: .06em;
 }
-
-.menu-panel a {
+.menu-panel button {
   display: block;
-  width: fit-content;
-  text-decoration: none;
-  font-size: clamp(3.4rem, 3vw, 5.4rem);
-  line-height: .96;
-  letter-spacing: -.075em;
-  font-weight: 400;
-  margin: .2rem 0;
+  width: 100%;
+  text-align: left;
+  font-size: clamp(3.2rem, 4.2vw, 5.2rem);
+  line-height: .98;
+  letter-spacing: -.06em;
+  padding: .15rem 0;
 }
 
-.menu-close {
-  position: absolute;
-  top: 1.2rem;
-  right: 1.55rem;
-  border: 0;
-  background: transparent;
-  font-size: 3.4rem;
-  line-height: 1;
-  font-weight: 300;
-  cursor: none;
-}
-
-/* SIDE BADGE */
-
-.selected-badge {
+.side-badge {
   position: fixed;
-  top: 52%;
   right: 0;
-  width: 5.6rem;
-  height: 16rem;
+  top: 52%;
   transform: translateY(-50%);
-  background: #050505;
+  z-index: 70;
+  width: 56px;
+  height: 158px;
+  background: #000;
   color: #fff;
-  z-index: 50;
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-direction: column;
-  padding: 1.4rem .4rem 1.2rem;
+  padding: 1.3rem .7rem;
 }
-
-.selected-badge strong {
-  font-size: 2.2rem;
-  line-height: 1;
-}
-
-.selected-badge span {
+.side-badge strong { font-size: 2rem; line-height: 1; }
+.side-badge span {
   writing-mode: vertical-rl;
   transform: rotate(180deg);
   font-size: 1.2rem;
-  font-weight: 500;
+  font-weight: 650;
 }
 
-/* HERO */
-
-.hero {
+.hero-section {
   position: relative;
-  height: 100svh;
-  min-height: 68rem;
+  min-height: 100svh;
   background: var(--bg);
   overflow: hidden;
+  isolation: isolate;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 8rem 2rem;
 }
-
-.hero-line {
+.hero-kicker {
   position: absolute;
-  top: 2rem;
+  top: 1.6rem;
   left: 2rem;
-  z-index: 6;
-  font-size: clamp(2.4rem, 2.2vw, 3.6rem);
-  line-height: 1.06;
-  letter-spacing: -.075em;
-  font-weight: 700;
-}
-
-em {
-  font-family: var(--sans);
-  font-style: italic;
-  font-weight: 400;
-  letter-spacing: -.06em;
-}
-
-.hero h1 {
-  position: relative;
-  z-index: 5;
+  z-index: 20;
   margin: 0;
-  font-family: var(--display);
-  font-size: clamp(4.8rem, 8.1vw, 14rem);
-  line-height: .84;
-  letter-spacing: -.075em;
-  font-weight: 700;
-  white-space: nowrap;
-  text-align: center;
-  pointer-events: none;
+  font-size: clamp(2.5rem, 2.05vw, 3.4rem);
+  line-height: 1.22;
+  letter-spacing: -.055em;
+  font-weight: 650;
 }
-
-.hero-trail {
+.hero-kicker em { font-size: 1.06em; }
+.hero-name {
+  position: relative;
+  z-index: 10;
+  margin: 0;
+  width: max-content;
+  max-width: 94vw;
+  font-size: clamp(4.9rem, 8.15vw, 15.6rem);
+  line-height: .78;
+  font-weight: 780;
+  letter-spacing: -.075em;
+  white-space: nowrap;
+  transform: scaleX(.89);
+  transform-origin: center;
+}
+.trail-image {
   position: absolute;
   width: 10vw;
-  min-width: 9.5rem;
-  max-width: 16rem;
-  aspect-ratio: 5 / 6;
+  height: 12vw;
+  min-width: 112px;
+  min-height: 132px;
+  max-width: 178px;
+  max-height: 214px;
   object-fit: cover;
-  border-radius: .8rem;
+  border-radius: 4%;
   pointer-events: none;
   z-index: 3;
-  will-change: transform, opacity;
+  transform: translate(-50%, -50%) rotate(var(--rotation)) scale(.72);
+  animation: trailPop 1.25s cubic-bezier(.16, 1, .3, 1) forwards;
 }
-
+@keyframes trailPop {
+  0% { opacity: 0; transform: translate(-50%, -50%) rotate(var(--rotation)) scale(.68); }
+  14% { opacity: 1; transform: translate(-50%, -50%) rotate(var(--rotation)) scale(1); }
+  58% { opacity: 1; transform: translate(-50%, -50%) rotate(var(--rotation)) scale(.96); }
+  100% { opacity: 0; transform: translate(-50%, -50%) rotate(var(--rotation)) scale(.28); }
+}
 .scroll-indicator {
   position: absolute;
-  bottom: 3.2rem;
   left: 50%;
+  bottom: 2.4rem;
   transform: translateX(-50%);
-  z-index: 6;
+  z-index: 20;
   font-size: 1.4rem;
-  color: #333;
+  color: #3d3d3c;
 }
 
-/* STATEMENT */
-
-.statement {
+.slogan-section {
+  position: relative;
   min-height: 92vh;
-  padding: 13rem 2rem 8rem;
   display: grid;
-  grid-template-columns: 18rem 1fr;
-  gap: 6rem;
-  align-items: start;
+  grid-template-columns: 17rem 1fr;
+  align-items: center;
+  gap: 3rem;
+  padding: 12rem 2rem 10rem;
+  background: var(--bg);
 }
-
-.statement p {
-  margin: 1.2rem 0 0;
+.mini-label {
+  align-self: center;
   font-size: 1.6rem;
+  letter-spacing: -.03em;
 }
-
-.statement h2 {
-  max-width: 140rem;
+.slogan-text {
+  max-width: 150rem;
   margin: 0;
-  font-size: clamp(5rem, 7.7vw, 12.8rem);
+  font-size: clamp(5.6rem, 7.15vw, 12.6rem);
   line-height: .98;
-  letter-spacing: -.078em;
-  font-weight: 700;
-}
-
-/* WORK */
-
-.work {
-  padding: 4rem 2rem 10rem;
-}
-
-.section-head {
-  display: flex;
-  align-items: end;
-  justify-content: space-between;
-  gap: 2rem;
-  margin-bottom: 3rem;
-}
-
-.section-head h2 {
-  margin: 0;
-  font-size: clamp(4.6rem, 5vw, 8rem);
-  line-height: .95;
+  font-weight: 650;
   letter-spacing: -.075em;
 }
+.slogan-text span { transition: opacity .08s linear; }
+.slogan-text .is-italic {
+  font-size: 1.08em;
+  letter-spacing: -.045em;
+  font-weight: 400;
+}
 
-.section-head a {
+.cases-section {
+  padding: 5rem 2rem 8rem;
+  background: var(--bg);
+}
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+.section-head h2 {
+  margin: 0;
+  font-size: clamp(4rem, 5vw, 7.4rem);
+  line-height: .9;
+  letter-spacing: -.075em;
+}
+.section-head button {
   font-size: 1.7rem;
   text-decoration: underline;
-  text-underline-offset: .3rem;
+  text-underline-offset: .3em;
 }
-
-.case-grid {
+.cases-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1.8rem;
 }
-
-.case {
+.case-card {
   position: relative;
-  min-height: 42rem;
-  padding: 2.4rem;
-  border-radius: 2.2rem;
+  min-height: 43vw;
+  max-height: 64rem;
   overflow: hidden;
-  isolation: isolate;
-  background: #f4f3ef;
-}
-
-.case:nth-child(3),
-.case:nth-child(4) {
-  min-height: 34rem;
-}
-
-.case.grey {
-  background: #cac9c6;
-}
-
-.case.sand {
-  background: #e6dcd0;
-}
-
-.case.blue {
-  background: #d9e3e6;
-}
-
-.case-tags {
-  position: relative;
-  z-index: 4;
-  display: flex;
-  gap: 1rem;
-}
-
-.case-tags span {
-  display: inline-flex;
-  padding: 1rem 1.25rem;
-  border-radius: .8rem;
-  background: rgba(255,255,255,.34);
+  border-radius: 1.8rem;
+  background: #ededeb;
   color: #fff;
-  font-size: 1.4rem;
-  backdrop-filter: blur(8px);
+  isolation: isolate;
 }
-
-.case-visual {
+.case-card.is-wide { min-height: 30vw; }
+.case-card::after {
+  content: "";
   position: absolute;
   inset: 0;
   z-index: 1;
+  background: linear-gradient(to bottom, rgba(0,0,0,.08), rgba(0,0,0,.08) 45%, rgba(0,0,0,.36));
+  opacity: .95;
+  transition: opacity .45s ease;
+}
+.case-card img {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  transform: scale(1.015);
+  transition: transform .7s cubic-bezier(.16,1,.3,1), filter .7s cubic-bezier(.16,1,.3,1);
+}
+.case-card:hover img { transform: scale(1.08); filter: blur(7px); }
+.case-card:hover::after { opacity: .72; }
+.case-tags {
+  position: absolute;
+  left: 2.2rem;
+  top: 2.2rem;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .9rem;
+}
+.case-tags span {
+  padding: .95rem 1.15rem;
+  border-radius: .75rem;
+  background: rgba(255,255,255,.18);
+  backdrop-filter: blur(10px);
+  font-size: 1.4rem;
+}
+.case-arrow {
+  position: absolute;
+  right: 2.6rem;
+  top: 50%;
+  z-index: 3;
+  width: 7.4rem;
+  height: 7.4rem;
+  border-radius: 999px;
+  background: #222;
+  color: #fff;
   display: grid;
   place-items: center;
+  transition: transform .45s cubic-bezier(.16,1,.3,1), background .2s ease;
 }
-
-.case-visual svg {
-  width: min(52rem, 70%);
-  color: #111;
+.case-arrow svg, .story-copy button svg, .contact-section a svg {
+  width: 45%;
+  height: 45%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
-
-.blur-layer {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  background: rgba(0,0,0,.22);
-  backdrop-filter: blur(15px);
-}
-
-.case-bottom {
+.case-card:hover .case-arrow { transform: rotate(45deg) scale(1.06); background: #111; }
+.case-card h3 {
   position: absolute;
   left: 2.4rem;
-  right: 2.4rem;
-  bottom: 2.4rem;
-  z-index: 4;
-  display: flex;
-  align-items: end;
-  justify-content: space-between;
-}
-
-.case-bottom h3 {
+  bottom: 2.8rem;
+  z-index: 2;
   margin: 0;
-  color: white;
-  font-size: clamp(3.8rem, 4vw, 6.8rem);
-  line-height: .96;
-  letter-spacing: -.08em;
-  font-weight: 700;
+  font-size: clamp(3.6rem, 4.2vw, 6.8rem);
+  line-height: .92;
+  letter-spacing: -.075em;
+  font-weight: 620;
 }
+.case-card h3 em { font-size: .98em; }
 
-.case-bottom button {
-  width: 7.6rem;
-  height: 7.6rem;
-  border: 0;
-  border-radius: 50%;
-  background: #202020;
-  color: white;
-  font-size: 4rem;
-  line-height: 1;
-  cursor: none;
-}
-
-.portrait {
-  width: 100%;
-  height: 100%;
-  min-height: 35rem;
-  position: relative;
+.marquee-section {
   overflow: hidden;
-  background:
-    radial-gradient(circle at 50% 30%, #e7d7c6 0 9%, transparent 10%),
-    linear-gradient(110deg, #d1b29b, #5f514b 55%, #232323);
+  padding: 7rem 0 11rem;
+  background: var(--bg);
 }
-
-.face {
-  position: absolute;
-  width: 18rem;
-  height: 22rem;
-  border-radius: 45% 45% 38% 38%;
-  background: #c79977;
-  left: 50%;
-  top: 23%;
-  transform: translateX(-50%);
-}
-
-.body {
-  position: absolute;
-  width: 52rem;
-  height: 22rem;
-  border-radius: 50% 50% 0 0;
-  background: #191919;
-  left: 50%;
-  bottom: -4rem;
-  transform: translateX(-50%);
-}
-
-.light {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, rgba(255,255,255,.38), transparent 42%);
-  mix-blend-mode: screen;
-}
-
-.text-visual {
-  width: 72%;
-}
-
-.text-visual span {
-  font-size: 8rem;
-  font-weight: 700;
-  letter-spacing: -.08em;
-}
-
-.text-visual p {
-  margin: 1rem 0;
-  font-size: 2.4rem;
-  border-bottom: 1px solid rgba(0,0,0,.25);
-  padding-bottom: 1rem;
-}
-
-.interface-visual {
-  width: 70%;
-  height: 60%;
-  display: grid;
-  grid-template-columns: 1.1fr .8fr;
-  gap: 1.2rem;
-}
-
-.interface-visual div,
-.interface-visual span {
-  border-radius: 1.4rem;
-  background: rgba(255,255,255,.6);
-}
-
-.interface-visual div:first-child {
-  grid-row: span 2;
-}
-
-.interface-visual span {
-  grid-column: span 2;
-}
-
-/* MARQUEE */
-
-.marquee {
-  padding: 5rem 0 12rem;
-  overflow: hidden;
-}
-
-.marquee div {
+.marquee-track {
   display: flex;
   width: max-content;
   animation: marquee 26s linear infinite;
 }
-
-.marquee span {
+.marquee-track span {
   white-space: nowrap;
-  font-size: clamp(7rem, 8.8vw, 15rem);
+  font-size: clamp(6.6rem, 9vw, 15rem);
   line-height: .9;
-  font-weight: 700;
-  letter-spacing: -.08em;
+  font-weight: 760;
+  letter-spacing: -.075em;
   padding-right: 4rem;
 }
+@keyframes marquee { to { transform: translateX(-50%); } }
 
-@keyframes marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-/* ABOUT */
-
-.about {
-  padding: 6rem 2rem 14rem;
+.story-section {
   display: grid;
-  grid-template-columns: .9fr 1.2fr;
-  gap: 12rem;
+  grid-template-columns: minmax(28rem, 39vw) minmax(30rem, 1fr);
+  gap: clamp(5rem, 8vw, 13rem);
+  padding: 10rem 14vw 12rem;
   align-items: center;
+  background: var(--bg);
 }
-
-.about-image {
-  height: 55rem;
-  border-radius: 2.2rem;
+.story-image {
+  height: min(58rem, 58vw);
+  border-radius: 1.7rem;
   overflow: hidden;
 }
-
-.about-copy h2 {
-  max-width: 72rem;
+.story-copy h2 {
   margin: 0 0 3rem;
-  font-size: clamp(4.8rem, 5vw, 8.4rem);
-  line-height: .97;
-  letter-spacing: -.08em;
+  max-width: 62rem;
+  font-size: clamp(4.4rem, 4.5vw, 7.4rem);
+  line-height: .98;
+  letter-spacing: -.075em;
 }
-
-.about-copy p {
-  max-width: 72rem;
-  font-size: 1.8rem;
-  line-height: 1.45;
+.story-copy p {
+  max-width: 68rem;
   margin: 0 0 2.4rem;
+  font-size: 1.75rem;
+  line-height: 1.42;
+  letter-spacing: -.025em;
 }
-
-.button {
+.story-copy button, .contact-section a {
   display: inline-flex;
   align-items: center;
-  gap: 1rem;
-  width: fit-content;
-  margin-top: 1.5rem;
-  padding: 1.25rem 1.6rem;
-  border-radius: .5rem;
+  gap: .8rem;
+  margin-top: 1.2rem;
+  padding: 1.25rem 1.45rem;
+  border-radius: .55rem;
   background: #222;
-  color: white;
-  text-decoration: none;
-  font-size: 1.8rem;
+  color: #fff;
+  font-size: 1.6rem;
   font-weight: 700;
 }
+.story-copy button svg, .contact-section a svg { width: 1.8rem; height: 1.8rem; }
 
-.button span {
-  display: grid;
-  place-items: center;
-  width: 2rem;
-  height: 2rem;
-  border-radius: .3rem;
-  background: white;
-  color: #222;
-  font-size: 1.3rem;
+.faq-section {
+  padding: 10rem 14vw 12rem;
+  background: var(--bg);
 }
-
-/* FAQ */
-
-.faq {
-  max-width: 116rem;
-  margin: 0 auto;
-  padding: 10rem 2rem 14rem;
-}
-
-.faq h2 {
+.faq-section h2 {
   margin: 0 0 5rem;
-  font-size: clamp(4.8rem, 5vw, 8rem);
-  line-height: .96;
-  letter-spacing: -.08em;
+  font-size: clamp(4.4rem, 5vw, 7.8rem);
+  line-height: .95;
+  letter-spacing: -.075em;
 }
-
-.faq-item {
-  border-bottom: 1px solid rgba(0,0,0,.45);
-}
-
+.faq-list { max-width: 104rem; }
+.faq-item { border-bottom: 1px solid var(--line); }
 .faq-item button {
   width: 100%;
   display: grid;
   grid-template-columns: 7rem 1fr 4rem;
+  align-items: center;
   gap: 2rem;
-  align-items: baseline;
-  padding: 2.8rem 0 1.7rem;
-  border: 0;
-  background: transparent;
+  padding: 2.5rem 0 2.1rem;
   text-align: left;
-  cursor: none;
 }
-
-.faq-item button span {
-  font-size: 2.3rem;
+.faq-number {
+  font-family: var(--serif);
   font-style: italic;
-  font-weight: 400;
-  letter-spacing: -.06em;
+  font-size: 2.4rem;
+  color: #333;
 }
-
-.faq-item strong {
-  font-size: clamp(2.6rem, 2vw, 3.4rem);
-  font-weight: 700;
-  letter-spacing: -.06em;
+.faq-item button > span:nth-child(2) {
+  font-size: clamp(2.2rem, 2vw, 3rem);
+  font-weight: 680;
+  letter-spacing: -.045em;
 }
-
-.faq-item b {
-  font-size: 3rem;
-  font-weight: 400;
-  text-align: right;
+.faq-plus {
+  position: relative;
+  width: 2.4rem;
+  height: 2.4rem;
+  justify-self: end;
 }
-
+.faq-plus span {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 1.8rem;
+  height: 1.8px;
+  background: #222;
+  transform: translate(-50%, -50%);
+  transition: transform .25s ease;
+}
+.faq-plus span:last-child { transform: translate(-50%, -50%) rotate(90deg); }
+.faq-plus.is-open span:last-child { transform: translate(-50%, -50%) rotate(0deg); }
 .faq-answer {
   display: grid;
   grid-template-rows: 0fr;
-  transition: grid-template-rows .35s ease;
+  transition: grid-template-rows .32s ease;
 }
-
-.faq-answer.show {
-  grid-template-rows: 1fr;
-}
-
 .faq-answer p {
   overflow: hidden;
   margin: 0;
-  padding: 0 0 2.5rem 9rem;
-  max-width: 92rem;
-  font-size: 1.7rem;
+  max-width: 86rem;
+  font-size: 1.65rem;
   line-height: 1.45;
+  color: #444;
 }
+.faq-item.is-open .faq-answer { grid-template-rows: 1fr; }
+.faq-item.is-open .faq-answer p { padding-bottom: 2.4rem; }
 
-/* CONTACT */
-
-.contact {
-  min-height: 72vh;
-  padding: 12rem 7vw 8rem;
+.contact-section {
+  position: relative;
+  min-height: 94vh;
+  padding: 12rem 7vw 4rem;
   display: grid;
-  grid-template-columns: 1fr 1.25fr;
-  gap: 10rem;
-  align-items: center;
-  background: #f7f6f4;
+  grid-template-rows: 1fr auto;
+  gap: 7rem;
+  background: var(--bg);
 }
-
-.contact h2 {
-  margin: 0;
-  max-width: 48rem;
-  font-size: clamp(3.8rem, 3.5vw, 6rem);
-  line-height: .98;
-  letter-spacing: -.075em;
-}
-
-.contact-grid {
+.contact-section > div:first-child {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: minmax(28rem, 46rem) auto;
+  gap: clamp(5rem, 12vw, 18rem);
+  align-items: start;
+}
+.contact-section h2 {
+  margin: 0 0 3rem;
+  font-size: clamp(3.6rem, 3.4vw, 5.6rem);
+  line-height: 1.02;
+  letter-spacing: -.065em;
+}
+.contact-section nav {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(12rem, 1fr));
   gap: 5rem;
+  max-width: 76rem;
+  justify-self: end;
 }
-
-.contact-grid div {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.contact-grid p {
-  margin: 0 0 .6rem;
+.contact-section nav p {
+  margin: 0 0 1.4rem;
+  font-size: 1.65rem;
   color: #777;
-  font-size: 1.7rem;
 }
-
-.contact-grid a {
-  text-decoration: none;
-  font-size: 1.8rem;
+.contact-section nav a,
+.contact-section nav button {
+  display: block;
+  margin: 0 0 1rem;
+  padding: 0;
+  text-align: left;
+  font-size: 1.65rem;
 }
-
-/* RESPONSIVE */
+.footer-name {
+  display: block;
+  font-size: clamp(8rem, 16vw, 25rem);
+  line-height: .76;
+  letter-spacing: -.085em;
+  font-weight: 780;
+  transform: scaleX(.95);
+  transform-origin: left bottom;
+}
 
 @media (max-width: 900px) {
-  body {
-    cursor: auto;
+  .cursor-dot { display: none; }
+  .hero-section { min-height: 92svh; }
+  .hero-name {
+    font-size: clamp(4rem, 11.5vw, 8rem);
+    letter-spacing: -.065em;
+    transform: scaleX(.92);
   }
-
-  .cursor {
-    display: none;
-  }
-
-  .menu-toggle,
-  .menu-close,
-  .case-bottom button,
-  .faq-item button {
-    cursor: pointer;
-  }
-
-  .hero {
-    min-height: 62rem;
-  }
-
-  .hero-line {
-    top: 1.8rem;
-    left: 1.6rem;
-    font-size: 3rem;
-  }
-
-  .hero h1 {
-    max-width: 92vw;
-    white-space: normal;
-    font-size: clamp(4.8rem, 14vw, 9rem);
-    line-height: .88;
-  }
-
-  .selected-badge {
-    width: 5rem;
-    height: 14rem;
-  }
-
-  .statement {
+  .hero-kicker { font-size: 2.5rem; }
+  .side-badge { display: none; }
+  .slogan-section {
     grid-template-columns: 1fr;
-    min-height: auto;
-    padding: 10rem 1.6rem 8rem;
-    gap: 3rem;
+    gap: 2rem;
+    padding: 10rem 2rem;
   }
-
-  .statement h2 {
-    font-size: clamp(4.6rem, 13vw, 8rem);
-  }
-
-  .work {
-    padding: 3rem 1.2rem 8rem;
-  }
-
-  .case-grid {
+  .mini-label { align-self: start; }
+  .slogan-text { font-size: clamp(4.6rem, 12vw, 8.2rem); }
+  .cases-grid { grid-template-columns: 1fr; }
+  .case-card, .case-card.is-wide { min-height: 68rem; }
+  .story-section {
     grid-template-columns: 1fr;
-    gap: 1.2rem;
+    padding: 7rem 2rem 9rem;
   }
-
-  .case {
-    min-height: 34rem;
-    border-radius: 1.8rem;
-  }
-
-  .case-bottom h3 {
-    font-size: 4.4rem;
-  }
-
-  .case-bottom button {
-    width: 6.2rem;
-    height: 6.2rem;
-    font-size: 3.2rem;
-  }
-
-  .about {
-    grid-template-columns: 1fr;
-    gap: 4rem;
-    padding: 5rem 1.6rem 10rem;
-  }
-
-  .about-image {
-    height: 42rem;
-  }
-
-  .faq {
-    padding: 8rem 1.6rem 10rem;
-  }
-
-  .faq-item button {
-    grid-template-columns: 5rem 1fr 3rem;
-    gap: 1rem;
-  }
-
-  .faq-answer p {
-    padding-left: 6rem;
-  }
-
-  .contact {
-    grid-template-columns: 1fr;
-    padding: 8rem 1.6rem;
-    gap: 6rem;
-  }
-
-  .contact-grid {
-    grid-template-columns: 1fr;
-    gap: 3rem;
-  }
+  .story-image { height: 48rem; }
+  .faq-section { padding: 8rem 2rem; }
+  .faq-item button { grid-template-columns: 5rem 1fr 3rem; }
+  .contact-section { padding: 8rem 2rem 3rem; }
+  .contact-section > div:first-child { grid-template-columns: 1fr; }
+  .contact-section nav { justify-self: start; grid-template-columns: 1fr; }
 }
 
 @media (max-width: 520px) {
-  .menu-panel {
-    width: calc(100vw - 3.2rem);
-    top: 1.6rem;
-    right: 1.6rem;
+  .menu-button { top: 14px; right: 14px; }
+  .menu-panel { top: 14px; right: 14px; }
+  .hero-kicker { left: 1.6rem; top: 1.6rem; font-size: 2.2rem; }
+  .hero-name {
+    white-space: normal;
+    text-align: center;
+    line-height: .88;
+    max-width: 90vw;
   }
-
-  .menu-panel a {
-    font-size: 4.6rem;
-  }
-
-  .hero-line {
-    font-size: 2.7rem;
-  }
-
-  .hero h1 {
-    font-size: clamp(4.4rem, 13.2vw, 7.4rem);
-  }
-
-  .scroll-indicator {
-    bottom: 2.4rem;
-  }
-
-  .marquee span {
-    font-size: 7rem;
-  }
-
-  .contact {
-    padding-bottom: 10rem;
-  }
+  .trail-image { width: 120px; height: 148px; }
+  .case-card, .case-card.is-wide { min-height: 54rem; }
+  .case-arrow { width: 6.2rem; height: 6.2rem; }
+  .case-card h3 { font-size: 4.4rem; }
 }
 `;
