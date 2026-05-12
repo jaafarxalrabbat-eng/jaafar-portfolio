@@ -1,5 +1,38 @@
-/* Small logo override */
+@font-face {
+  font-family: "Halenoir";
+  src: url("/fonts/halenoir.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 
+/* Apply Halenoir to the whole website */
+html,
+body,
+button,
+a,
+input,
+textarea,
+select,
+p,
+span,
+strong,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+em {
+  font-family: "Halenoir", "Helvetica Neue", Arial, sans-serif !important;
+}
+
+/* Keep italic text italic, but with the same font */
+em {
+  font-style: italic !important;
+}
+
+/* Small logo override */
 .hero-logo {
   position: absolute !important;
   top: 22px !important;
