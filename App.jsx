@@ -138,18 +138,14 @@ export default function App() {
 
   const sloganTokens = useMemo(
     () => [
-      { text: "I", italic: false },
-      { text: "shape", italic: false },
-      { text: "quiet", italic: true },
+      { text: "Quiet", italic: false },
       { text: "digital", italic: false },
-      { text: "experiences", italic: true },
-      { text: "where", italic: false },
-      { text: "clarity", italic: false },
-      { text: "and", italic: false },
-      { text: "feeling", italic: true },
-      { text: "meet", italic: false },
+      { text: "presence,", italic: false },
+      { text: "shaped", italic: false },
       { text: "with", italic: false },
-      { text: "purpose.", italic: false },
+      { text: "clarity", italic: true },
+      { text: "and", italic: false },
+      { text: "restraint.", italic: true },
     ],
     []
   );
