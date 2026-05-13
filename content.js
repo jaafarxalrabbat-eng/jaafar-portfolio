@@ -6,25 +6,25 @@ export const siteContent = {
   },
   heroName: "JAAFAR AL RABBAT",
   scrollText: "Scroll for more",
-  email: "contact@example.com",
+  email: "jaafar.f.alrabbat@gmail.com",
   socials: [
     { label: "Instagram", href: "https://www.instagram.com/" },
     { label: "LinkedIn", href: "https://www.linkedin.com/" },
   ],
   footer: {
-    titleBefore: "Let’s make something",
+    titleBefore: "Let’s build something",
     titleEmphasis: "clear",
-    titleAfter: "and memorable.",
+    titleAfter: "calm, and meaningful.",
     cta: "Send an email",
   },
   story: {
     image: "/assets/story-portrait.jpg",
     imageAlt: "Jaafar Al Rabbat portrait",
-    titleBefore: "The story behind",
-    titleEmphasis: "the work",
+    titleBefore: "Photography, visual direction",
+    titleEmphasis: "and digital presence",
     paragraphs: [
-      "This is a temporary personal section. It should later become more precise: who you are, what you notice, what kind of work you want to show, and why your taste matters.",
-      "The tone should stay calm, intelligent, and human. Not loud. Not corporate. Not over-explained. The website should feel like a refined visual room around your name.",
+      "I work with photography, visual direction, and simple digital presentation. My focus is on calm images, clear structure, and a visual presence that feels thoughtful, human, and restrained.",
+      "With a background in law and a strong sensitivity to story, identity, and public image, I help people, ideas, and small projects appear online with clarity and taste.",
     ],
     cta: "Contact me",
   },
@@ -41,65 +41,81 @@ export const trailImages = [
 
 export const cases = [
   {
-    title: "Visual Direction",
-    italic: "Archive",
-    tags: ["Mood", "Identity"],
-    image: "/assets/trail-03.jpg",
+    title: "Fishermen’s Cooperative Societies",
+    italic: "Identity",
+    tags: ["Visual Identity", "Arabic / English"],
+    image: "/assets/cases/fishermen/fishermen-identity-05.jpg",
     type: "image",
     wide: true,
+    link: "/assets/cases/fishermen/fishermen-identity.pdf",
   },
   {
-    title: "Quiet Portfolio",
+    title: "Identity System",
+    italic: "Details",
+    tags: ["Logo", "Brand Concept"],
+    image: "/assets/cases/fishermen/fishermen-identity-01.jpg",
+    type: "image",
+    link: "/assets/cases/fishermen/fishermen-identity-01.jpg",
+  },
+  {
+    title: "Logo Scale",
     italic: "System",
-    tags: ["Personal", "Web"],
+    tags: ["Brand Usage", "Scalability"],
+    image: "/assets/cases/fishermen/fishermen-identity-02.jpg",
+    type: "image",
+    link: "/assets/cases/fishermen/fishermen-identity-02.jpg",
+  },
+  {
+    title: "Photography",
+    italic: "Archive",
+    tags: ["Portraits", "Details"],
+    image: "/assets/story-portrait.jpg",
+    type: "image",
+  },
+  {
+    title: "Digital Presence",
+    italic: "Web",
+    tags: ["Personal", "Editorial"],
     image: "/assets/trail-05.jpg",
-    type: "image",
-  },
-  {
-    title: "Writing",
-    italic: "Ideas",
-    tags: ["Text", "Voice"],
-    image: "/assets/trail-02.jpg",
-    type: "image",
-  },
-  {
-    title: "Selected Work",
-    italic: "Study",
-    tags: ["Concept", "Human"],
-    image: "/assets/trail-01.jpg",
     type: "image",
     wide: true,
   },
 ];
 
 export const sloganTokens = [
-  { text: "Quiet", italic: false },
-  { text: "digital", italic: false },
-  { text: "presence,", italic: false },
-  { text: "shaped", italic: false },
-  { text: "with", italic: false },
-  { text: "clarity", italic: true },
+  { text: "Photography,", italic: false },
+  { text: "visual", italic: false },
+  { text: "direction,", italic: true },
   { text: "and", italic: false },
-  { text: "restraint.", italic: true },
+  { text: "quiet", italic: false },
+  { text: "digital", italic: false },
+  { text: "presence", italic: true },
+  { text: "for", italic: false },
+  { text: "people,", italic: false },
+  { text: "ideas,", italic: false },
+  { text: "and", italic: false },
+  { text: "small", italic: false },
+  { text: "projects.", italic: false },
 ];
 
-export const marqueeText = "VISUAL DIRECTION — PERSONAL PORTFOLIO — WRITING — QUIET WEB — ";
+export const marqueeText =
+  "PHOTOGRAPHY — VISUAL DIRECTION — DIGITAL PRESENCE — CONTENT STRUCTURE — ";
 
 export const faqs = [
   {
-    q: "What is this website about?",
-    a: "A personal portfolio built around calm visual identity, selected work, writing, and future projects. The content is temporary and can be replaced step by step.",
+    q: "What kind of work do you do?",
+    a: "I work across photography, visual direction, simple websites, and content structure. The focus is on helping people and small projects appear with clarity, taste, and calm visual presence.",
   },
   {
-    q: "Can the colors and images change later?",
-    a: "Yes. The structure is intentionally clean, so photos, text, colors, and sections can be changed without rebuilding the whole website.",
+    q: "What is visual direction?",
+    a: "Visual direction means shaping the overall feeling of a project: images, colors, typography, layout, rhythm, and how everything works together as one clear visual language.",
   },
   {
-    q: "Is this a copy of another website?",
-    a: "No. It uses a similar interaction logic: large hero, image trail, quiet grid, soft menu, strong typography, and scroll-based text reveal. The identity and content are yours.",
+    q: "Do you only make websites?",
+    a: "No. A website is only one part of the work. I also help with photography, image selection, visual mood, structure, and the way a person or project is presented online.",
   },
   {
-    q: "What should be edited first?",
-    a: "Start with the hero sentence, the main name, the images, and the cases. These define the first impression before anything else.",
+    q: "What makes the work different?",
+    a: "The style is quiet, human, and precise. The goal is not to look loud or overdesigned, but to create a presence that feels clear, thoughtful, and trustworthy.",
   },
 ];
