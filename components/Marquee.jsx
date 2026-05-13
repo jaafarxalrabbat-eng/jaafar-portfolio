@@ -1,11 +1,13 @@
-import { marqueeText } from "../content";
+export default function Marquee({ t }) {
+  const text =
+    t?.marquee ||
+    "VISUAL DIRECTION — PERSONAL PORTFOLIO — WRITING — QUIET WEB — ";
 
-export default function Marquee() {
   return (
     <section className="marquee-section" aria-hidden="true">
       <div className="marquee-track">
-        <span>{marqueeText}</span>
-        <span>{marqueeText}</span>
+        <span>{text}</span>
+        <span>{text}</span>
       </div>
     </section>
   );
