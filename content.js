@@ -50,7 +50,7 @@ export const cases = [
     link: "/assets/cases/fishermen/fishermen-identity.pdf",
   },
   {
-    title: "Ritaj",
+    title: "Retaj Medical Center",
     italic: "Visual Work",
     tags: ["Brand", "Presentation"],
     image: "/assets/trail-03.jpg",
