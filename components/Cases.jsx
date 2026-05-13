@@ -2,29 +2,27 @@ import { cases } from "../content";
 import { ArrowIcon } from "./Icons";
 
 export default function Cases({ t, isArabic }) {
+  const soon = t?.caseSoon || "Details soon.";
+
   return (
     <section id="work" className="cases-section">
       <div className="section-head">
-        <h2>{t?.casesTitle || "Cases"}</h2>
-        <button type="button">{t?.viewAll || "View all"}</button>
+        <h2>{t?.casesTitle || "Selected work"}</h2>
+        <button type="button" className="section-head-action">
+          {t?.viewAll || "View all"}
+        </button>
       </div>
 
       <div className="cases-grid">
         {cases.map((item) => {
-          const CardTag = item.link ? "a" : "article";
           const title = isArabic ? item.titleAr || item.title : item.title;
           const italic = isArabic ? item.italicAr || item.italic : item.italic;
           const tags = isArabic ? item.tagsAr || item.tags : item.tags;
+          const href = item.link;
 
-          return (
-            <CardTag
-              key={item.title}
-              className={item.wide ? "case-card is-wide" : "case-card"}
-              href={item.link || undefined}
-              target={item.link ? "_blank" : undefined}
-              rel={item.link ? "noreferrer" : undefined}
-            >
-              <img src={item.image} alt={title} />
+          const inner = (
+            <>
+              <img src={item.image} alt="" />
 
               <div className="case-tags">
                 {tags.map((tag) => (
@@ -36,10 +34,45 @@ export default function Cases({ t, isArabic }) {
                 <ArrowIcon />
               </span>
 
-              <h3>
+              <h3 className="case-card-title">
                 {title} <em>{italic}</em>
               </h3>
-            </CardTag>
+            </>
+          );
+
+          if (href) {
+            const isPdf = item.type === "pdf" || href.endsWith(".pdf");
+            const openLabel = isPdf
+              ? t?.caseOpenPdf || "Open PDF"
+              : t?.caseOpenWeb || "Open project";
+
+            return (
+              <a
+                key={item.title}
+                className={`case-card case-card--link${item.wide ? " is-wide" : ""}`}
+                href={href}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`${openLabel}: ${title}`}
+              >
+                {inner}
+              </a>
+            );
+          }
+
+          const quiet =
+            item.type === "gallery"
+              ? t?.caseGallerySoon || soon
+              : soon;
+
+          return (
+            <article
+              key={item.title}
+              className={`case-card case-card--static${item.wide ? " is-wide" : ""}`}
+              aria-label={`${title}. ${quiet}`}
+            >
+              {inner}
+            </article>
           );
         })}
       </div>

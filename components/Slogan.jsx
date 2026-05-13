@@ -23,7 +23,7 @@ export default function Slogan({ sloganProgress, t }) {
 
           return (
             <span
-              key={`${token.text}-${index}`}
+              key={index}
               className={token.italic ? "is-italic" : ""}
               style={{ opacity: local }}
             >

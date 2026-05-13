@@ -1,7 +1,9 @@
 import { siteContent } from "../content";
 import { ArrowIcon } from "./Icons";
 
-export default function Contact({ scrollToId, t }) {
+export default function Contact({ scrollToId, t, isArabic }) {
+  const footerMark = t?.footerMark || "JAAFAR";
+
   return (
     <footer id="contact" className="contact-section">
       <div>
@@ -17,7 +19,7 @@ export default function Contact({ scrollToId, t }) {
         </a>
       </div>
 
-      <nav>
+      <nav aria-label={t?.mainMenu || "Footer navigation"}>
         <div>
           <p>{t?.menuLabel || "Menu"}</p>
 
@@ -35,7 +37,7 @@ export default function Contact({ scrollToId, t }) {
         </div>
 
         <div>
-          <p>{t?.socials || "Socials"}</p>
+          <p>{t?.socials || "Social"}</p>
 
           {siteContent.socials.map((social) => (
             <a
@@ -44,18 +46,18 @@ export default function Contact({ scrollToId, t }) {
               target="_blank"
               rel="noreferrer"
             >
-              {social.label}
+              {isArabic ? social.labelAr || social.label : social.label}
             </a>
           ))}
         </div>
 
         <div>
-          <p>{t?.contact || "Contact"}</p>
+          <p>{t?.emailHeading || "Email"}</p>
           <a href={`mailto:${siteContent.email}`}>{siteContent.email}</a>
         </div>
       </nav>
 
-      <strong className="footer-name">JAAFAR</strong>
+      <strong className="footer-name">{footerMark}</strong>
     </footer>
   );
 }

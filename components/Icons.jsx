@@ -1,6 +1,10 @@
-export function ArrowIcon() {
+export function ArrowIcon({ className = "" }) {
   return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
+    <svg
+      className={`icon-arrow ${className}`.trim()}
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+    >
       <path d="M7 17L17 7" />
       <path d="M9 7h8v8" />
     </svg>

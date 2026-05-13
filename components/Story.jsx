@@ -1,10 +1,12 @@
 import { ArrowIcon } from "./Icons";
 
 export default function Story({ scrollToId, t }) {
+  const imageAlt = t?.storyImageAlt || "Jaafar Al Rabbat portrait";
+
   return (
     <section className="story-section">
       <div className="story-image">
-        <img src="/assets/story-portrait.jpg" alt="Jaafar Al Rabbat portrait" />
+        <img src="/assets/story-portrait.jpg" alt={imageAlt} />
       </div>
 
       <div className="story-copy">

@@ -35,12 +35,14 @@
   --text: #262626;
   --muted: #7d7d7a;
   --line: rgba(38, 38, 38, 0.42);
+  --line-soft: rgba(38, 38, 38, 0.28);
   --soft: #efefed;
   --panel: #e8e7e4;
   --black: #111111;
   --radius: 24px;
   --display: "Halenoir Display", "Helvetica Neue", Arial, sans-serif;
   --text-font: "Halenoir Text", "Helvetica Neue", Arial, sans-serif;
+  --serif-italic: "Cormorant Garamond", Georgia, serif;
 }
 
 * {
@@ -88,10 +90,16 @@ img {
   object-fit: cover;
 }
 
-em {
-  font-family: var(--display);
-  font-style: normal;
+em,
+.slogan-text .is-italic,
+.case-card-title em,
+.story-copy h2 em,
+.faq-section h2 em,
+.contact-section h2 em {
+  font-family: var(--serif-italic);
+  font-style: italic;
   font-weight: 400;
+  letter-spacing: -0.035em;
 }
 
 .site-shell {
@@ -121,8 +129,8 @@ em {
 
 .menu-button {
   position: fixed;
-  right: 20px;
-  top: 20px;
+  inset-block-start: 20px;
+  inset-inline-end: 20px;
   z-index: 120;
   width: 44px;
   height: 44px;
@@ -180,8 +188,8 @@ em {
 
 .menu-panel {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  inset-block-start: 20px;
+  inset-inline-end: 20px;
   width: min(23rem, calc(100vw - 40px));
   padding: 2rem 1.9rem 2.3rem;
   background: #ecebe8;
@@ -189,6 +197,10 @@ em {
   transform: translateY(-8px) scale(0.97);
   transform-origin: top right;
   transition: transform 0.35s cubic-bezier(.16, 1, .3, 1);
+}
+
+[dir="rtl"] .menu-panel {
+  transform-origin: top left;
 }
 
 .menu-layer.is-open .menu-panel {
@@ -206,7 +218,7 @@ em {
 .menu-panel button {
   display: block;
   width: 100%;
-  text-align: left;
+  text-align: start;
   font-family: var(--display);
   font-size: clamp(2.6rem, 3.1vw, 3.8rem);
   line-height: 1.05;
@@ -219,7 +231,7 @@ em {
 
 .side-badge {
   position: fixed;
-  right: 0;
+  inset-inline-end: 0;
   top: 52%;
   transform: translateY(-50%);
   z-index: 70;
@@ -271,8 +283,8 @@ em {
 
 .hero-logo {
   position: absolute;
-  top: 22px;
-  left: 22px;
+  inset-block-start: 22px;
+  inset-inline-start: 22px;
   z-index: 30;
   width: 42px;
   height: 42px;
@@ -289,15 +301,20 @@ em {
   z-index: 10;
   margin: 0;
   width: max-content;
-  max-width: 88vw;
+  max-width: 92vw;
   font-family: var(--display);
-  font-size: clamp(4.2rem, 6.6vw, 12.4rem);
-  line-height: 0.78;
+  font-size: clamp(4rem, 6.1vw, 11.6rem);
+  line-height: 0.82;
   font-weight: 400;
-  letter-spacing: -0.055em;
+  letter-spacing: -0.045em;
   white-space: nowrap;
-  transform: translateY(-38px) scaleX(0.88);
+  transform: translateY(-38px) scaleX(0.9);
   transform-origin: center;
+  text-align: center;
+}
+
+.hero-name-line {
+  display: inline;
 }
 
 .trail-image {
@@ -353,11 +370,11 @@ em {
 
 .slogan-section {
   position: relative;
-  min-height: 62vh;
+  min-height: 58vh;
   display: grid;
   grid-template-columns: 1fr;
   align-items: center;
-  padding: 8rem 12vw 7rem;
+  padding: 7rem 12vw 6rem;
   background: var(--bg);
 }
 
@@ -366,13 +383,13 @@ em {
 }
 
 .slogan-text {
-  max-width: 980px;
+  max-width: 920px;
   margin: 0 auto;
   font-family: var(--display);
-  font-size: clamp(3.2rem, 4.6vw, 6.8rem);
-  line-height: 1.05;
+  font-size: clamp(3rem, 4.2vw, 6.2rem);
+  line-height: 1.08;
   font-weight: 400;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.04em;
   text-align: center;
 }
 
@@ -383,24 +400,23 @@ em {
 
 .slogan-text .is-italic {
   font-size: 1em;
-  font-style: normal;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.04em;
 }
 
 /* Cases */
 
 .cases-section {
   background: #f4f4f2;
-  padding: 6rem 1.2rem 8rem;
+  padding: 7rem 1.6rem 9rem;
 }
 
 .section-head {
   max-width: 1780px;
-  margin: 0 auto 1.4rem;
-  padding: 0 0.2rem;
+  margin: 0 auto 2rem;
+  padding: 0 0.4rem;
   display: flex;
   justify-content: space-between;
-  align-items: end;
+  align-items: flex-end;
   gap: 2rem;
 }
 
@@ -413,11 +429,18 @@ em {
   letter-spacing: -0.055em;
 }
 
-.section-head button {
+.section-head button,
+.section-head-action {
   font-family: var(--text-font);
   font-size: 1.3rem;
   text-decoration: underline;
   text-underline-offset: 0.3em;
+  color: var(--muted);
+}
+
+.section-head button:hover,
+.section-head-action:hover {
+  color: var(--text);
 }
 
 .cases-grid {
@@ -425,7 +448,7 @@ em {
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
-  gap: 1.2rem;
+  gap: 1.4rem;
   align-items: start;
 }
 
@@ -440,6 +463,22 @@ em {
   background: #e9e9e6;
   color: #fff;
   isolation: isolate;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04);
+}
+
+.case-card--link {
+  cursor: pointer;
+  display: block;
+  color: inherit;
+}
+
+.case-card--link:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 3px;
+}
+
+.case-card--static {
+  cursor: default;
 }
 
 .case-card:nth-child(1) {
@@ -501,7 +540,7 @@ em {
 
 .case-tags {
   position: absolute;
-  left: 1.4rem;
+  inset-inline-start: 1.4rem;
   top: 1.4rem;
   z-index: 2;
   display: flex;
@@ -520,8 +559,9 @@ em {
 
 .case-arrow {
   position: absolute;
-  right: 1.5rem;
+  inset-inline-end: 1.5rem;
   top: 50%;
+  translate: 0 -50%;
   z-index: 3;
   width: 5.2rem;
   height: 5.2rem;
@@ -549,11 +589,10 @@ em {
   stroke-linejoin: round;
 }
 
-.case-card h3 {
+.case-card-title {
   position: absolute;
-  left: 1.6rem;
+  inset-inline: 1.6rem;
   bottom: 1.5rem;
-  right: 1.6rem;
   z-index: 2;
   margin: 0;
   font-family: var(--display);
@@ -561,9 +600,10 @@ em {
   line-height: 0.94;
   font-weight: 400;
   letter-spacing: -0.055em;
+  text-align: start;
 }
 
-.case-card h3 em {
+.case-card-title em {
   font-size: 0.98em;
   font-weight: 400;
   letter-spacing: -0.04em;
@@ -583,6 +623,10 @@ em {
   animation: marquee 26s linear infinite;
 }
 
+[dir="rtl"] .marquee-track {
+  animation-direction: reverse;
+}
+
 .marquee-track span {
   white-space: nowrap;
   font-family: var(--display);
@@ -590,7 +634,7 @@ em {
   line-height: 0.9;
   font-weight: 400;
   letter-spacing: -0.075em;
-  padding-right: 4rem;
+  padding-inline-end: 4rem;
 }
 
 @keyframes marquee {
@@ -617,7 +661,7 @@ em {
 }
 
 .story-copy h2 {
-  margin: 0 0 3rem;
+  margin: 0 0 2.8rem;
   max-width: 62rem;
   font-family: var(--display);
   font-size: clamp(4.4rem, 4.5vw, 7.4rem);
@@ -628,11 +672,12 @@ em {
 
 .story-copy p {
   max-width: 68rem;
-  margin: 0 0 2.4rem;
+  margin: 0 0 2.2rem;
   font-family: var(--text-font);
   font-size: 1.75rem;
   line-height: 1.42;
   letter-spacing: -0.025em;
+  color: #353533;
 }
 
 .story-copy button,
@@ -650,6 +695,12 @@ em {
   font-weight: 400;
 }
 
+.story-copy button:focus-visible,
+.contact-section a:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 3px;
+}
+
 .story-copy button svg,
 .contact-section a svg {
   width: 1.8rem;
@@ -659,17 +710,17 @@ em {
 /* FAQ */
 
 .faq-section {
-  padding: 10rem 14vw 12rem;
+  padding: 9rem 14vw 11rem;
   background: var(--bg);
 }
 
 .faq-section h2 {
-  margin: 0 0 5rem;
+  margin: 0 0 4.2rem;
   font-family: var(--display);
-  font-size: clamp(4.4rem, 5vw, 7.8rem);
+  font-size: clamp(4rem, 4.5vw, 7rem);
   line-height: 0.95;
   font-weight: 400;
-  letter-spacing: -0.075em;
+  letter-spacing: -0.05em;
 }
 
 .faq-list {
@@ -677,7 +728,7 @@ em {
 }
 
 .faq-item {
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid var(--line-soft);
 }
 
 .faq-item button {
@@ -686,21 +737,23 @@ em {
   grid-template-columns: 7rem 1fr 4rem;
   align-items: center;
   gap: 2rem;
-  padding: 2.5rem 0 2.1rem;
-  text-align: left;
+  padding: 2.3rem 0 2rem;
+  text-align: start;
 }
 
 .faq-number {
-  font-family: var(--display);
-  font-size: 2.4rem;
+  font-family: var(--serif-italic);
+  font-style: italic;
+  font-size: 2.6rem;
+  font-weight: 400;
   color: #333;
 }
 
 .faq-item button > span:nth-child(2) {
   font-family: var(--display);
-  font-size: clamp(2.2rem, 2vw, 3rem);
+  font-size: clamp(2rem, 1.8vw, 2.7rem);
   font-weight: 400;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.035em;
 }
 
 .faq-plus {
@@ -826,11 +879,52 @@ em {
   background: transparent;
   color: #222;
   border-radius: 0;
-  text-align: left;
+  text-align: start;
   font-family: var(--text-font);
   font-size: 1.55rem;
   line-height: 1.35;
   font-weight: 400;
+}
+
+.contact-section nav a:hover,
+.contact-section nav button:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.language-toggle {
+  position: fixed;
+  inset-block-start: 20px;
+  inset-inline-end: 72px;
+  z-index: 130;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  background: #e6e6e3;
+  color: #222;
+  display: grid;
+  place-items: center;
+  font-size: 1.25rem;
+  letter-spacing: 0.04em;
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+
+.language-toggle:hover {
+  background: #dededb;
+  transform: translateY(-1px);
+}
+
+.language-toggle:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 3px;
+}
+
+[dir="rtl"] body {
+  direction: rtl;
+}
+
+[dir="rtl"] .icon-arrow {
+  transform: scaleX(-1);
 }
 
 /* Tablet */
@@ -865,7 +959,7 @@ em {
 
   .slogan-text {
     font-size: clamp(3rem, 8vw, 5.2rem);
-    text-align: left;
+    text-align: start;
   }
 
   .cases-section {
@@ -885,7 +979,7 @@ em {
     height: 340px;
   }
 
-  .case-card h3 {
+  .case-card-title {
     font-size: clamp(2.8rem, 5.5vw, 4.8rem);
   }
 
@@ -922,13 +1016,13 @@ em {
 
 @media (max-width: 520px) {
   .menu-button {
-    top: 14px;
-    right: 14px;
+    inset-block-start: 14px;
+    inset-inline-end: 14px;
   }
 
   .menu-panel {
-    top: 14px;
-    right: 14px;
+    inset-block-start: 14px;
+    inset-inline-end: 14px;
     width: min(21rem, calc(100vw - 28px));
   }
 
@@ -937,35 +1031,37 @@ em {
     line-height: 1.08;
   }
 
+  .language-toggle {
+    inset-block-start: 14px;
+    inset-inline-end: 66px;
+    width: 42px;
+    height: 42px;
+  }
+
   .hero-logo {
-    top: 16px;
-    left: 16px;
+    inset-block-start: 16px;
+    inset-inline-start: 16px;
     width: 34px;
     height: 34px;
   }
 
   .hero-name {
-    font-size: 0;
-    line-height: 0;
-    text-align: center;
     white-space: normal;
-    transform: translateY(-18px) scaleX(0.98);
+    width: 100%;
     max-width: 100%;
+    text-align: center;
+    transform: translateY(-18px) scaleX(1);
+    font-size: clamp(3.9rem, 10.8vw, 5rem);
+    line-height: 0.92;
+    letter-spacing: -0.045em;
   }
 
-  .hero-name::before {
-    content: "JAAFAR\A AL RABBAT";
-    white-space: pre-line;
+  .hero-name-line {
     display: block;
-    width: 92vw;
-    max-width: 390px;
-    margin: 0 auto;
-    font-family: var(--display);
-    font-size: clamp(4.2rem, 11.5vw, 5.4rem);
-    line-height: 0.92;
-    letter-spacing: -0.055em;
-    font-weight: 400;
-    text-align: center;
+  }
+
+  .hero-name-line + .hero-name-line {
+    margin-top: 0.02em;
   }
 
   .trail-image {
@@ -991,7 +1087,7 @@ em {
     height: 4.6rem;
   }
 
-  .case-card h3 {
+  .case-card-title {
     font-size: 3.2rem;
   }
 
@@ -1003,184 +1099,17 @@ em {
   .contact-section h2 {
     font-size: 3.2rem;
   }
-}
-/* Editorial typography refinement */
-
-:root {
-  --serif-italic: "Cormorant Garamond", Georgia, serif;
-}
-
-/* Keep Halenoir clean, but make special italic words elegant */
-em,
-.slogan-text .is-italic,
-.case-card h3 em,
-.story-copy h2 em,
-.faq-section h2 em,
-.contact-section h2 em {
-  font-family: var(--serif-italic) !important;
-  font-style: italic !important;
-  font-weight: 400 !important;
-  letter-spacing: -0.035em !important;
-}
-
-/* Make main text less heavy */
-.hero-name {
-  font-family: var(--display) !important;
-  font-weight: 400 !important;
-  font-size: clamp(4rem, 6.1vw, 11.6rem) !important;
-  letter-spacing: -0.045em !important;
-  transform: translateY(-38px) scaleX(0.9) !important;
-}
-
-/* Make second section calmer and more editorial */
-.slogan-section {
-  min-height: 58vh !important;
-  padding: 7rem 12vw 6rem !important;
-}
-
-.slogan-text {
-  max-width: 920px !important;
-  font-size: clamp(3rem, 4.2vw, 6.2rem) !important;
-  line-height: 1.08 !important;
-  font-weight: 400 !important;
-  letter-spacing: -0.04em !important;
-}
-
-/* FAQ closer to the reference */
-.faq-section {
-  padding: 9rem 14vw 11rem !important;
-}
-
-.faq-section h2 {
-  font-size: clamp(4rem, 4.5vw, 7rem) !important;
-  font-weight: 400 !important;
-  letter-spacing: -0.05em !important;
-}
-
-.faq-number {
-  font-family: var(--serif-italic) !important;
-  font-style: italic !important;
-  font-size: 2.6rem !important;
-  font-weight: 400 !important;
-}
-
-.faq-item button > span:nth-child(2) {
-  font-family: var(--display) !important;
-  font-size: clamp(2rem, 1.8vw, 2.7rem) !important;
-  font-weight: 400 !important;
-  letter-spacing: -0.035em !important;
-}
-
-.faq-item {
-  border-bottom: 1px solid rgba(38, 38, 38, 0.28) !important;
-}
-
-.faq-item button {
-  padding: 2.3rem 0 2rem !important;
-}
-
-/* Mobile keep clean */
-@media (max-width: 520px) {
-  .hero-name::before {
-    font-size: clamp(3.9rem, 10.8vw, 5rem) !important;
-    letter-spacing: -0.045em !important;
-  }
 
   .slogan-section {
-    padding: 5.5rem 2rem !important;
+    padding: 5.5rem 2rem;
   }
 
   .slogan-text {
-    font-size: clamp(2.8rem, 7.4vw, 4.6rem) !important;
-    text-align: left !important;
+    font-size: clamp(2.8rem, 7.4vw, 4.6rem);
+    text-align: start;
   }
 
   .faq-section {
-    padding: 7rem 2rem !important;
+    padding: 7rem 2rem;
   }
-}
-/* FINAL mobile hero fix — hide original text, show clean two-line name */
-@media (max-width: 520px) {
-  .hero-section .hero-name {
-    font-size: 0 !important;
-    line-height: 0 !important;
-    letter-spacing: 0 !important;
-    white-space: normal !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    text-align: center !important;
-    transform: translateY(-18px) scaleX(1) !important;
-  }
-
-  .hero-section .hero-name::before {
-    content: "JAAFAR\A AL RABBAT" !important;
-    display: block !important;
-    white-space: pre-line !important;
-    width: 92vw !important;
-    max-width: 390px !important;
-    margin: 0 auto !important;
-    font-family: var(--display) !important;
-    font-size: clamp(4rem, 11vw, 5.2rem) !important;
-    line-height: 0.92 !important;
-    letter-spacing: -0.045em !important;
-    font-weight: 400 !important;
-    text-align: center !important;
-  }
-}
-.language-toggle {
-  position: fixed;
-  right: 72px;
-  top: 20px;
-  z-index: 130;
-  width: 44px;
-  height: 44px;
-  border-radius: 999px;
-  background: #e6e6e3;
-  color: #222;
-  display: grid;
-  place-items: center;
-  font-size: 1.25rem;
-  letter-spacing: 0.04em;
-  transition: background 0.25s ease, transform 0.25s ease;
-}
-
-.language-toggle:hover {
-  background: #dededb;
-  transform: translateY(-1px);
-}
-
-[dir="rtl"] body {
-  direction: rtl;
-}
-
-[dir="rtl"] .language-toggle {
-  right: 72px;
-}
-
-@media (max-width: 520px) {
-  .language-toggle {
-    top: 14px;
-    right: 66px;
-    width: 42px;
-    height: 42px;
-  }
-}
-@media (max-width: 520px) {
-  [dir="rtl"] .hero-section .hero-name::before {
-    content: "جعفر\A الرباط" !important;
-  }
-}
-[dir="rtl"] .case-tags {
-  left: auto;
-  right: 1.4rem;
-}
-
-[dir="rtl"] .case-card h3 {
-  text-align: right;
-  direction: rtl;
-  letter-spacing: -0.035em;
-}
-
-[dir="rtl"] .case-card h3 em {
-  letter-spacing: -0.025em;
 }

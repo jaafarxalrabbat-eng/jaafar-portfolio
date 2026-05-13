@@ -1,10 +1,15 @@
 export default function Menu({ menuOpen, setMenuOpen, scrollToId, t }) {
+  const openLabel = t?.openMenu || "Open menu";
+  const closeLabel = t?.closeMenu || "Close menu";
+  const navLabel = t?.mainMenu || "Main navigation";
+
   return (
     <>
       <button
         className={menuOpen ? "menu-button is-open" : "menu-button"}
         type="button"
-        aria-label={menuOpen ? "Close menu" : "Open menu"}
+        aria-label={menuOpen ? closeLabel : openLabel}
+        aria-expanded={menuOpen}
         onClick={() => setMenuOpen((value) => !value)}
       >
         <span />
@@ -17,7 +22,7 @@ export default function Menu({ menuOpen, setMenuOpen, scrollToId, t }) {
       >
         <nav
           className="menu-panel"
-          aria-label="Main menu"
+          aria-label={navLabel}
           onClick={(event) => event.stopPropagation()}
         >
           <p>{t?.menuLabel || "MENU"}</p>

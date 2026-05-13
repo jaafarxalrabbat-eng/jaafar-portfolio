@@ -12,83 +12,7 @@ import Story from "./components/Story";
 import FAQ from "./components/FAQ";
 import Contact from "./components/Contact";
 
-import { trailImages } from "./content";
-
-const COPY = {
-  en: {
-    menuLabel: "MENU",
-    home: "Home",
-    work: "Work",
-    contact: "Contact",
-    selected: "Selected",
-    scroll: "Scroll for more",
-    heroName: "JAAFAR AL RABBAT",
-    miniLabel: "Jaafar",
-    slogan: [
-      { text: "Quiet", italic: false },
-      { text: "digital", italic: false },
-      { text: "presence,", italic: false },
-      { text: "shaped", italic: false },
-      { text: "with", italic: false },
-      { text: "clarity", italic: true },
-      { text: "and", italic: false },
-      { text: "restraint.", italic: true },
-    ],
-    casesTitle: "Cases",
-    viewAll: "View all",
-    marquee: "VISUAL DIRECTION — PERSONAL PORTFOLIO — WRITING — QUIET WEB — ",
-    storyTitle: "The story behind",
-    storyItalic: "the work",
-    storyP1:
-      "A personal space for visual work, writing, selected projects, and quiet digital presence.",
-    storyP2:
-      "The tone stays calm, intelligent, human, and visually refined. Not loud. Not corporate. Not over-explained.",
-    contactMe: "Contact me",
-    faqTitle: "Frequently asked",
-    faqItalic: "questions",
-    footerTitle: "Let’s make something",
-    footerItalic: "clear",
-    footerRest: "and memorable.",
-    sendEmail: "Send an email",
-    socials: "Socials",
-  },
-
-  ar: {
-    menuLabel: "القائمة",
-    home: "الرئيسية",
-    work: "الأعمال",
-    contact: "تواصل",
-    selected: "مختار",
-    scroll: "مرّر للمزيد",
-    heroName: "جعفر الرباط",
-    miniLabel: "جعفر",
-    slogan: [
-      { text: "حضور", italic: false },
-      { text: "رقمي", italic: false },
-      { text: "هادئ،", italic: false },
-      { text: "مصمم", italic: false },
-      { text: "بوضوح", italic: true },
-      { text: "واتزان.", italic: true },
-    ],
-    casesTitle: "الأعمال",
-    viewAll: "عرض الكل",
-    marquee: "اتجاه بصري — بورتفوليو شخصي — كتابة — حضور رقمي هادئ — ",
-    storyTitle: "القصة خلف",
-    storyItalic: "العمل",
-    storyP1:
-      "مساحة شخصية تجمع بين العمل البصري، الكتابة، المشاريع المختارة، والحضور الرقمي الهادئ.",
-    storyP2:
-      "النبرة تبقى هادئة، ذكية، إنسانية، ومصقولة بصريًا. ليست صاخبة، ولا تجارية، ولا مفسَّرة أكثر من اللازم.",
-    contactMe: "تواصل معي",
-    faqTitle: "أسئلة",
-    faqItalic: "متكررة",
-    footerTitle: "لنصنع شيئًا",
-    footerItalic: "واضحًا",
-    footerRest: "ولا يُنسى.",
-    sendEmail: "أرسل بريدًا",
-    socials: "روابط",
-  },
-};
+import { copy, trailImages } from "./content";
 
 export default function App() {
   const heroRef = useRef(null);
@@ -104,11 +28,11 @@ export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [cursor, setCursor] = useState({ x: -40, y: -40 });
   const [sloganProgress, setSloganProgress] = useState(0);
-  const [openFaq, setOpenFaq] = useState(0);
+  const [openFaq, setOpenFaq] = useState(-1);
   const [language, setLanguage] = useState("en");
 
   const isArabic = language === "ar";
-  const t = COPY[language];
+  const t = copy[language];
 
   useEffect(() => {
     document.title = isArabic ? "جعفر الرباط" : "Jaafar Al Rabbat";
@@ -225,19 +149,18 @@ export default function App() {
         setMenuOpen={setMenuOpen}
         scrollToId={scrollToId}
         t={t}
-        isArabic={isArabic}
       />
 
       <button
         className="language-toggle"
         type="button"
         onClick={() => setLanguage(isArabic ? "en" : "ar")}
-        aria-label="Switch language"
+        aria-label={isArabic ? t.langSwitchToEnglish : t.langSwitchToArabic}
       >
         {isArabic ? "EN" : "AR"}
       </button>
 
-      <SideBadge t={t} isArabic={isArabic} />
+      <SideBadge t={t} />
 
       <Hero
         heroRef={heroRef}
@@ -245,24 +168,15 @@ export default function App() {
         handleHeroMove={handleHeroMove}
         scrollToId={scrollToId}
         t={t}
-        isArabic={isArabic}
       />
 
-      <Slogan
-        sloganProgress={sloganProgress}
-        t={t}
-        isArabic={isArabic}
-      />
+      <Slogan sloganProgress={sloganProgress} t={t} />
 
       <Cases t={t} isArabic={isArabic} />
 
-      <Marquee t={t} isArabic={isArabic} />
+      <Marquee t={t} />
 
-      <Story
-        scrollToId={scrollToId}
-        t={t}
-        isArabic={isArabic}
-      />
+      <Story scrollToId={scrollToId} t={t} />
 
       <FAQ
         openFaq={openFaq}
@@ -271,11 +185,7 @@ export default function App() {
         isArabic={isArabic}
       />
 
-      <Contact
-        scrollToId={scrollToId}
-        t={t}
-        isArabic={isArabic}
-      />
+      <Contact scrollToId={scrollToId} t={t} isArabic={isArabic} />
     </main>
   );
 }

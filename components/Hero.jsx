@@ -5,6 +5,11 @@ export default function Hero({
   scrollToId,
   t,
 }) {
+  const line1 = t?.heroNameLine1 ?? "JAAFAR";
+  const line2 = t?.heroNameLine2 ?? "AL RABBAT";
+  const aria = t?.heroAriaLabel ?? "Jaafar Al Rabbat";
+  const logoAlt = t?.logoAlt ?? "Jaafar Al Rabbat logo";
+
   return (
     <section
       id="home"
@@ -12,11 +17,14 @@ export default function Hero({
       ref={heroRef}
       onMouseMove={handleHeroMove}
     >
-      <div className="hero-logo" aria-label="Jaafar Al Rabbat logo">
-        <img src="/assets/logo-mark.png" alt="Jaafar Al Rabbat logo" />
+      <div className="hero-logo">
+        <img src="/assets/logo-mark.png" alt={logoAlt} />
       </div>
 
-      <h1 className="hero-name">{t?.heroName || "JAAFAR AL RABBAT"}</h1>
+      <h1 className="hero-name" aria-label={aria}>
+        <span className="hero-name-line">{line1}</span>
+        <span className="hero-name-line">{line2}</span>
+      </h1>
 
       {trail.map((item) => (
         <img
