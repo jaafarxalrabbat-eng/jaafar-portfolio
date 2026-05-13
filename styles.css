@@ -1187,3 +1187,7 @@ em {
     text-align: center !important;
   }
 }
+/* Slightly smaller hero name */
+.hero-name {
+  font-size: clamp(4.4rem, 7.1vw, 13.8rem) !important;
+}
