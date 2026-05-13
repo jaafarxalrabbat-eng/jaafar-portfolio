@@ -19,10 +19,15 @@ export default function Cases({ t, isArabic }) {
           const italic = isArabic ? item.italicAr || item.italic : item.italic;
           const tags = isArabic ? item.tagsAr || item.tags : item.tags;
           const href = item.link;
+          const imgPos = item.imagePosition ?? "center";
 
           const inner = (
             <>
-              <img src={item.image} alt="" />
+              <img
+                src={item.image}
+                alt=""
+                className="case-card-image"
+              />
 
               <div className="case-tags">
                 {tags.map((tag) => (
@@ -34,11 +39,18 @@ export default function Cases({ t, isArabic }) {
                 <ArrowIcon />
               </span>
 
-              <h3 className="case-card-title">
-                {title} <em>{italic}</em>
-              </h3>
+              <div className="case-card-bottom">
+                <h3 className="case-card-title">
+                  <span className="case-card-title-main">{title}</span>{" "}
+                  <em className="case-card-title-sub">{italic}</em>
+                </h3>
+              </div>
             </>
           );
+
+          const cardStyle = {
+            "--case-img-pos": imgPos,
+          };
 
           if (href) {
             const isPdf = item.type === "pdf" || href.endsWith(".pdf");
@@ -50,6 +62,7 @@ export default function Cases({ t, isArabic }) {
               <a
                 key={item.title}
                 className={`case-card case-card--link${item.wide ? " is-wide" : ""}`}
+                style={cardStyle}
                 href={href}
                 target="_blank"
                 rel="noreferrer"
@@ -69,6 +82,7 @@ export default function Cases({ t, isArabic }) {
             <article
               key={item.title}
               className={`case-card case-card--static${item.wide ? " is-wide" : ""}`}
+              style={cardStyle}
               aria-label={`${title}. ${quiet}`}
             >
               {inner}
