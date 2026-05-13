@@ -44,3 +44,12 @@ export default function Contact({ scrollToId }) {
     </footer>
   );
 }
+{
+  title: "Retaj Medical Center",
+  italic: "Visual Work",
+  tags: ["Brand Applications", "PDF Case"],
+  image: "/assets/cases/retaj/retaj-cover.jpg",
+  type: "pdf",
+  wide: false,
+  link: "/assets/cases/retaj/retaj-medical-center-case-study.pdf",
+}
