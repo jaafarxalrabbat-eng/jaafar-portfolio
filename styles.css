@@ -1004,3 +1004,98 @@ em {
     font-size: 3.2rem;
   }
 }
+/* Editorial typography refinement */
+
+:root {
+  --serif-italic: "Cormorant Garamond", Georgia, serif;
+}
+
+/* Keep Halenoir clean, but make special italic words elegant */
+em,
+.slogan-text .is-italic,
+.case-card h3 em,
+.story-copy h2 em,
+.faq-section h2 em,
+.contact-section h2 em {
+  font-family: var(--serif-italic) !important;
+  font-style: italic !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.035em !important;
+}
+
+/* Make main text less heavy */
+.hero-name {
+  font-family: var(--display) !important;
+  font-weight: 400 !important;
+  font-size: clamp(4rem, 6.1vw, 11.6rem) !important;
+  letter-spacing: -0.045em !important;
+  transform: translateY(-38px) scaleX(0.9) !important;
+}
+
+/* Make second section calmer and more editorial */
+.slogan-section {
+  min-height: 58vh !important;
+  padding: 7rem 12vw 6rem !important;
+}
+
+.slogan-text {
+  max-width: 920px !important;
+  font-size: clamp(3rem, 4.2vw, 6.2rem) !important;
+  line-height: 1.08 !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.04em !important;
+}
+
+/* FAQ closer to the reference */
+.faq-section {
+  padding: 9rem 14vw 11rem !important;
+}
+
+.faq-section h2 {
+  font-size: clamp(4rem, 4.5vw, 7rem) !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.05em !important;
+}
+
+.faq-number {
+  font-family: var(--serif-italic) !important;
+  font-style: italic !important;
+  font-size: 2.6rem !important;
+  font-weight: 400 !important;
+}
+
+.faq-item button > span:nth-child(2) {
+  font-family: var(--display) !important;
+  font-size: clamp(2rem, 1.8vw, 2.7rem) !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.035em !important;
+}
+
+.faq-item {
+  border-bottom: 1px solid rgba(38, 38, 38, 0.28) !important;
+}
+
+.faq-item button {
+  padding: 2.3rem 0 2rem !important;
+}
+
+/* Mobile keep clean */
+@media (max-width: 520px) {
+  .hero-name::before {
+    font-size: clamp(3.9rem, 10.8vw, 5rem) !important;
+    letter-spacing: -0.045em !important;
+  }
+
+  .slogan-section {
+    padding: 5.5rem 2rem !important;
+  }
+
+  .slogan-text {
+    font-size: clamp(2.8rem, 7.4vw, 4.6rem) !important;
+    text-align: left !important;
+  }
+
+  .faq-section {
+    padding: 7rem 2rem !important;
+  }
+}
