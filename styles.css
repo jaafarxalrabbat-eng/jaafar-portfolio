@@ -1099,3 +1099,31 @@ em,
     padding: 7rem 2rem !important;
   }
 }
+/* FINAL mobile hero fix — hide original text, show clean two-line name */
+@media (max-width: 520px) {
+  .hero-section .hero-name {
+    font-size: 0 !important;
+    line-height: 0 !important;
+    letter-spacing: 0 !important;
+    white-space: normal !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    text-align: center !important;
+    transform: translateY(-18px) scaleX(1) !important;
+  }
+
+  .hero-section .hero-name::before {
+    content: "JAAFAR\A AL RABBAT" !important;
+    display: block !important;
+    white-space: pre-line !important;
+    width: 92vw !important;
+    max-width: 390px !important;
+    margin: 0 auto !important;
+    font-family: var(--display) !important;
+    font-size: clamp(4rem, 11vw, 5.2rem) !important;
+    line-height: 0.92 !important;
+    letter-spacing: -0.045em !important;
+    font-weight: 400 !important;
+    text-align: center !important;
+  }
+}
