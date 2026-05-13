@@ -1170,3 +1170,17 @@ em,
     content: "جعفر\A الرباط" !important;
   }
 }
+[dir="rtl"] .case-tags {
+  left: auto;
+  right: 1.4rem;
+}
+
+[dir="rtl"] .case-card h3 {
+  text-align: right;
+  direction: rtl;
+  letter-spacing: -0.035em;
+}
+
+[dir="rtl"] .case-card h3 em {
+  letter-spacing: -0.025em;
+}
