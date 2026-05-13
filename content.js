@@ -8,8 +8,8 @@ export const siteContent = {
   scrollText: "Scroll for more",
   email: "jaafar.f.alrabbat@gmail.com",
   socials: [
-    { label: "Instagram", href: "https://www.instagram.com/" },
-    { label: "LinkedIn", href: "https://www.linkedin.com/" },
+    { label: "Instagram", href: "https://www.instagram.com/jaafar_alrabbat/" },
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/jaafar-alrabbat/" },
   ],
   footer: {
     titleBefore: "Let’s build something",
