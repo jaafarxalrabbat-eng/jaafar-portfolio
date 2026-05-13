@@ -1165,3 +1165,8 @@ em,
     height: 42px;
   }
 }
+@media (max-width: 520px) {
+  [dir="rtl"] .hero-section .hero-name::before {
+    content: "جعفر\A الرباط" !important;
+  }
+}
