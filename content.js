@@ -6,7 +6,7 @@ export const siteContent = {
   },
   heroName: "JAAFAR AL RABBAT",
   scrollText: "Scroll for more",
-  email: "jaafar.f.alrabbat@gmail.com",
+  email: "contact@jaafaralrabbat.com",
   socials: [
     { label: "Instagram", href: "https://www.instagram.com/jaafar_alrabbat/" },
     { label: "LinkedIn", href: "https://www.linkedin.com/in/jaafar-alrabbat/" },
