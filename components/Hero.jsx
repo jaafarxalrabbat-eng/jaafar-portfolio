@@ -1,13 +1,22 @@
-import { siteContent } from "../content";
-
-export default function Hero({ heroRef, trail, handleHeroMove, scrollToId }) {
+export default function Hero({
+  heroRef,
+  trail,
+  handleHeroMove,
+  scrollToId,
+  t,
+}) {
   return (
-    <section id="home" className="hero-section" ref={heroRef} onMouseMove={handleHeroMove}>
+    <section
+      id="home"
+      className="hero-section"
+      ref={heroRef}
+      onMouseMove={handleHeroMove}
+    >
       <div className="hero-logo" aria-label="Jaafar Al Rabbat logo">
-        <img src={siteContent.logo.src} alt={siteContent.logo.alt} />
+        <img src="/assets/logo-mark.png" alt="Jaafar Al Rabbat logo" />
       </div>
 
-      <h1 className="hero-name">{siteContent.heroName}</h1>
+      <h1 className="hero-name">{t?.heroName || "JAAFAR AL RABBAT"}</h1>
 
       {trail.map((item) => (
         <img
@@ -23,8 +32,12 @@ export default function Hero({ heroRef, trail, handleHeroMove, scrollToId }) {
         />
       ))}
 
-      <button className="scroll-indicator" type="button" onClick={() => scrollToId("slogan")}>
-        {siteContent.scrollText}
+      <button
+        className="scroll-indicator"
+        type="button"
+        onClick={() => scrollToId("slogan")}
+      >
+        {t?.scroll || "Scroll for more"}
       </button>
     </section>
   );
