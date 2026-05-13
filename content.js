@@ -56,7 +56,7 @@ export const cases = [
   image: "/assets/cases/retaj/retaj-cover.jpg",
   type: "pdf",
   wide: false,
-  link: "/assets/cases/retaj/retaj-medical-center-case-study.pdf",
+  link: "/assets/cases/retaj/retaj-medical-center-professional-case-study.pdf",
 },
   {
     title: "Photography",
