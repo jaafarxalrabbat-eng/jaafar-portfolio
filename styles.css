@@ -1,7 +1,31 @@
 @font-face {
-  font-family: "Halenoir";
+  font-family: "Halenoir Display";
   src: url("/fonts/HalenoirCompact-Regular.otf") format("opentype");
   font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Halenoir Display";
+  src: url("/fonts/HalenoirCompact-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Halenoir Text";
+  src: url("/fonts/HalenoirCompactText-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Halenoir Text";
+  src: url("/fonts/HalenoirCompactText-Medium.otf") format("opentype");
+  font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
@@ -15,8 +39,8 @@
   --panel: #e8e7e4;
   --black: #111111;
   --radius: 24px;
-  --sans: "Halenoir", "Helvetica Neue", Arial, sans-serif;
-  --serif: "Halenoir", "Helvetica Neue", Arial, sans-serif;
+  --display: "Halenoir Display", "Helvetica Neue", Arial, sans-serif;
+  --text-font: "Halenoir Text", "Helvetica Neue", Arial, sans-serif;
 }
 
 * {
@@ -32,7 +56,7 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
-  font-family: var(--sans);
+  font-family: var(--text-font);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
@@ -42,22 +66,7 @@ button,
 a,
 input,
 textarea,
-select,
-p,
-span,
-strong,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-em {
-  font-family: var(--sans);
-}
-
-button,
-a {
+select {
   font: inherit;
   color: inherit;
 }
@@ -80,7 +89,8 @@ img {
 }
 
 em {
-  font-style: italic;
+  font-family: var(--display);
+  font-style: normal;
   font-weight: 400;
 }
 
@@ -92,6 +102,7 @@ em {
 }
 
 /* Cursor */
+
 .cursor-dot {
   position: fixed;
   left: 0;
@@ -107,6 +118,7 @@ em {
 }
 
 /* Menu */
+
 .menu-button {
   position: fixed;
   right: 20px;
@@ -186,6 +198,7 @@ em {
 .menu-panel p {
   margin: 0 0 1.2rem;
   color: #7b7b78;
+  font-family: var(--text-font);
   font-size: 1.15rem;
   letter-spacing: 0.06em;
 }
@@ -194,13 +207,16 @@ em {
   display: block;
   width: 100%;
   text-align: left;
+  font-family: var(--display);
   font-size: clamp(2.6rem, 3.1vw, 3.8rem);
   line-height: 1.05;
+  font-weight: 400;
   letter-spacing: -0.045em;
   padding: 0.05rem 0;
 }
 
 /* Side badge */
+
 .side-badge {
   position: fixed;
   right: 0;
@@ -234,11 +250,13 @@ em {
 .side-badge span {
   writing-mode: vertical-rl;
   transform: rotate(180deg);
+  font-family: var(--text-font);
   font-size: 1.2rem;
-  font-weight: 650;
+  font-weight: 500;
 }
 
 /* Hero */
+
 .hero-section {
   position: relative;
   min-height: 100svh;
@@ -272,6 +290,7 @@ em {
   margin: 0;
   width: max-content;
   max-width: 88vw;
+  font-family: var(--display);
   font-size: clamp(4.2rem, 6.6vw, 12.4rem);
   line-height: 0.78;
   font-weight: 400;
@@ -325,11 +344,13 @@ em {
   bottom: 2.2rem;
   transform: translateX(-50%);
   z-index: 20;
+  font-family: var(--text-font);
   font-size: 1.4rem;
   color: #3d3d3c;
 }
 
 /* Slogan */
+
 .slogan-section {
   position: relative;
   min-height: 62vh;
@@ -347,6 +368,7 @@ em {
 .slogan-text {
   max-width: 980px;
   margin: 0 auto;
+  font-family: var(--display);
   font-size: clamp(3.2rem, 4.6vw, 6.8rem);
   line-height: 1.05;
   font-weight: 400;
@@ -366,6 +388,7 @@ em {
 }
 
 /* Cases */
+
 .cases-section {
   background: #f4f4f2;
   padding: 6rem 1.2rem 8rem;
@@ -383,6 +406,7 @@ em {
 
 .section-head h2 {
   margin: 0;
+  font-family: var(--display);
   font-size: clamp(3.4rem, 4vw, 6rem);
   line-height: 0.9;
   font-weight: 400;
@@ -390,6 +414,7 @@ em {
 }
 
 .section-head button {
+  font-family: var(--text-font);
   font-size: 1.3rem;
   text-decoration: underline;
   text-underline-offset: 0.3em;
@@ -489,6 +514,7 @@ em {
   border-radius: 0.55rem;
   background: rgba(255, 255, 255, 0.22);
   backdrop-filter: blur(8px);
+  font-family: var(--text-font);
   font-size: 1.1rem;
 }
 
@@ -530,6 +556,7 @@ em {
   right: 1.6rem;
   z-index: 2;
   margin: 0;
+  font-family: var(--display);
   font-size: clamp(2.8rem, 3.35vw, 5.2rem);
   line-height: 0.94;
   font-weight: 400;
@@ -543,6 +570,7 @@ em {
 }
 
 /* Marquee */
+
 .marquee-section {
   overflow: hidden;
   padding: 7rem 0 11rem;
@@ -557,6 +585,7 @@ em {
 
 .marquee-track span {
   white-space: nowrap;
+  font-family: var(--display);
   font-size: clamp(6.6rem, 9vw, 15rem);
   line-height: 0.9;
   font-weight: 400;
@@ -571,6 +600,7 @@ em {
 }
 
 /* Story */
+
 .story-section {
   display: grid;
   grid-template-columns: minmax(28rem, 39vw) minmax(30rem, 1fr);
@@ -589,6 +619,7 @@ em {
 .story-copy h2 {
   margin: 0 0 3rem;
   max-width: 62rem;
+  font-family: var(--display);
   font-size: clamp(4.4rem, 4.5vw, 7.4rem);
   line-height: 0.98;
   font-weight: 400;
@@ -598,6 +629,7 @@ em {
 .story-copy p {
   max-width: 68rem;
   margin: 0 0 2.4rem;
+  font-family: var(--text-font);
   font-size: 1.75rem;
   line-height: 1.42;
   letter-spacing: -0.025em;
@@ -613,6 +645,7 @@ em {
   border-radius: 0.55rem;
   background: #222;
   color: #fff;
+  font-family: var(--text-font);
   font-size: 1.6rem;
   font-weight: 400;
 }
@@ -624,6 +657,7 @@ em {
 }
 
 /* FAQ */
+
 .faq-section {
   padding: 10rem 14vw 12rem;
   background: var(--bg);
@@ -631,6 +665,7 @@ em {
 
 .faq-section h2 {
   margin: 0 0 5rem;
+  font-family: var(--display);
   font-size: clamp(4.4rem, 5vw, 7.8rem);
   line-height: 0.95;
   font-weight: 400;
@@ -656,12 +691,13 @@ em {
 }
 
 .faq-number {
-  font-style: italic;
+  font-family: var(--display);
   font-size: 2.4rem;
   color: #333;
 }
 
 .faq-item button > span:nth-child(2) {
+  font-family: var(--display);
   font-size: clamp(2.2rem, 2vw, 3rem);
   font-weight: 400;
   letter-spacing: -0.045em;
@@ -703,6 +739,7 @@ em {
   overflow: hidden;
   margin: 0;
   max-width: 86rem;
+  font-family: var(--text-font);
   font-size: 1.65rem;
   line-height: 1.45;
   color: #444;
@@ -717,6 +754,7 @@ em {
 }
 
 /* Contact */
+
 .footer-name {
   display: none;
 }
@@ -740,6 +778,7 @@ em {
 
 .contact-section h2 {
   margin: 0 0 2.6rem;
+  font-family: var(--display);
   font-size: clamp(3rem, 3.4vw, 4.8rem);
   line-height: 1.05;
   font-weight: 400;
@@ -756,6 +795,7 @@ em {
   border-radius: 0.45rem;
   background: #222;
   color: #fff;
+  font-family: var(--text-font);
   font-size: 1.45rem;
   font-weight: 400;
 }
@@ -771,6 +811,7 @@ em {
 
 .contact-section nav p {
   margin: 0 0 1.5rem;
+  font-family: var(--text-font);
   font-size: 1.75rem;
   color: #777;
   font-weight: 400;
@@ -786,12 +827,14 @@ em {
   color: #222;
   border-radius: 0;
   text-align: left;
+  font-family: var(--text-font);
   font-size: 1.55rem;
   line-height: 1.35;
   font-weight: 400;
 }
 
 /* Tablet */
+
 @media (max-width: 900px) {
   .cursor-dot {
     display: none;
@@ -876,6 +919,7 @@ em {
 }
 
 /* Mobile */
+
 @media (max-width: 520px) {
   .menu-button {
     top: 14px;
@@ -916,7 +960,7 @@ em {
     width: 92vw;
     max-width: 390px;
     margin: 0 auto;
-    font-family: var(--sans);
+    font-family: var(--display);
     font-size: clamp(4.2rem, 11.5vw, 5.4rem);
     line-height: 0.92;
     letter-spacing: -0.055em;
