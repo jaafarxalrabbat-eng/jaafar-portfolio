@@ -1191,3 +1191,9 @@ em {
 .hero-name {
   font-size: clamp(4.4rem, 7.1vw, 13.8rem) !important;
 }
+/* Hero name — smaller final override */
+.hero-name {
+  font-size: clamp(4.2rem, 6.6vw, 12.4rem) !important;
+  transform: translateY(-38px) scaleX(0.88) !important;
+  max-width: 88vw !important;
+}
