@@ -49,14 +49,15 @@ export const cases = [
     wide: true,
     link: "/assets/cases/fishermen/fishermen-identity.pdf",
   },
-  {
-    title: "Retaj Medical Center",
-    italic: "Visual Work",
-    tags: ["Brand", "Presentation"],
-    image: "/assets/trail-03.jpg",
-    type: "pdf",
-    wide: false,
-  },
+{
+  title: "Retaj Medical Center",
+  italic: "Visual Work",
+  tags: ["Brand Applications", "PDF Case"],
+  image: "/assets/cases/retaj/retaj-cover.jpg",
+  type: "pdf",
+  wide: false,
+  link: "/assets/cases/retaj/retaj-medical-center-case-study.pdf",
+},
   {
     title: "Photography",
     italic: "Archive",
