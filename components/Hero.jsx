@@ -9,6 +9,9 @@ export default function Hero({
   const line2 = t?.heroNameLine2 ?? "AL RABBAT";
   const aria = t?.heroAriaLabel ?? "Jaafar Al Rabbat";
   const logoAlt = t?.logoAlt ?? "Jaafar Al Rabbat logo";
+  const tagline =
+    t?.heroTagline ??
+    "Photography, visual direction, and quiet digital presence.";
 
   return (
     <section
@@ -21,10 +24,13 @@ export default function Hero({
         <img src="/assets/logo-mark.png" alt={logoAlt} />
       </div>
 
-      <h1 className="hero-name" aria-label={aria}>
-        <span className="hero-name-line">{line1}</span>
-        <span className="hero-name-line">{line2}</span>
-      </h1>
+      <div className="hero-center">
+        <h1 className="hero-name" aria-label={aria}>
+          <span className="hero-name-line">{line1}</span>
+          <span className="hero-name-line">{line2}</span>
+        </h1>
+        <p className="hero-tagline">{tagline}</p>
+      </div>
 
       {trail.map((item) => (
         <img
@@ -43,9 +49,9 @@ export default function Hero({
       <button
         className="scroll-indicator"
         type="button"
-        onClick={() => scrollToId("slogan")}
+        onClick={() => scrollToId("work")}
       >
-        {t?.scroll || "Scroll for more"}
+        {t?.scroll || "Scroll"}
       </button>
     </section>
   );

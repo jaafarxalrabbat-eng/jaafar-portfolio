@@ -1,95 +1,83 @@
 import { cases } from "../content";
-import { ArrowIcon } from "./Icons";
 
 export default function Cases({ t, isArabic }) {
-  const soon = t?.caseSoon || "Details soon.";
+  const workLabel = t?.workLabel ?? "Work";
+  const casesTitle = t?.casesTitle ?? "Index";
+  const ctaPdf = t?.caseCtaPdf ?? "Case study · PDF";
+  const ctaWeb = t?.caseCtaWeb ?? "Open project";
+  const ctaSoon = t?.caseCtaSoon ?? "Soon";
 
   return (
-    <section id="work" className="cases-section">
-      <div className="section-head">
-        <h2>{t?.casesTitle || "Selected work"}</h2>
-        <button type="button" className="section-head-action">
-          {t?.viewAll || "View all"}
-        </button>
-      </div>
+    <section id="work" className="work-section">
+      <header className="work-section__head">
+        <p className="work-section__label">{workLabel}</p>
+        <h2>{casesTitle}</h2>
+      </header>
 
-      <div className="cases-grid">
-        {cases.map((item) => {
+      <ol className="work-index">
+        {cases.map((item, index) => {
           const title = isArabic ? item.titleAr || item.title : item.title;
-          const italic = isArabic ? item.italicAr || item.italic : item.italic;
-          const tags = isArabic ? item.tagsAr || item.tags : item.tags;
+          const category = isArabic
+            ? item.categoryAr || item.category
+            : item.category;
           const href = item.link;
-          const imgPos = item.imagePosition ?? "center";
+          const num = String(index + 1).padStart(2, "0");
+          const isPdf =
+            item.type === "pdf" ||
+            (typeof href === "string" && href.endsWith(".pdf"));
+          const reverse = index % 2 === 1;
 
-          const inner = (
-            <>
-              <img
-                src={item.image}
-                alt=""
-                className="case-card-image"
-              />
-
-              <div className="case-tags">
-                {tags.map((tag) => (
-                  <span key={tag}>{tag}</span>
-                ))}
-              </div>
-
-              <span className="case-arrow" aria-hidden="true">
-                <ArrowIcon />
-              </span>
-
-              <div className="case-card-bottom">
-                <h3 className="case-card-title">
-                  <span className="case-card-title-main">{title}</span>{" "}
-                  <em className="case-card-title-sub">{italic}</em>
-                </h3>
-              </div>
-            </>
-          );
-
-          const cardStyle = {
-            "--case-img-pos": imgPos,
-          };
-
-          if (href) {
-            const isPdf = item.type === "pdf" || href.endsWith(".pdf");
-            const openLabel = isPdf
-              ? t?.caseOpenPdf || "Open PDF"
-              : t?.caseOpenWeb || "Open project";
-
-            return (
-              <a
-                key={item.title}
-                className={`case-card case-card--link${item.wide ? " is-wide" : ""}`}
-                style={cardStyle}
-                href={href}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={`${openLabel}: ${title}`}
-              >
-                {inner}
-              </a>
-            );
-          }
-
-          const quiet =
-            item.type === "gallery"
-              ? t?.caseGallerySoon || soon
-              : soon;
+          const ctaLabel = href
+            ? isPdf
+              ? ctaPdf
+              : ctaWeb
+            : ctaSoon;
 
           return (
-            <article
+            <li
               key={item.title}
-              className={`case-card case-card--static${item.wide ? " is-wide" : ""}`}
-              style={cardStyle}
-              aria-label={`${title}. ${quiet}`}
+              className={
+                reverse
+                  ? "work-project work-project--reverse"
+                  : "work-project"
+              }
             >
-              {inner}
-            </article>
+              <div className="work-project__media">
+                <img
+                  src={item.image}
+                  alt=""
+                  loading={index < 2 ? "eager" : "lazy"}
+                  style={{
+                    objectPosition: item.imagePosition ?? "center",
+                  }}
+                />
+              </div>
+
+              <div className="work-project__panel">
+                <span className="work-project__num" aria-hidden="true">
+                  {num}
+                </span>
+                <h3 className="work-project__title">{title}</h3>
+                <p className="work-project__category">{category}</p>
+                {href ? (
+                  <a
+                    className="work-project__cta"
+                    href={href}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {ctaLabel}
+                  </a>
+                ) : (
+                  <span className="work-project__cta work-project__cta--quiet">
+                    {ctaLabel}
+                  </span>
+                )}
+              </div>
+            </li>
           );
         })}
-      </div>
+      </ol>
     </section>
   );
 }
